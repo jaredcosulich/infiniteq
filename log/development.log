@@ -6,3 +6,233 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 93ms (Views: 15.4ms | ActiveRecord: 0.0ms)
 
 
+DEPRECATION WARNING: #original_exception is deprecated. Use #cause instead. (called from call at /Users/jcosulich/.rvm/gems/ruby-2.2.2/gems/puma-3.4.0/lib/puma/configuration.rb:224)
+DEPRECATION WARNING: #original_exception is deprecated. Use #cause instead. (called from call at /Users/jcosulich/.rvm/gems/ruby-2.2.2/gems/puma-3.4.0/lib/puma/configuration.rb:224)
+DEPRECATION WARNING: #original_exception is deprecated. Use #cause instead. (called from call at /Users/jcosulich/.rvm/gems/ruby-2.2.2/gems/puma-3.4.0/lib/puma/configuration.rb:224)
+DEPRECATION WARNING: #original_exception is deprecated. Use #cause instead. (called from call at /Users/jcosulich/.rvm/gems/ruby-2.2.2/gems/puma-3.4.0/lib/puma/configuration.rb:224)
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:16:02 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (8.4ms)
+Completed 200 OK in 76ms (Views: 26.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:22:34 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (5.4ms)
+Completed 200 OK in 35ms (Views: 16.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:22:35 -0400
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/railties-5.0.0/lib/rails/templates/rails/welcome/index.html.erb (3.3ms)
+Completed 200 OK in 11ms (Views: 6.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:22:48 -0400
+  
+ArgumentError (Missing :controller key on routes definition, please check your routes.):
+  
+config/routes.rb:2:in `block in <top (required)>'
+config/routes.rb:1:in `<top (required)>'
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (7.1ms)
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.8ms)
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (126.3ms)
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:23:31 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (2.5ms)
+Completed 200 OK in 967ms (Views: 964.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:41:26 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (4.3ms)
+Completed 200 OK in 785ms (Views: 770.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:43:32 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (9.1ms)
+Completed 200 OK in 153ms (Views: 141.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:43:50 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.0ms)
+Completed 200 OK in 37ms (Views: 35.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:43:54 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.1ms)
+Completed 200 OK in 43ms (Views: 40.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:44:07 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.1ms)
+Completed 200 OK in 45ms (Views: 43.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:44:13 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (0.9ms)
+Completed 200 OK in 46ms (Views: 42.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:44:18 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.7ms)
+Completed 200 OK in 53ms (Views: 50.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/users/edit?id=3965968" for 127.0.0.1 at 2016-07-12 11:47:27 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/admin/users/edit"):
+  
+actionpack (5.0.0) lib/action_dispatch/middleware/debug_exceptions.rb:53:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+web-console (3.3.1) lib/web_console/middleware.rb:131:in `call_app'
+web-console (3.3.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.3.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.3.1) lib/web_console/middleware.rb:18:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+railties (5.0.0) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `block in tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.0) lib/active_support/tagged_logging.rb:70:in `tagged'
+railties (5.0.0) lib/rails/rack/logger.rb:24:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+sprockets-rails (3.1.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+rack (2.0.1) lib/rack/method_override.rb:22:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+rack (2.0.1) lib/rack/runtime.rb:22:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+activesupport (5.0.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/executor.rb:12:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+actionpack (5.0.0) lib/action_dispatch/middleware/static.rb:136:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+rack (2.0.1) lib/rack/sendfile.rb:111:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+railties (5.0.0) lib/rails/engine.rb:522:in `call'
+newrelic_rpm (3.16.0.318) lib/new_relic/agent/instrumentation/middleware_tracing.rb:96:in `call'
+puma (3.4.0) lib/puma/configuration.rb:224:in `call'
+puma (3.4.0) lib/puma/server.rb:569:in `handle_request'
+puma (3.4.0) lib/puma/server.rb:406:in `process_client'
+puma (3.4.0) lib/puma/server.rb:271:in `block in run'
+puma (3.4.0) lib/puma/thread_pool.rb:114:in `call'
+puma (3.4.0) lib/puma/thread_pool.rb:114:in `block in spawn_thread'
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered collection of /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/routes/_route.html.erb [1 times] (14.4ms)
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/routes/_table.html.erb (39.4ms)
+  Rendering /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.7ms)
+  Rendered /Users/jcosulich/.rvm/gems/ruby-2.2.2@global/gems/actionpack-5.0.0/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (190.7ms)
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:47:29 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.3ms)
+  Rendered layouts/_header.html.haml (1.9ms)
+Completed 200 OK in 65ms (Views: 62.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:48:09 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (0.8ms)
+  Rendered layouts/_header.html.haml (1.2ms)
+Completed 200 OK in 50ms (Views: 48.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:51:16 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.0ms)
+  Rendered layouts/_header.html.haml (1.2ms)
+Completed 200 OK in 51ms (Views: 48.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:51:58 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.1ms)
+  Rendered layouts/_header.html.haml (1.7ms)
+Completed 200 OK in 182ms (Views: 180.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:52:18 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.0ms)
+  Rendered layouts/_header.html.haml (2.0ms)
+Completed 200 OK in 172ms (Views: 170.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:52:40 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.0ms)
+  Rendered layouts/_header.html.haml (2.5ms)
+Completed 200 OK in 42ms (Views: 39.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:52:52 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.4ms)
+  Rendered layouts/_header.html.haml (2.9ms)
+Completed 200 OK in 81ms (Views: 78.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:53:11 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.3ms)
+  Rendered layouts/_header.html.haml (1.0ms)
+Completed 200 OK in 62ms (Views: 58.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:53:17 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (1.0ms)
+  Rendered layouts/_header.html.haml (1.2ms)
+Completed 200 OK in 54ms (Views: 51.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-07-12 11:53:28 -0400
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (0.8ms)
+  Rendered layouts/_header.html.haml (1.0ms)
+Completed 200 OK in 28ms (Views: 25.6ms | ActiveRecord: 0.0ms)
+
+

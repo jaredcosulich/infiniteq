@@ -22,3 +22,14 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+User
+Subject
+  - subject_id
+
+Question
+
+Answer
+Comment
+Like
