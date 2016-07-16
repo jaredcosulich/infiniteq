@@ -20,7 +20,7 @@ body {
   width: 210px;
   border-right: 1px solid #eee;
   margin: 24px 0 0 12px;
-  padding: 0 12px;
+  padding: 0 24px;
 
   .section {
     margin-bottom: 36px;
@@ -32,4 +32,9 @@ body {
       }
     }
   }
+}
+
+.main_content {
+  overflow: hidden;
+  padding: 0 24px;
 }

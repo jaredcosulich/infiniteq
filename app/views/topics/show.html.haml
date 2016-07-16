@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%h2= @topic.title
+
+%p= @topic.description
+
+.ask_a_question
+  %h3 Ask A Question
+  %p ASK A QUESTION TEXT FIELD
+
+- @topic.questions.each do |question|
+  .question
+    %p= link_to(question.text, question)
