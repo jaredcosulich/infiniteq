@@ -1,3 +1,14 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.topics_list {
+  width: 50%;
+  float: left;
+
+  .topic_preview {
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    background-color: #eee;
+  }
+}

@@ -1,8 +1,8 @@
 %p#notice= notice
-%h2= @question.topic.title
+%h2= link_to @question.topic.title, @question.topic
 %h3= @question.text
 %p= @question.details
 
 %h3 Answers
 - @question.answers.each do |answer|
-  %p= answer.text
+  %p= markdown(answer.text)

@@ -5,6 +5,12 @@ body {
   font-family: sans-serif;
 }
 
+a, a:visited, a:hover {
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px dashed #666;
+}
+
 .header {
   border-bottom: 1px solid #eee;
   padding: 0 24px;
@@ -12,6 +18,10 @@ body {
   h1 {
     margin: 12px 0;
     font-family: 'Roboto', sans-serif;
+
+    a {
+      border: none;
+    }
   }
 }
 
@@ -21,6 +31,7 @@ body {
   border-right: 1px solid #eee;
   margin: 24px 0 0 12px;
   padding: 0 24px;
+  line-height: 1.25em;
 
   .section {
     margin-bottom: 36px;
