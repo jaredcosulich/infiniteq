@@ -1,6 +1,6 @@
-%h2 All Topics
+%h3.col-sm-12 All Topics
 
-.topics_list
+.topics_list.col-sm-6
   - @topics.each do |topic|
     .topic_preview
       %h4= link_to topic.title, topic

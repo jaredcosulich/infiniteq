@@ -4,7 +4,21 @@
 
 .topics-controller {
   .ask_a_question {
-    padding: 0 12px;
+    margin: 45px 0;
+    padding: 12px;
     border: 1px solid #eee;
+  }
+
+  .questions {
+    border-top: 1px dashed #666;
+
+    .question {
+      padding: 24px 12px;
+      border-bottom: 1px dashed #666;
+
+      a {
+        border: none;
+      }
+    }
   }
 }

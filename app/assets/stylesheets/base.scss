@@ -3,6 +3,7 @@ body {
   margin: 0;
   color: #333;
   font-family: sans-serif;
+  line-height: 1.25em;
 }
 
 a, a:visited, a:hover {
@@ -13,7 +14,8 @@ a, a:visited, a:hover {
 
 .header {
   border-bottom: 1px solid #eee;
-  padding: 0 24px;
+  padding: 0 12px;
+  margin-bottom: 12px;
 
   h1 {
     margin: 12px 0;
@@ -26,12 +28,8 @@ a, a:visited, a:hover {
 }
 
 .sidebar {
-  float: left;
-  width: 210px;
   border-right: 1px solid #eee;
-  margin: 24px 0 0 12px;
-  padding: 0 24px;
-  line-height: 1.25em;
+  padding: 12px;
 
   .section {
     margin-bottom: 36px;
@@ -46,6 +44,5 @@ a, a:visited, a:hover {
 }
 
 .main_content {
-  overflow: hidden;
-  padding: 0 24px;
+  padding: 12px 0;
 }
