@@ -1,8 +1,18 @@
-%p#notice= notice
-%h2= link_to @question.topic.title, @question.topic
-%h3= @question.text
-%p= @question.details
+.col-sm-12
+  - if notice.present?
+    %p#notice= notice
 
-%h3 Answers
-- @question.answers.each do |answer|
-  %p= markdown(answer.text)
+  %h3
+    = link_to @question.topic.title, @question.topic
+
+  %%br
+
+  .question
+    %h4= @question.text
+    %h5.small= @question.details
+
+  %h4 Answers
+  .answers
+    - @question.answers.each do |answer|
+      .answer
+        %p= markdown(answer.text)
