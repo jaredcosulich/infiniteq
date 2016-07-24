@@ -20,8 +20,5 @@
     - @topic.questions.each do |question|
       - next if question.new_record?
       .question
-        %p
-          %strong Q:
-          = link_to(question.text, question)
-        .small
-          = truncate(question.answers.first.text, length: 90)
+        %strong Q:
+        = link_to(question.text, question)
