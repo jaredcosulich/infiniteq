@@ -3,7 +3,9 @@
 one:
   title: MyString
   description: MyText
+  slug: 'mystring'
 
 two:
   title: MyString
   description: MyText
+  slug: 'mystring2'

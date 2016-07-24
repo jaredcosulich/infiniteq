@@ -35,7 +35,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update question" do
     patch question_url(@question), params: { question: { details: @question.details, text: @question.text, topic_id: @question.topic_id, user_id: @question.user_id } }
-    assert_redirected_to question_url(@question)
+    assert_redirected_to @question
   end
 
   test "should destroy question" do

@@ -2,10 +2,11 @@
   - if notice.present?
     %p#notice= notice
 
-  %h3
-    = link_to @question.topic.title, @question.topic
+  - if @question.topic.present?
+    %h3
+      = link_to @question.topic.title, @question.topic
 
-  %%br
+  %br
 
   .question
     %h4= @question.text
