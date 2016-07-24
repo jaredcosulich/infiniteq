@@ -7,6 +7,15 @@
     margin: 45px 0;
     padding: 12px;
     border: 1px solid #eee;
+
+    .form-group {
+      width: 100%;
+      margin-top: 12px;
+
+      .form-control {
+        width: 80%;
+      }
+    }
   }
 
   .questions {
