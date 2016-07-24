@@ -3,13 +3,13 @@
 one:
   text: MyString
   details: MyText
-  topic_id: 1
+  topic: :one
   user_id: 1
   slug: 'mystring'
 
 two:
   text: MyString
   details: MyText
-  topic_id: 1
+  topic: :one
   user_id: 1
   slug: 'mystring2'

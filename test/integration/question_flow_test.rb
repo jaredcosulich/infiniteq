@@ -10,7 +10,7 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'form input:not([value])[name="question[text]"]', true
     assert_select "form input[name='question[topic_id]'][value='#{@topic.id}']", true
-
+    assert_select '.question', 2
 
     assert_difference '@topic.questions.count' do
       post "/questions",
@@ -21,6 +21,27 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     assert_select 'h3', @topic.title
-    assert_select 'h4', @topic.questions.first.text
+
+    assert question = @topic.questions.last
+    assert_select 'h4', question.text
+
+    get "/topics/#{@topic.slug}"
+    assert_select '.question', 3
+
+    # get "/questions/#{question.slug}"
+    # assert_select 'form input:not([value])[name="answer[text]"]', true
+    # assert_select "form input[name='answer[question_id]'][value='#{question.id}']", true
+    #
+    # assert_difference 'question.answers.count' do
+    #   post "/answers",
+    #     params: { answer: { text: "There is no point!", question_id: @topic.id } }
+    # end
+    #
+    # assert_response :redirect
+    # follow_redirect!
+    # assert_response :success
+    # assert_select 'h4', question.text
+    # assert_select 'p', question.answers.first.text
+
   end
 end
