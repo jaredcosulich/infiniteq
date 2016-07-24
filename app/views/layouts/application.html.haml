@@ -7,7 +7,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     <link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  .container{class: "#{params[:controller]}-controller"}
+  .container{class: "#{controller.controller_name}-controller"}
     = render 'layouts/header'
     = render 'layouts/sidebar'
     .main_content.col-md-9

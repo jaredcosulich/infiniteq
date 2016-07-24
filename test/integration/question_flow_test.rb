@@ -28,20 +28,19 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     get "/topics/#{@topic.slug}"
     assert_select '.question', 3
 
-    # get "/questions/#{question.slug}"
-    # assert_select 'form input:not([value])[name="answer[text]"]', true
-    # assert_select "form input[name='answer[question_id]'][value='#{question.id}']", true
-    #
-    # assert_difference 'question.answers.count' do
-    #   post "/answers",
-    #     params: { answer: { text: "There is no point!", question_id: @topic.id } }
-    # end
-    #
-    # assert_response :redirect
-    # follow_redirect!
-    # assert_response :success
-    # assert_select 'h4', question.text
-    # assert_select 'p', question.answers.first.text
+    get "/questions/#{question.slug}"
+    assert_select 'form textarea:not([value])[name="answer[text]"]', true
+    assert_select "form input[name='answer[question_id]'][value='#{question.id}']", true
 
+    assert_difference 'question.answers.count' do
+      post "/answers",
+        params: { answer: { text: "There is no point!", question_id: question.id } }
+    end
+
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select 'h4', question.text
+    assert_select 'p', question.answers.first.text
   end
 end

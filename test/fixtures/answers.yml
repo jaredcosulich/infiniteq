@@ -2,10 +2,10 @@
 
 one:
   text: MyText
-  question_id: 1
+  question: :one
   user_id: 1
 
 two:
   text: MyText
-  question_id: 1
+  question: :one
   user_id: 1

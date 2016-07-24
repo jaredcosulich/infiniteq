@@ -7,6 +7,15 @@
     margin-bottom: 24px;
   }
 
+  .answer_question {
+      padding: 24px 0;
+
+      textarea {
+        height: 5em;
+        margin-bottom: 12px;
+      }
+  }
+
   .answers {
   }
 }
