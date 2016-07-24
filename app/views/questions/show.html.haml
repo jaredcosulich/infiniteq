@@ -12,8 +12,18 @@
     %h4= @question.text
     %h5.small= @question.details
 
+  .answer_question
+    %h4 Answer This Question
+    = form_for @answer do |f|
+      .form-group
+        = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
+        = f.hidden_field :question_id
+        = f.submit 'Submit Answer', class: 'btn btn-default'
+
+
   %h4 Answers
   .answers
     - @question.answers.each do |answer|
+      - next if answer.new_record?
       .answer
         %p= markdown(answer.text)
