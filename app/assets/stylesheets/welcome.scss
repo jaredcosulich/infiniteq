@@ -7,7 +7,13 @@
     .topic_preview {
       padding: 6px 12px;
       margin-top: 12px;
-      background-color: #eee;
+      border: 1px solid #2F4858;
+      height: 120px;
+      overflow: hidden;
+
+      p {
+        padding: 12px 0 0 0;
+      }
     }
 
   }

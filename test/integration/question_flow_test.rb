@@ -20,7 +20,7 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select 'h3', @topic.title
+    assert_select 'a', @topic.title
 
     assert question = @topic.questions.last
     assert_select 'h4', question.text

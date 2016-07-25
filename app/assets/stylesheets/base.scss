@@ -1,7 +1,10 @@
+// COLORS: https://coolors.co/f26419-ff9a35-2f4858-33658a-86bbd8
+
+
 body {
   padding: 0;
   margin: 0;
-  color: #333;
+  color: #2F4858;
   font-family: sans-serif;
   line-height: 1.25em;
 }
@@ -12,6 +15,15 @@ a, a:visited, a:hover {
   border-bottom: 1px dashed #666;
 }
 
+.title {
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn-default {
+  background-color: #FF9A35;
+  color: white;
+}
+
 .header {
   border-bottom: 1px solid #eee;
   padding: 0 12px;
@@ -19,7 +31,6 @@ a, a:visited, a:hover {
 
   h1 {
     margin: 12px 0;
-    font-family: 'Roboto', sans-serif;
 
     a {
       border: none;
@@ -28,17 +39,27 @@ a, a:visited, a:hover {
 }
 
 .sidebar {
-  border-right: 1px solid #eee;
-  padding: 12px;
+  border-left: 1px solid #eee;
+  padding: 0 12px;
 
   .section {
-    margin-bottom: 36px;
+    padding: 24px 0 12px 0;
 
     ul {
       padding-left: 24px;
       li {
         margin-bottom: 12px;
       }
+    }
+  }
+
+  .about {
+    padding: 12px;
+    background-color: #33658A;
+    color: white;
+
+    a {
+      color: white;
     }
   }
 }
