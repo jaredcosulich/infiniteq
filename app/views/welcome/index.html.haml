@@ -4,4 +4,4 @@
   - @topics.each do |topic|
     .topic_preview
       %h4= link_to topic.title, topic
-      %p= markdown(truncate(topic.description, length: 120))
+      = markdown(topic.description)

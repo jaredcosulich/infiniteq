@@ -10,7 +10,7 @@ tdd = Topic.create(title: 'Test-Driven Development (TDD)', description: """
 Test-Driven Development is a process where a test is written prior to any code and then code is written in order to make that test pass, but nothing more.
 """)
 
-whyq = tdd.questions.create(text: 'Why would you do TDD?')
+whyq = tdd.questions.create(text: 'Why would you do TDD?', details: 'What is the point of TDD? It seems to add cost and reduce flexibility. Why would I bother with it?')
 valueq = tdd.questions.create(text: 'What is the value of TDD?')
 hardq = tdd.questions.create(text: 'Is it hard to do TDD?')
 

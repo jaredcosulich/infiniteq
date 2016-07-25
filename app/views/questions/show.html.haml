@@ -3,17 +3,16 @@
     %p#notice= notice
 
   - if @question.topic.present?
-    %h3
+    %p
+      Topic:
       = link_to @question.topic.title, @question.topic
-
-  %br
 
   .question
     %h4= @question.text
-    %h5.small= @question.details
+    .small= @question.details
 
   .answer_question
-    %h4 Answer This Question
+    %h5 Answer This Question
     = form_for @answer do |f|
       .form-group
         = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
@@ -21,7 +20,7 @@
         = f.submit 'Submit Answer', class: 'btn btn-default'
 
 
-  %h4 Answers
+  %h5 Answers
   .answers
     - @question.answers.each do |answer|
       - next if answer.new_record?
