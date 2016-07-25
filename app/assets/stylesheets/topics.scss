@@ -30,4 +30,14 @@
       }
     }
   }
+
+  .create_topic {
+    form {
+      margin-top: 30px;
+
+      textarea {
+        height: 10em;
+      }
+    }
+  }
 }
