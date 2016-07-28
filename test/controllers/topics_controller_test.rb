@@ -45,4 +45,9 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to topics_url
   end
+
+  test "#show displays subtopics" do
+    get topic_url(@topic)
+    assert_select 'a', 'Child Topic'
+  end
 end

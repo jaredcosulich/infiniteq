@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
   def index
 
-    @topics = Topic.all.sort
+    @topics = Topic.parent_topics.sort
 
   end
 end
