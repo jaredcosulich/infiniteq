@@ -1,0 +1,17 @@
+.answer_form
+  = form_for(answer) do |f|
+    - if answer.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(answer.errors.count, "error")
+          prohibited this answer from being saved:
+        %ul
+          - answer.errors.full_messages.each do |message|
+            %li= message
+
+    .form-group
+      %h5= f.label :text, "Your Answer"
+      = f.text_area :text, class: 'form-control'
+
+    .form-group
+      = f.submit 'Save Answer', class: 'btn btn-default'

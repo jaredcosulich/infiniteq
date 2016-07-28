@@ -6,4 +6,6 @@ class Question < ApplicationRecord
   belongs_to :topic
   has_many :answers
 
+  scope :persisted, -> { where "id IS NOT NULL" }
+
 end

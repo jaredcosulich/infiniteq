@@ -15,8 +15,20 @@ a, a:visited, a:hover {
   border-bottom: 1px dashed #666;
 }
 
-.title {
+.title, .subtitle {
   font-family: 'Roboto', sans-serif;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#notice {
+  text-align: center;
+  color: white;
+  background-color: #FF9A35;
+  padding: 12px 0;
 }
 
 .btn-default {

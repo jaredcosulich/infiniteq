@@ -1,76 +1,43 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-tdd = Topic.create(title: 'Test-Driven Development (TDD)', description: """
-Test-Driven Development is a process where a test is written prior to any code and then code is written in order to make that test pass, but nothing more.
-""")
-
-whyq = tdd.questions.create(text: 'Why would you do TDD?', details: 'What is the point of TDD? It seems to add cost and reduce flexibility. Why would I bother with it?')
-valueq = tdd.questions.create(text: 'What is the value of TDD?')
-hardq = tdd.questions.create(text: 'Is it hard to do TDD?')
-
-whya = whyq.answers.create(text: """
-There are a lot of reasons you would do tdd:
-
-* Writing a test first provides immediate feedback when you write code. You can immediately see if the code you've written makes the test pass or not.
-* It immediately provides feedback about other areas of the code. When you run your tests you can immediately see if your code changes had any unintended consequences in other areas of the code base.
-* Writing tests first helps you structure your code in a more compartmentalized fashion, helping to avoid overloaded methods and side effects. In general it helps make your code more readable.
-* Your tests act as an active contract with your code. Someone new can look at the tests and better understand the range of inputs and outputs the code expects.
-* Writing tests first really helps to ensure your code is well-tested.
-
-Note: some of these reasons have more to testing in general than TDD specifically, but since TDD does tend to encourage more robust testing I included them here.
-""")
-
-valueq.answers.create(text: """
-I would reference the answer here: [Why would you do TDD?](/#{whya.id})
-""")
-
-hardq.answers.create(text: """
-There are definitely some challenges associated with TDD.
-
-* Sometimes you aren't quite sure what you are building and you need to do a prototype before you feel comfortable approaching it from a test-first perspective. I'd certainly encourage this and then, once you have a better idea about what you are building then rewrite the existing code by writing tests first.
-* I often struggle with TDD simply because I am excited to see what ever I am building exist and so I deprioritize testing the functionality. This often derives from my sense that it will be faster if I don't write tests first, but very often this assumption proves wrong and it would have been faster to write a test first. The test would have provided a rapid feedback loop that would have hastened development time.
-* I've heard many people complain about having to change tests as functionality within the product changes. This certainly can be a hassle, but it is relatively easy to change a test while it can be essentially impossible to fully grasp the ramifications of a change within a large codebase without tests. I've rarely felt that burdened by the existence of tests.
-* Sometimes you are building something for which good testing frameworks do not yet exist. This makes it very difficult to TDD and I would say this may be a good reason to not TDD, but even then you would likely add a lot of value to the world if you built or contributed to a testing framework...
-""")
-
-pairing = Topic.create(title: 'Pair Programming', description: """
-Pair Programming is a software development technique where two software developers sit at the same computer and develop software together.
-""")
-
-
-techq = pairing.questions.create(text: 'How do you technically do pairing?')
-techq.answers.create(text: """
-You can approach pairing in many different ways (one screen/one keyboard/one mouse, two of each, remote pairing, etc). Ideally you try to create a comfortable environment that facilitates effective communication between the two people. In the past I've found that atleast two keyboards and two mice are valuable and that two screens can help ergonomically.
-
-Pairing remotely can be a bit challenging, but if you can get a high-quality connection I think it is very feasible and you can even forget that you are pairing remotely. There is some benefit to being able to read your pair's body language, but I've never seen that aspect distract a pair too much.
-""")
-
-pairing.questions.create(text: 'Do you use the same keyboard?').answers.create(text: """
-You can, but I'd recommend using two keyboards and two mice. More here: [How do you technically do pairing?](/questions/#{techq.id})
-""")
-
-pairing.questions.create(text: 'What is the best setup for pairing?').answers.create(text: """
-Really any setup that is comfortable and facilitates effective communication between the pair is ideal. Some more thoughts here: [How do you technically do pairing?](/questions/#{techq.slug})
-""")
-
-expensiveq = pairing.questions.create(text: "Isn't pairing twice as expensive?")
-expensiveq.answers.create(text: """
-This is a common question. There is clearly a cost associated with having two people work on the same code at the same time, but this cost is offset (and I believe results in savings overall) due to the following observations:
-
-* Collaboration: Software development is complicated. Having someone to discuss the design and implementation of a feature can greatly improve the design and reduce the likelihood of errors. In many companies code reviews are used to bridge this gap, but with pairing there is more opportunity for back and forth during development, further improving code quality.
-* Micro-Breaks: Software development is mentally taxing. I personally can't code for 8 hours straight without taking breaks. I frequently get distracted by various websites when I'm wrestling with a design decision and may get sucked into an article, emerging 15 minutes later to return to the work. With a pair you can take micro-breaks, allowing your pair to take the driver's seat while you observe. This gives you a chance to rest a bit without taking an extended break. In general you're much more likely to put in a maximum effort while pairing then while soloing (maybe some people are exceptions to this, but I think organizationally speaking this will hold true).
-* Information Transfer: When two people pair program they both become intimately familiar with the code they are designing. This helps to spread information and best practices around the organization and reduces bottlenecks and the possibility of problems when a key employee leaves the organization. When building complex software the added communication that pair programming provides can be invaluable to ensuring everyone on the team is on the same page and the team is resilient as it evolves.
-* Error Checking: People do make mistakes when writing code. Having a pair can help ensure that, when you do make a mistake, it is caught quickly and is less likely to waste time. It is not the only reason why pairing is valuable, but it is a valid reason.
-
-In general I've found that these reasons add up to a process that is definitively not 2x more expensive. I personally believe that it may be more cost-effective to pair program, but it is difficult, if not impossible, to prove that.
-""")
-
-pairing.questions.create(text: "Isn't pairing just about catching typos?").answers.create(text: """
-No, that is a valid benefit or pair programming but there are other, more valuable benefits. More details on those benefits can be found here: [Isn't pairing twice as expensive?](/questions/#{expensiveq.slug})
-""")
+Answer.create!([
+  {text: "\nThere are a lot of reasons you would do tdd:\n\n* Writing a test first provides immediate feedback when you write code. You can immediately see if the code you've written makes the test pass or not.\n* It immediately provides feedback about other areas of the code. When you run your tests you can immediately see if your code changes had any unintended consequences in other areas of the code base.\n* Writing tests first helps you structure your code in a more compartmentalized fashion, helping to avoid overloaded methods and side effects. In general it helps make your code more readable.\n* Your tests act as an active contract with your code. Someone new can look at the tests and better understand the range of inputs and outputs the code expects.\n* Writing tests first really helps to ensure your code is well-tested.\n\nNote: some of these reasons have more to testing in general than TDD specifically, but since TDD does tend to encourage more robust testing I included them here.\n", question_id: 1, user_id: nil},
+  {text: "\nI would reference the answer here: [Why would you do TDD?](/1)\n", question_id: 2, user_id: nil},
+  {text: "\nThere are definitely some challenges associated with TDD.\n\n* Sometimes you aren't quite sure what you are building and you need to do a prototype before you feel comfortable approaching it from a test-first perspective. I'd certainly encourage this and then, once you have a better idea about what you are building then rewrite the existing code by writing tests first.\n* I often struggle with TDD simply because I am excited to see what ever I am building exist and so I deprioritize testing the functionality. This often derives from my sense that it will be faster if I don't write tests first, but very often this assumption proves wrong and it would have been faster to write a test first. The test would have provided a rapid feedback loop that would have hastened development time.\n* I've heard many people complain about having to change tests as functionality within the product changes. This certainly can be a hassle, but it is relatively easy to change a test while it can be essentially impossible to fully grasp the ramifications of a change within a large codebase without tests. I've rarely felt that burdened by the existence of tests.\n* Sometimes you are building something for which good testing frameworks do not yet exist. This makes it very difficult to TDD and I would say this may be a good reason to not TDD, but even then you would likely add a lot of value to the world if you built or contributed to a testing framework...\n", question_id: 3, user_id: nil},
+  {text: "\nYou can approach pairing in many different ways (one screen/one keyboard/one mouse, two of each, remote pairing, etc). Ideally you try to create a comfortable environment that facilitates effective communication between the two people. In the past I've found that atleast two keyboards and two mice are valuable and that two screens can help ergonomically.\n\nPairing remotely can be a bit challenging, but if you can get a high-quality connection I think it is very feasible and you can even forget that you are pairing remotely. There is some benefit to being able to read your pair's body language, but I've never seen that aspect distract a pair too much.\n", question_id: 4, user_id: nil},
+  {text: "\nYou can, but I'd recommend using two keyboards and two mice. More here: [How do you technically do pairing?](/questions/4)\n", question_id: 5, user_id: nil},
+  {text: "\nReally any setup that is comfortable and facilitates effective communication between the pair is ideal. Some more thoughts here: [How do you technically do pairing?](/questions/how-do-you-technically-do-pairing)\n", question_id: 6, user_id: nil},
+  {text: "\nThis is a common question. There is clearly a cost associated with having two people work on the same code at the same time, but this cost is offset (and I believe results in savings overall) due to the following observations:\n\n* Collaboration: Software development is complicated. Having someone to discuss the design and implementation of a feature can greatly improve the design and reduce the likelihood of errors. In many companies code reviews are used to bridge this gap, but with pairing there is more opportunity for back and forth during development, further improving code quality.\n* Micro-Breaks: Software development is mentally taxing. I personally can't code for 8 hours straight without taking breaks. I frequently get distracted by various websites when I'm wrestling with a design decision and may get sucked into an article, emerging 15 minutes later to return to the work. With a pair you can take micro-breaks, allowing your pair to take the driver's seat while you observe. This gives you a chance to rest a bit without taking an extended break. In general you're much more likely to put in a maximum effort while pairing then while soloing (maybe some people are exceptions to this, but I think organizationally speaking this will hold true).\n* Information Transfer: When two people pair program they both become intimately familiar with the code they are designing. This helps to spread information and best practices around the organization and reduces bottlenecks and the possibility of problems when a key employee leaves the organization. When building complex software the added communication that pair programming provides can be invaluable to ensuring everyone on the team is on the same page and the team is resilient as it evolves.\n* Error Checking: People do make mistakes when writing code. Having a pair can help ensure that, when you do make a mistake, it is caught quickly and is less likely to waste time. It is not the only reason why pairing is valuable, but it is a valid reason.\n\nIn general I've found that these reasons add up to a process that is definitively not 2x more expensive. I personally believe that it may be more cost-effective to pair program, but it is difficult, if not impossible, to prove that.\n", question_id: 7, user_id: nil},
+  {text: "\nNo, that is a valid benefit or pair programming but there are other, more valuable benefits. More details on those benefits can be found here: [Isn't pairing twice as expensive?](/questions/isn-t-pairing-twice-as-expensive)\n", question_id: 8, user_id: nil},
+  {text: "InfiniteQ was created to try and make it easy for people to ask questions and get answers about anything. It was originally conceived because [Jared Cosulich](http://about.me/jaredcosulich) was developing [The Puzzle School](http://www.puzzleschool.com) and noticed how that being able to ask questions and find answers quickly was a great way to approach learning any subject. \r\n\r\nIt has since evolved beyond just learning about educational topics. It can be used to create a more dynamic FAQ or support section for a company. It can be used to interview politicians or by cities to provide information about services and how to use them.\r\n\r\nInfiniteQ also provides an opportunity to ask questions about [Wikipedia](htttp://www.wikipedia.com) topics. With many topics there is some debate as to what is the truth and InfiniteQ allows for more exploration of those debates than Wikipedia does with its single page per topic. Both sources of information are valuable. InfiniteQ is complementary to Wikipedia in this way.", question_id: 9, user_id: nil},
+  {text: "InfiniteQ is really an experiment at helping people learn about and debate topics. You can read more about why it got started here: [What is the point of this website?](/questions/what-is-the-point-of-this-website)", question_id: 10, user_id: nil},
+  {text: "[Jared Cosulich](http://www.about.me/jaredcosulich) created it as part of a larger effort to create [The Puzzle School](http://www.puzzleschool.com) although InfiniteQ has become useful beyond The Puzzle School as well.", question_id: 11, user_id: nil},
+  {text: "Right now it does not make money, but it may display advertising or charge companies for private, white-labeled InfiniteQ integrations in the future. It's also possible that it will start a job board as other Q&A sites have had some success with that strategy.", question_id: 12, user_id: nil},
+  {text: "I don't think you can, but we figured that every question that got asked and answered would make that information just a bit more accessible for the next person trying to find it. That alone seemed to justify trying.", question_id: 13, user_id: nil},
+  {text: "There are a number of reasons you might create a topic on this site:\r\n\r\n* You are a teacher and want to create a resource your students can easily access and build on if they have questions about a topic.\r\n* You want to create a FAQ about a company or service.\r\n* You are hosting an event and want an easy way for people to ask you questions regarding the event.\r\n* You are a politician and want to make it easy for voters to ask you questions.\r\n* You are an expert in some area and would like to share your expertise with the world.\r\n* You are a beginner and need help with something.\r\n* I'm sure there are other use cases, but that's a good start.", question_id: 14, user_id: nil},
+  {text: "I did a brainstorm of possible uses here: [Why would I use this site?](/questions/why-would-i-use-this-site)", question_id: 15, user_id: nil},
+  {text: "You can see the rules of the site on the right sidebar, but just to reiterate:\r\n\r\n* Every possible question is valued, even closely related questions. (including different wording)\r\n* You can write an answer to your own question. This is valued as well.\r\n* No question should ever be dismissed if a similar question has already been answered. You can provide a link to the existing question, but never suggest that the question should not have been asked. All questions are valued.\r\n* Personal attacks are not welcome and will be removed immediately.", question_id: 16, user_id: nil},
+  {text: "We created this website with one primary goal (that we didn't see represented in other Q&A sites):\r\n                        \r\n* We wanted to encourage people to ask as many questions as possible and even answer their own questions. The goal was not just to help people who have a question, but to map out the world's knowledge via questions.\r\n\r\nThis goal led to a number of decisions, including making it as easy as possible for someone to ask and answer questions if they don't yet have an account. In order to improve the quality of questions and answers we've designed a number of verification stages, so if you submit a question without providing an email then your question will be accessible on the website, but will be hidden from search crawlers and will be categorized as \"anonymous\" until someone verifies that it is a valid question and not just spam.\r\n                        \r\nI don't know of all of the possible Q&A sites that exist, so it's possible there is something very similar out there. Either way we felt that this difference justified building a new website.\r\n                        \r\nAs a software engineer I've never been disappointed by the proliferation of Q&A sources on the Internet. If I have a question then having a multitude of answers to explore has always felt beneficial. I don't think there's really any downside to having another Q&A site...", question_id: 17, user_id: nil}
+])
+Question.create!([
+  {text: "Why would you do TDD?", details: "What is the point of TDD? It seems to add cost and reduce flexibility. Why would I bother with it?", topic_id: 1, user_id: nil, slug: "why-would-you-do-tdd"},
+  {text: "What is the value of TDD?", details: nil, topic_id: 1, user_id: nil, slug: "what-is-the-value-of-tdd"},
+  {text: "Is it hard to do TDD?", details: nil, topic_id: 1, user_id: nil, slug: "is-it-hard-to-do-tdd"},
+  {text: "How do you technically do pairing?", details: nil, topic_id: 2, user_id: nil, slug: "how-do-you-technically-do-pairing"},
+  {text: "Do you use the same keyboard?", details: nil, topic_id: 2, user_id: nil, slug: "do-you-use-the-same-keyboard"},
+  {text: "What is the best setup for pairing?", details: nil, topic_id: 2, user_id: nil, slug: "what-is-the-best-setup-for-pairing"},
+  {text: "Isn't pairing twice as expensive?", details: nil, topic_id: 2, user_id: nil, slug: "isn-t-pairing-twice-as-expensive"},
+  {text: "Isn't pairing just about catching typos?", details: nil, topic_id: 2, user_id: nil, slug: "isn-t-pairing-just-about-catching-typos"},
+  {text: "What is the point of this website?", details: nil, topic_id: 3, user_id: nil, slug: "what-is-the-point-of-this-website"},
+  {text: "Why does this website exist?", details: nil, topic_id: 3, user_id: nil, slug: "why-does-this-website-exist"},
+  {text: "Who created this website?", details: nil, topic_id: 3, user_id: nil, slug: "who-created-this-website"},
+  {text: "How does this website make money?", details: nil, topic_id: 3, user_id: nil, slug: "how-does-this-website-make-money"},
+  {text: "How can you ever expect to ask and answer every question possible?", details: nil, topic_id: 3, user_id: nil, slug: "how-can-you-ever-expect-to-ask-and-answer-every-question-possible"},
+  {text: "Why would I use this site?", details: nil, topic_id: 3, user_id: nil, slug: "why-would-i-use-this-site"},
+  {text: "What are different uses for this site?", details: nil, topic_id: 3, user_id: nil, slug: "what-are-different-uses-for-this-site"},
+  {text: "What are the rules?", details: nil, topic_id: 3, user_id: nil, slug: "what-are-the-rules"},
+  {text: "How is this website different from StackOverflow, Metafilter, Quora, etc?", details: nil, topic_id: 3, user_id: nil, slug: "how-is-this-website-different-from-stackoverflow-metafilter-quora-etc"}
+])
+Topic.create!([
+  {title: "Test-Driven Development (TDD)", description: "\nTest-Driven Development is a process where a test is written prior to any code and then code is written in order to make that test pass, but nothing more.\n", user_id: nil, slug: "test-driven-development-tdd"},
+  {title: "Pair Programming", description: "\nPair Programming is a software development technique where two software developers sit at the same computer and develop software together.\n", user_id: nil, slug: "pair-programming"},
+  {title: "InfiniteQ", description: "Everything you ever wanted to ask about this website. ", user_id: nil, slug: "infiniteq"}
+])

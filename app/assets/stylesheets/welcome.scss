@@ -4,16 +4,24 @@
 
 .welcome-controller {
   .topics_list {
-    .topic_preview {
-      padding: 6px 12px;
-      margin-top: 12px;
-      border: 1px solid #2F4858;
-      height: 120px;
-      overflow: hidden;
+    .create_topic {
+      padding: 12px 0;
 
-      p {
-        padding: 12px 0 0 0;
+      i {
+        color: #FF9A35;
       }
+    }
+
+    .topic_preview {
+      margin-top: 24px;
+      // padding: 6px 12px;
+      // border: 1px solid #2F4858;
+      // height: 120px;
+      // overflow: hidden;
+      //
+      // p {
+      //   padding: 12px 0 0 0;
+      // }
     }
 
   }

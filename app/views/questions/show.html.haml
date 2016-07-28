@@ -22,7 +22,9 @@
 
   %h5 Answers
   .answers
-    - @question.answers.each do |answer|
-      - next if answer.new_record?
+    - @question.answers.persisted.each do |answer|
       .answer
         %p= markdown(answer.text)
+    - if @question.answers.persisted.empty?
+      %br
+      %h5 No answers have been provided yet.
