@@ -4,10 +4,8 @@
 %h3.col-sm-12 Topics
 
 .topics_list.col-sm-6
-  .create_topic
-    %h4= link_to "#{fa_icon('plus-circle')} Create A New Topic".html_safe, new_topic_path
-
   - @topics.each do |topic|
     .topic_preview
-      %h4= link_to topic.title, topic
-      = markdown(topic.description)
+      %h5= link_to topic.title, topic
+  .create_topic
+    %h5= link_to "#{fa_icon('plus-circle')} Create A New Topic".html_safe, new_topic_path
