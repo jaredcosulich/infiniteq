@@ -1,2 +1,9 @@
-%h3 Create A New Topic
+%h3
+  Create A New Topic
+  - if @parent_topic.present?
+    .small
+      %br
+      Parent Topic:
+      = @parent_topic.title
+
 = render 'form', topic: @topic

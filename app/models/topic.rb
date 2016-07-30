@@ -10,4 +10,15 @@ class Topic < ApplicationRecord
 
   scope 'parent_topics', -> { where(parent_topic: nil) }
 
+  def parent_path
+    return [] if (p = parent_topic).nil?
+    parents = []
+    loop do
+      parents << p
+      p = p.parent_topic
+      break if p.nil?
+    end
+    return parents
+  end
+
 end

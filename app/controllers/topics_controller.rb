@@ -15,7 +15,10 @@ class TopicsController < ApplicationController
 
   # GET /topics/new
   def new
-    @topic = Topic.new
+    if params.include?(:parent_topic_id)
+      @parent_topic = Topic.friendly.find(params[:parent_topic_id])
+    end
+    @topic = Topic.new(parent_topic_id: @parent_topic.try(:id))
   end
 
   # GET /topics/1/edit
@@ -70,6 +73,6 @@ class TopicsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
-      params.require(:topic).permit(:title, :description)
+      params.require(:topic).permit(:title, :description, :parent_topic_id)
     end
 end
