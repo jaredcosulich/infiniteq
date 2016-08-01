@@ -18,4 +18,5 @@
       = f.text_area :description, class: 'form-control'
 
     .form-group
+      = f.hidden_field :parent_topic_id
       = f.submit 'Create Topic', class: 'btn btn-default'

@@ -23,6 +23,12 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to topic_url(Topic.last)
   end
 
+  test "#create should assign parent topic if set" do
+    post topics_url, params: { topic: { title: 'Title', parent_topic_id: @topic.id } }
+
+    assert_equal @topic, Topic.last.parent_topic
+  end
+
   test "should show topic" do
     get topic_url(@topic)
     assert_response :success
@@ -44,5 +50,10 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to topics_url
+  end
+
+  test "#show displays subtopics" do
+    get topic_url(@topic)
+    assert_select 'a', 'Child Topic'
   end
 end

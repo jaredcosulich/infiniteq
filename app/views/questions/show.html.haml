@@ -2,10 +2,7 @@
   - if notice.present?
     %p#notice= notice
 
-  - if @question.topic.present?
-    %p
-      Topic:
-      = link_to @question.topic.title, @question.topic
+  = render('topics/topic_path', topic: @question.topic) if @question.topic.present?
 
   .question
     %h4= @question.text

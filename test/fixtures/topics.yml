@@ -6,6 +6,12 @@ one:
   slug: 'mystring'
 
 two:
-  title: MyString
-  description: MyText
+  title: MyString2
+  description: MyText2
   slug: 'mystring2'
+
+child:
+  title: 'Child Topic'
+  description: 'A child topic'
+  parent_topic: :one
+  slug: 'child-topic'
