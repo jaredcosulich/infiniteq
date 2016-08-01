@@ -2,10 +2,7 @@
   - if notice.present?
     %p#notice= notice
 
-  - if @topic.parent_topic.present?
-    %p.small
-      Topic: 
-      = (@topic.parent_path + [@topic]).map { |topic| link_to(topic.title, topic) }.join(' > ').html_safe
+  = render 'topics/topic_path', topic: @topic
 
   %h3
     = @topic.title

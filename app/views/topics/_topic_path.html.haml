@@ -1,0 +1,3 @@
+%p.small
+  Topic:
+  = (topic.parent_path + [topic]).compact.map { |t| link_to(t.title, t) }.join(' > ').html_safe
