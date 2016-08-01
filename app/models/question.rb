@@ -10,5 +10,20 @@ class Question < ApplicationRecord
   include AASM
   aasm do
     state :anonymous, :initial => true
+    state :suspect
+    state :verified
+    state :deleted
+
+    event :verify do
+      transitions :from => [:anonymous, :suspect], :to => :verified
+    end
+
+    event :flag do
+      transitions :from => [:anonymous, :verified], :to => :suspect
+    end
+
+    event :delete do
+      transitions :from => [:anonymous, :suspect, :verified], :to => :deleted
+    end
   end
 end
