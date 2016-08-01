@@ -1,5 +1,4 @@
 class Question < ApplicationRecord
-
   extend FriendlyId
   friendly_id :text, use: :slugged
 
@@ -8,4 +7,8 @@ class Question < ApplicationRecord
 
   scope :persisted, -> { where "id IS NOT NULL" }
 
+  include AASM
+  aasm do
+    state :anonymous, :initial => true
+  end
 end

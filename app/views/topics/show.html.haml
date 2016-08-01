@@ -4,10 +4,9 @@
 
   = render 'topics/topic_path', topic: @topic
 
-  %h3
-    = @topic.title
+  %h3.topic-title= @topic.title
 
-  %h6= @topic.description
+  %h6= markdown(@topic.description)
 
   .ask_a_question
     %h4 Ask A Question

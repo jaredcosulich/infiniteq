@@ -18,7 +18,7 @@ class Topic < ApplicationRecord
       p = p.parent_topic
       break if p.nil?
     end
-    return parents.reverse
+    return parents
   end
 
 end
