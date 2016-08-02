@@ -1,4 +1,7 @@
-@import "bootstrap";
+/*
+ *= require bootstrap_and_overrides
+ */
+
 @import "normalize-rails";
 @import "base";
 @import "welcome";

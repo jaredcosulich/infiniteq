@@ -5,9 +5,9 @@ class QuestionTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  test 'starts in anonymous state' do
+  test 'starts in unverified state' do
     question = Question.create(text: 'A new question')
-    assert question.anonymous?
+    assert question.unverified?
   end
 
 end

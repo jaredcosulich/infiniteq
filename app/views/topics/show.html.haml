@@ -3,10 +3,17 @@
     %p#notice= notice
 
   = render 'topics/topic_path', topic: @topic
+  .small.subtopics
+    %strong Subtopics:
+    &nbsp;
+    - @topic.subtopics.each do |subtopic|
+      = link_to(subtopic.title, subtopic)
+      &nbsp;&nbsp;
+    = link_to "#{fa_icon('plus-circle')} New".html_safe, new_topic_path(parent_topic_id: @topic.id)
 
-  %h3.topic-title= @topic.title
-
-  %h6= markdown(@topic.description)
+  %h3.topic-title
+    = @topic.title
+    .description.small= markdown(@topic.description)
 
   .ask_a_question
     %h4 Ask A Question
@@ -16,44 +23,66 @@
         = f.hidden_field :topic_id
         = f.submit 'Ask', class: 'btn btn-default'
 
-  %p.subtopics
-    %strong Subtopics:
-    - @topic.subtopics.each do |subtopic|
-      = "#{link_to(subtopic.title, subtopic)}, ".html_safe
-    = link_to "#{fa_icon('plus-circle')} Create A New Subtopic".html_safe, new_topic_path(parent_topic_id: @topic.id)
-
-  %br
-
-  %ul.nav.nav-tabs
-    %li.active{role: 'verified'}
-      %a{href: '#'}
+  %ul.nav.nav-tabs{role: 'tablist'}
+    %li.active{role: 'presentation'}
+      %a{href: '#verified', role: 'tab', aria: {controls: 'verified'}, data: {toggle: 'tab'}}
         Questions
-        = "(#{Question.verified.count})"
-    %li{role: 'unanswered'}
-      %a{href: '#'}
+        = "(#{@topic.questions.verified.count})"
+    %li{role: 'presentation'}
+      %a{href: '#unanswered', role: 'tab', aria: {controls: 'unanswered'}, data: {toggle: 'tab'}}
         Unanswered
-        = "(#{Question.unanswered.count})"
-    %li{role: 'unverified'}
-      %a{href: '#'}
+        = "(#{@topic.questions.verified.unanswered.count})"
+    %li{role: 'presentation'}
+      %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
         Unverified
-        = "(#{Question.unverified.count})"
-    %li{role: 'flagged'}
-      %a{href: '#'}
+        = "(#{@topic.questions.unverified.count})"
+    %li{role: 'presentation'}
+      %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
         Flagged
-        = "(#{Question.flagged.count})"
-    %li{role: 'suspect'}
-      %a{href: '#'}
+        = "(#{@topic.questions.flagged.count})"
+    %li{role: 'presentation'}
+      %a{href: '#suspect', role: 'tab', aria: {controls: 'suspect'}, data: {toggle: 'tab'}}
         Suspect
-        = "(#{Question.suspect.count})"
+        = "(#{@topic.questions.suspect.count})"
 
-
-
-  %h4 Questions
-  .questions
-    - @topic.questions.persisted.each do |question|
-      .question
-        %strong.title Q:
-        = link_to(question.text, question)
-    - if @topic.questions.persisted.empty?
-      %br
-      %h5 No questions have been asked yet.
+  .questions.tab-content
+    .tab-pane.active{id: 'verified', role: 'tabpanel'}
+      - @topic.questions.verified.each do |question|
+        .question
+          %strong.title Q:
+          = link_to(question.text, question)
+      - if @topic.questions.verified.empty?
+        %br
+        %h5 No questions have been verified yet.
+    .tab-pane{id: 'unanswered', role: 'tabpanel'}
+      - @topic.questions.verified.unanswered.each do |question|
+        .question
+          %strong.title Q:
+          = link_to(question.text, question)
+      - if @topic.questions.verified.unanswered.empty?
+        %br
+        %h5 There are currently no unanswered verified questions.
+    .tab-pane{id: 'unverified', role: 'tabpanel'}
+      - @topic.questions.unverified.each do |question|
+        .question
+          %strong.title Q:
+          = link_to(question.text, question)
+      - if @topic.questions.unverified.empty?
+        %br
+        %h5 There are currently no unverified questions.
+    .tab-pane{id: 'flagged', role: 'tabpanel'}
+      - @topic.questions.flagged.each do |question|
+        .question
+          %strong.title Q:
+          = link_to(question.text, question)
+      - if @topic.questions.flagged.empty?
+        %br
+        %h5 There are currently no flagged questions.
+    .tab-pane{id: 'suspect', role: 'tabpanel'}
+      - @topic.questions.suspect.each do |question|
+        .question
+          %strong.title Q:
+          = link_to(question.text, question)
+      - if @topic.questions.suspect.empty?
+        %br
+        %h5 There are currently no suspect questions.

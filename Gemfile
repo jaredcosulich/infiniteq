@@ -43,7 +43,6 @@ gem 'newrelic_rpm'
 
 gem 'redcarpet'
 
-gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'normalize-rails'
 
 gem "font-awesome-rails"

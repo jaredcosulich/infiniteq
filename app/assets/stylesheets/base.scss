@@ -54,8 +54,12 @@ a, a:visited, a:hover {
   border-left: 1px solid #eee;
   padding: 0 12px 0 30px;
 
+  h3 {
+    margin-top: 12px;
+  }
+
   .section {
-    padding: 24px 0 12px 0;
+    padding: 12px 0;
 
     ul {
       padding-left: 24px;
@@ -78,4 +82,8 @@ a, a:visited, a:hover {
 
 .main_content {
   padding: 12px 12px 12px 0;
+}
+
+.description {
+  margin-top: 12px;
 }

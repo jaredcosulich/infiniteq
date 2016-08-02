@@ -24,7 +24,7 @@ class Question < ApplicationRecord
       transitions :from => [:anonymous, :verified], :to => :suspect
     end
 
-    event :delete do
+    event :mark_deleted do
       transitions :from => [:anonymous, :suspect, :verified], :to => :deleted
     end
   end
