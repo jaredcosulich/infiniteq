@@ -3,25 +3,19 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .welcome-controller {
-  .topics_list {
+  .subtitle {
+    margin-top: 0;
+  }
+
+  .topics_list, .questions_list {
+    padding-bottom: 45px;
+
     .create_topic {
       padding: 12px 0;
-
-      i {
-        color: #FF9A35;
-      }
     }
 
-    .topic_preview {
+    .topic_preview, .question_preview {
       margin-top: 24px;
-      // padding: 6px 12px;
-      // border: 1px solid #2F4858;
-      // height: 120px;
-      // overflow: hidden;
-      //
-      // p {
-      //   padding: 12px 0 0 0;
-      // }
     }
 
   }

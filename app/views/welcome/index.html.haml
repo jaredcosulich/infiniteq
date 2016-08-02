@@ -1,11 +1,16 @@
-%h4.subtitle.col-sm-12
+%h3.subtitle.col-sm-12
   An attempt to ask (and answer) every question.
 
-%h3.col-sm-12 Topics
-
-.topics_list.col-sm-6
+%h3.col-sm-12 Recent Topics
+.topics_list.col-sm-12
   - @topics.each do |topic|
     .topic_preview
-      %h5= link_to topic.title, topic
+      %h4= link_to topic.title, topic
   .create_topic
-    %h5= link_to "#{fa_icon('plus-circle')} Create A New Topic".html_safe, new_topic_path
+    %h4= link_to "#{fa_icon('plus-circle')} Create A New Topic".html_safe, new_topic_path
+
+%h3.col-sm-12 Recent Questions
+.questions_list.col-sm-12
+  - @questions.each do |question|
+    .question_preview
+      %h5= link_to question.text, question

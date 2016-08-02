@@ -3,8 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .topics-controller {
+  .topic-title {
+    padding: 24px 0 12px 0;
+  }
+
   .ask_a_question {
-    margin: 45px 0;
+    margin: 24px 0 48px 0;
     padding: 12px;
     border: 1px solid #eee;
 
@@ -18,12 +22,16 @@
     }
   }
 
-  .questions {
-    border-top: 1px dashed #666;
+  .subtopics {
+    .fa-plus-circle {
+      color: #FF9A35;
+    }
+  }
 
+  .questions {
     .question {
       padding: 24px 12px;
-      border-bottom: 1px dashed #666;
+      border-bottom: 1px dashed #ccc;
 
       a {
         border: none;

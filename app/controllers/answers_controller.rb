@@ -40,6 +40,7 @@ class AnswersController < ApplicationController
   # PATCH/PUT /answers/1
   # PATCH/PUT /answers/1.json
   def update
+    answer_params[:text] = answer_params[:text].gsub(/\n/, '')
     respond_to do |format|
       if @answer.update(answer_params)
         format.html { redirect_to @answer.question, notice: 'Answer was successfully updated.' }
