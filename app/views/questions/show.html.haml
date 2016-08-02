@@ -19,9 +19,7 @@
 
   %h5 Answers
   .answers
-    - @question.answers.persisted.each do |answer|
-      .answer
-        %p= markdown(answer.text)
+    = render @question.answers.persisted
     - if @question.answers.persisted.empty?
       %br
       %h5 No answers have been provided yet.

@@ -1,0 +1,6 @@
+.answer
+  .text= markdown(answer.text)
+  .details.small
+    = answer.created_at.strftime('%b %d, %y %-I:%M%p')
+    &nbsp; &nbsp;
+    = link_to fa_icon('pencil-square-o'), edit_answer_path(answer)
