@@ -6,10 +6,12 @@ class Question < ApplicationRecord
   has_many :answers
 
   scope :persisted, -> { where "id IS NOT NULL" }
+  scope :unanswered, -> { where(answers_count: 0) }
 
   include AASM
   aasm do
-    state :anonymous, :initial => true
+    state :unverified, :initial => true
+    state :flagged
     state :suspect
     state :verified
     state :deleted

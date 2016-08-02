@@ -24,6 +24,30 @@
 
   %br
 
+  %ul.nav.nav-tabs
+    %li.active{role: 'verified'}
+      %a{href: '#'}
+        Questions
+        = "(#{Question.verified.count})"
+    %li{role: 'unanswered'}
+      %a{href: '#'}
+        Unanswered
+        = "(#{Question.unanswered.count})"
+    %li{role: 'unverified'}
+      %a{href: '#'}
+        Unverified
+        = "(#{Question.unverified.count})"
+    %li{role: 'flagged'}
+      %a{href: '#'}
+        Flagged
+        = "(#{Question.flagged.count})"
+    %li{role: 'suspect'}
+      %a{href: '#'}
+        Suspect
+        = "(#{Question.suspect.count})"
+
+
+
   %h4 Questions
   .questions
     - @topic.questions.persisted.each do |question|
