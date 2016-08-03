@@ -6,10 +6,10 @@
   .small.subtopics
     %strong Subtopics:
     &nbsp;
-    - @topic.subtopics.each do |subtopic|
-      = link_to(subtopic.title, subtopic)
+    - @topic.subtopics.most_questions.each do |subtopic|
+      = link_to("#{subtopic.title} (#{subtopic.recursive_questions_count})", subtopic)
       &nbsp;&nbsp;
-    = link_to "#{fa_icon('plus-circle')} New".html_safe, new_topic_path(parent_topic_id: @topic.id)
+    = link_to "#{fa_icon('plus-circle')} New Subtopic".html_safe, new_topic_path(parent_topic_id: @topic.id)
 
   %h3.topic-title
     = @topic.title
