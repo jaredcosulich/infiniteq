@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802220338) do
+ActiveRecord::Schema.define(version: 20160803021415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160802220338) do
     t.integer  "parent_topic_id"
     t.integer  "questions_count",           default: 0
     t.integer  "recursive_questions_count", default: 0
+    t.text     "recursive_subtopic_ids"
   end
 
 end
