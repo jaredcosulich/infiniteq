@@ -54,6 +54,6 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
 
   test "#show displays subtopics" do
     get topic_url(@topic)
-    assert_select 'a', 'Child Topic'
+    assert_select 'a', 'Child Topic (0)'
   end
 end
