@@ -2,11 +2,13 @@ class Question < ApplicationRecord
   extend FriendlyId
   friendly_id :text, use: :slugged
 
-  belongs_to :topic
+  belongs_to :topic, counter_cache: true
   has_many :answers
 
   scope :persisted, -> { where "id IS NOT NULL" }
   scope :unanswered, -> { where(answers_count: 0) }
+
+  after_commit :update_topic_recursive_question_count, on: [:create, :destroy]
 
   include AASM
   aasm do
@@ -27,5 +29,11 @@ class Question < ApplicationRecord
     event :mark_deleted do
       transitions :from => [:anonymous, :suspect, :verified], :to => :deleted
     end
+  end
+
+  private
+  def update_topic_recursive_question_count
+    return if topic.nil?
+    topic.update_recursive_questions_count
   end
 end

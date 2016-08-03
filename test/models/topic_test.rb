@@ -12,4 +12,15 @@ class TopicTest < ActiveSupport::TestCase
     child_child_child = child_child.subtopics.create(title: 'child_child_child_topic')
     assert_equal([child_child, child, parent], child_child_child.parent_path)
   end
+
+  test 'parent topics have #recursive_questions_count reflecting the sum of all children' do
+    parent = topics(:one)
+    child = topics(:child)
+    child.questions.create(text: 'Another child question')
+
+    assert_equal 1, child.reload.questions_count
+    assert_equal 2, parent.reload.questions_count
+    assert_equal 1 + 2, parent.recursive_questions_count
+  end
+
 end

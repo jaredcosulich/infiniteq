@@ -9,6 +9,7 @@ class Topic < ApplicationRecord
   has_many :subtopics, class_name: 'Topic', foreign_key: :parent_topic_id
 
   scope 'parent_topics', -> { where(parent_topic: nil) }
+  scope 'most_questions', -> { order(recursive_questions_count: :desc) }
 
   def parent_path
     return [] if (p = parent_topic).nil?
@@ -21,4 +22,14 @@ class Topic < ApplicationRecord
     return parents
   end
 
+  def update_recursive_questions_count
+    count = subtopics.inject(questions_count) do |total, subtopic|
+      total += subtopic.recursive_questions_count
+    end
+    update_column(:recursive_questions_count, count)
+
+    if parent_topic.present?
+      parent_topic.update_recursive_questions_count
+    end
+  end
 end

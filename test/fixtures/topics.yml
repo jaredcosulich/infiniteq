@@ -4,14 +4,17 @@ one:
   title: MyString
   description: MyText
   slug: 'mystring'
+  questions_count: 2
 
 two:
   title: MyString2
   description: MyText2
   slug: 'mystring2'
+  questions_count: 0
 
 child:
   title: 'Child Topic'
   description: 'A child topic'
   parent_topic: :one
   slug: 'child-topic'
+  questions_count: 0

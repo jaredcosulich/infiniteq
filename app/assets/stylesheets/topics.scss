@@ -23,8 +23,12 @@
   }
 
   .subtopics {
-    .fa-plus-circle {
-      color: #FF9A35;
+    a {
+    	white-space: nowrap;
+
+      .fa-plus-circle {
+        color: #FF9A35;
+      }
     }
   }
 
