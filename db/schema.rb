@@ -10,15 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803021415) do
+ActiveRecord::Schema.define(version: 20160806005918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answer_votes", force: :cascade do |t|
+    t.integer  "answer_id"
+    t.integer  "user_id"
+    t.integer  "trust"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
     t.integer  "question_id"
     t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "vote_toal",   default: 0
+  end
+
+  create_table "question_votes", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.integer  "trust"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -33,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160803021415) do
     t.string   "slug"
     t.string   "aasm_state"
     t.integer  "answers_count", default: 0
+    t.integer  "vote_toal",     default: 0
   end
 
   create_table "topics", force: :cascade do |t|

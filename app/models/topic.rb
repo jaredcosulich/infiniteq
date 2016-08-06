@@ -15,7 +15,8 @@ class Topic < ApplicationRecord
   after_update :update_recursive_subtopic_ids
 
   def all_questions
-    Question.for_topics(recursive_subtopic_ids.split(','))
+    topic_ids = [id].concat(recursive_subtopic_ids.try(:split, ',') || [])
+    Question.for_topics(topic_ids)
   end
 
   def parent_path

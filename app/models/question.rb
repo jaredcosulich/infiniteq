@@ -4,6 +4,7 @@ class Question < ApplicationRecord
 
   belongs_to :topic, counter_cache: true
   has_many :answers
+  has_many :question_votes
 
   scope :persisted, -> { where "id IS NOT NULL" }
   scope :unanswered, -> { where(answers_count: 0) }
