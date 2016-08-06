@@ -14,6 +14,10 @@ class Topic < ApplicationRecord
   after_commit :update_recursive_subtopic_ids, on: [:create, :destroy]
   after_update :update_recursive_subtopic_ids
 
+  def all_questions
+    Question.for_topics(recursive_subtopic_ids.split(','))
+  end
+
   def parent_path
     return [] if (p = parent_topic).nil?
     parents = []

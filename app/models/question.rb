@@ -7,6 +7,7 @@ class Question < ApplicationRecord
 
   scope :persisted, -> { where "id IS NOT NULL" }
   scope :unanswered, -> { where(answers_count: 0) }
+  scope :for_topics, -> (topic_ids) { where('topic_id in (?)', topic_ids) }
 
   after_commit :update_topic_recursive_question_count, on: [:create, :destroy]
 
