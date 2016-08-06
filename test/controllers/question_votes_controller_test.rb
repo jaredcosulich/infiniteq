@@ -5,44 +5,41 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     @question_vote = question_votes(:one)
   end
 
-  test "should get index" do
-    get question_votes_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_question_vote_url
-    assert_response :success
-  end
-
-  test "should create question_vote" do
-    assert_difference('QuestionVote.count') do
-      post question_votes_url, params: { question_vote: { question_id: @question_vote.question_id, trust: @question_vote.trust, user_id: @question_vote.user_id } }
+  test "should create question_vote with positive value" do
+    assert_difference('questions(:two).question_votes.count') do
+      post question_question_votes_url(questions(:two)), params: { question_vote: { positive: 'true' } }
     end
 
-    assert_redirected_to question_vote_url(QuestionVote.last)
+    question_vote = questions(:two).question_votes.last
+    assert_equal 1, question_vote.trust
+
+    assert_select '.vote-total .small', '0.1'
   end
 
-  test "should show question_vote" do
-    get question_vote_url(@question_vote)
-    assert_response :success
+  test "should create question_vote with negative value" do
+    assert_difference('questions(:two).question_votes.count') do
+      post question_question_votes_url(questions(:two)), params: { question_vote: { positive: 'false' } }
+    end
+
+    question_vote = questions(:two).question_votes.last
+    assert_equal -1, question_vote.trust
+
+    assert_select '.vote-total .small', '-0.1'
   end
 
-  test "should get edit" do
-    get edit_question_vote_url(@question_vote)
-    assert_response :success
-  end
-
-  test "should update question_vote" do
-    patch question_vote_url(@question_vote), params: { question_vote: { question_id: @question_vote.question_id, trust: @question_vote.trust, user_id: @question_vote.user_id } }
-    assert_redirected_to question_vote_url(@question_vote)
-  end
+  # test "should not create new question_vote if one already exists" do
+  #   assert_no_difference('QuestionVote.count') do
+  #     post question_question_votes_url(questions(:two)), params: { question_vote: { positive: 'true' } }
+  #   end
+  #
+  #   assert_redirected_to question_vote_url(QuestionVote.last)
+  # end
 
   test "should destroy question_vote" do
-    assert_difference('QuestionVote.count', -1) do
-      delete question_vote_url(@question_vote)
+    assert_difference('questions(:one).question_votes.count', -1) do
+      delete question_question_vote_url(questions(:one), @question_vote)
     end
 
-    assert_redirected_to question_votes_url
+    assert_select '.vote-total .small', '-0.1'
   end
 end
