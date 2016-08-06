@@ -1,11 +1,11 @@
 .question.col-sm-12
-  .col-sm-1
+  .vote.col-sm-1
     .up-vote
-      Up
+      %h2= fa_icon('chevron-circle-up')
     .down-vote
-      Down
+      %h2= fa_icon('chevron-circle-down')
     .vote-total
-      %h2
+      %h3
         .small= (question.vote_total / 10.0)
   .col-sm-10
     %h4
