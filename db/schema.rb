@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160806005918) do
     t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "vote_toal",   default: 0
+    t.integer  "vote_total",  default: 0
   end
 
   create_table "question_votes", force: :cascade do |t|
@@ -44,13 +44,14 @@ ActiveRecord::Schema.define(version: 20160806005918) do
     t.string   "text"
     t.text     "details"
     t.integer  "topic_id"
+    t.integer  "answer_id"
     t.integer  "user_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.string   "slug"
     t.string   "aasm_state"
     t.integer  "answers_count", default: 0
-    t.integer  "vote_toal",     default: 0
+    t.integer  "vote_total",    default: 0
   end
 
   create_table "topics", force: :cascade do |t|

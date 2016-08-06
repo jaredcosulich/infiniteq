@@ -47,42 +47,22 @@
 
   .questions.tab-content
     .tab-pane.active{id: 'verified', role: 'tabpanel'}
-      - @topic.all_questions.verified.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
+      = render @topic.all_questions.verified
       - if @topic.all_questions.verified.empty?
-        %br
-        %h5 No questions have been verified yet.
+        %h4.none No questions have been verified yet.
     .tab-pane{id: 'unanswered', role: 'tabpanel'}
-      - @topic.all_questions.verified.unanswered.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
+      = render @topic.all_questions.verified.unanswered
       - if @topic.all_questions.verified.unanswered.empty?
-        %br
-        %h5 There are currently no unanswered verified questions.
+        %h4.none There are currently no unanswered verified questions.
     .tab-pane{id: 'unverified', role: 'tabpanel'}
-      - @topic.all_questions.unverified.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
+      = render @topic.all_questions.unverified
       - if @topic.all_questions.unverified.empty?
-        %br
-        %h5 There are currently no unverified questions.
+        %h4.none There are currently no unverified questions.
     .tab-pane{id: 'flagged', role: 'tabpanel'}
-      - @topic.all_questions.flagged.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
+      = render @topic.all_questions.flagged
       - if @topic.all_questions.flagged.empty?
-        %br
-        %h5 There are currently no flagged questions.
+        %h4.none There are currently no flagged questions.
     .tab-pane{id: 'suspect', role: 'tabpanel'}
-      - @topic.all_questions.suspect.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
+      = render @topic.all_questions.suspect
       - if @topic.all_questions.suspect.empty?
-        %br
-        %h5 There are currently no suspect questions.
+        %h4.none There are currently no suspect questions.
