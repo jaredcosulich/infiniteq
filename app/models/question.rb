@@ -6,6 +6,7 @@ class Question < ApplicationRecord
   has_many :answers
   has_many :question_votes
 
+  default_scope { order(vote_total: :desc, created_at: :desc) }
   scope :persisted, -> { where "id IS NOT NULL" }
   scope :unanswered, -> { where(answers_count: 0) }
   scope :for_topics, -> (topic_ids) { where('topic_id in (?)', topic_ids) }
