@@ -33,9 +33,18 @@
   }
 
   .questions {
+    .none {
+      padding: 30px;
+    }
+
     .question {
-      padding: 24px 12px;
+      padding: 12px;
       border-bottom: 1px dashed #ccc;
+
+      %h4 {
+        display: inline;
+        font-weight: bold;
+      }
 
       a {
         border: none;

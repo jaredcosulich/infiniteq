@@ -27,62 +27,42 @@
     %li.active{role: 'presentation'}
       %a{href: '#verified', role: 'tab', aria: {controls: 'verified'}, data: {toggle: 'tab'}}
         Questions
-        = "(#{@topic.questions.verified.count})"
+        = "(#{@topic.all_questions.verified.count})"
     %li{role: 'presentation'}
       %a{href: '#unanswered', role: 'tab', aria: {controls: 'unanswered'}, data: {toggle: 'tab'}}
         Unanswered
-        = "(#{@topic.questions.verified.unanswered.count})"
+        = "(#{@topic.all_questions.verified.unanswered.count})"
     %li{role: 'presentation'}
       %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
         Unverified
-        = "(#{@topic.questions.unverified.count})"
+        = "(#{@topic.all_questions.unverified.count})"
     %li{role: 'presentation'}
       %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
         Flagged
-        = "(#{@topic.questions.flagged.count})"
+        = "(#{@topic.all_questions.flagged.count})"
     %li{role: 'presentation'}
       %a{href: '#suspect', role: 'tab', aria: {controls: 'suspect'}, data: {toggle: 'tab'}}
         Suspect
-        = "(#{@topic.questions.suspect.count})"
+        = "(#{@topic.all_questions.suspect.count})"
 
   .questions.tab-content
     .tab-pane.active{id: 'verified', role: 'tabpanel'}
-      - @topic.questions.verified.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
-      - if @topic.questions.verified.empty?
-        %br
-        %h5 No questions have been verified yet.
+      = render @topic.all_questions.verified
+      - if @topic.all_questions.verified.empty?
+        %h4.none No questions have been verified yet.
     .tab-pane{id: 'unanswered', role: 'tabpanel'}
-      - @topic.questions.verified.unanswered.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
-      - if @topic.questions.verified.unanswered.empty?
-        %br
-        %h5 There are currently no unanswered verified questions.
+      = render @topic.all_questions.verified.unanswered
+      - if @topic.all_questions.verified.unanswered.empty?
+        %h4.none There are currently no unanswered verified questions.
     .tab-pane{id: 'unverified', role: 'tabpanel'}
-      - @topic.questions.unverified.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
-      - if @topic.questions.unverified.empty?
-        %br
-        %h5 There are currently no unverified questions.
+      = render @topic.all_questions.unverified
+      - if @topic.all_questions.unverified.empty?
+        %h4.none There are currently no unverified questions.
     .tab-pane{id: 'flagged', role: 'tabpanel'}
-      - @topic.questions.flagged.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
-      - if @topic.questions.flagged.empty?
-        %br
-        %h5 There are currently no flagged questions.
+      = render @topic.all_questions.flagged
+      - if @topic.all_questions.flagged.empty?
+        %h4.none There are currently no flagged questions.
     .tab-pane{id: 'suspect', role: 'tabpanel'}
-      - @topic.questions.suspect.each do |question|
-        .question
-          %strong.title Q:
-          = link_to(question.text, question)
-      - if @topic.questions.suspect.empty?
-        %br
-        %h5 There are currently no suspect questions.
+      = render @topic.all_questions.suspect
+      - if @topic.all_questions.suspect.empty?
+        %h4.none There are currently no suspect questions.

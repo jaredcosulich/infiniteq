@@ -55,11 +55,11 @@ a, a:visited, a:hover {
   padding: 0 12px 0 30px;
 
   h3 {
-    margin-top: 12px;
+    margin: 12px 0 48px 0;
   }
 
   .section {
-    padding: 12px 0;
+    padding-bottom: 45px;
 
     ul {
       padding-left: 24px;
@@ -90,4 +90,17 @@ a, a:visited, a:hover {
 
 i.fa {
   color: #FF9A35;
+}
+
+.vote {
+  text-align: center;
+  border-right: 1px solid #ccc;
+
+  h2, h3 {
+    margin: 0;
+  }
+
+  .vote-total {
+    margin-top: 6px;
+  }
 }

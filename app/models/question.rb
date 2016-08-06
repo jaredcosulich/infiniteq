@@ -4,9 +4,11 @@ class Question < ApplicationRecord
 
   belongs_to :topic, counter_cache: true
   has_many :answers
+  has_many :question_votes
 
   scope :persisted, -> { where "id IS NOT NULL" }
   scope :unanswered, -> { where(answers_count: 0) }
+  scope :for_topics, -> (topic_ids) { where('topic_id in (?)', topic_ids) }
 
   after_commit :update_topic_recursive_question_count, on: [:create, :destroy]
 
