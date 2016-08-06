@@ -33,6 +33,10 @@ class Question < ApplicationRecord
     end
   end
 
+  def update_votes
+    update_column :vote_total, question_votes.sum(:trust)
+  end
+
   private
   def update_topic_recursive_question_count
     return if topic.nil?

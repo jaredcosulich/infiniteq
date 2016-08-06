@@ -1,9 +1,12 @@
 .question.col-sm-12
   .vote.col-sm-1
-    .up-vote
-      %h2= fa_icon('chevron-circle-up')
+    = form_for [question, question.question_votes.new(positive: true)], remote: true, class: 'up-vote' do |f|
+      = f.hidden_field :positive
+      %h2= button_tag fa_icon('chevron-circle-up')
     .down-vote
-      %h2= fa_icon('chevron-circle-down')
+    = form_for [question, question.question_votes.new(positive: false)], remote: true, class: 'down-vote' do |f|
+      = f.hidden_field :positive
+      %h2= button_tag fa_icon('chevron-circle-down')
     .vote-total
       %h3
         .small= (question.vote_total / 10.0)

@@ -103,4 +103,14 @@ i.fa {
   .vote-total {
     margin-top: 6px;
   }
+
+  form {
+    button {
+      outline: none;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
 }

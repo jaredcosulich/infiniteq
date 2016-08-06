@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   resources :answer_votes
-  resources :question_votes
   resources :answers
-  resources :questions
+  resources :questions do
+    resources :question_votes
+  end
   resources :topics
   root 'welcome#index'
 
