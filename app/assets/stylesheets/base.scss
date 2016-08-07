@@ -24,7 +24,7 @@ a, a:visited, a:hover {
   text-align: center;
 }
 
-#notice {
+.notice, .warning {
   text-align: center;
   color: white;
   background-color: #FF9A35;
@@ -46,6 +46,14 @@ a, a:visited, a:hover {
 
     a {
       border: none;
+    }
+  }
+
+  .links {
+    text-align: right;
+    a {
+      line-height: 60px;
+      margin-right: 45px;
     }
   }
 }

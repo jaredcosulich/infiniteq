@@ -1,7 +1,4 @@
 .col-sm-12
-  - if notice.present?
-    %p#notice= notice
-
   = render 'topics/topic_path', topic: @topic
   .small.subtopics
     %strong Subtopics:

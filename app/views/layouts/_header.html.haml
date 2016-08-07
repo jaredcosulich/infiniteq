@@ -1,2 +1,7 @@
-.header.col-md-12
-  %h1= link_to('InfiniteQ', root_path, class: 'title')
+.header.col-sm-12
+  .col-sm-4
+    %h1= link_to('InfiniteQ', root_path, class: 'title')
+
+  .links.col-sm-3.col-sm-offset-5
+    = link_to "Log In", new_user_session_path
+    = link_to "Register", new_user_registration_path
