@@ -1,12 +1,13 @@
 class QuestionVote < ApplicationRecord
 
   belongs_to :question
+  belongs_to :user
 
   attr_accessor :positive
 
   before_save :set_trust
   after_commit :update_question
-  
+
 
   private
 

@@ -5,11 +5,18 @@ class QuestionVotesController < ApplicationController
   # POST /question_votes
   # POST /question_votes.json
   def create
-    @question_vote = @question.question_votes.new(question_vote_params)
+    @question_vote = @question.question_votes.new(question_vote_params.merge(user: current_user))
 
     respond_to do |format|
       if @question_vote.save
-        format.html { render @question }
+        format.html {
+          if @question_vote.user.present?
+            render @question
+          else
+            update_temporary_user
+            redirect_to join_path(o: 'QuestionVote', i: @question_vote.id)
+          end
+        }
         format.json { render :show, status: :created, location: @question_vote }
       else
         format.html { render :new }
@@ -42,6 +49,18 @@ class QuestionVotesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_vote_params
       params.require(:question_vote).permit(:question_id, :positive)
+    end
+
+    def update_temporary_user
+      temporary_user = TemporaryUser.find_by(ip_address: request.remote_ip)
+
+      if temporary_user.nil?
+        temporary_user = TemporaryUser.create(ip_address: request.remote_ip)
+      end
+
+      votes = JSON.parse(temporary_user.votes || {'questions' => [], 'answers' => []}.to_json)
+      votes['questions'] << @question_vote.id
+      temporary_user.update(votes: votes.to_json)
     end
 
 end

@@ -1,12 +1,8 @@
 .question.col-sm-12
   .vote.col-sm-1
-    = form_for [question, question.question_votes.new(positive: true)], remote: true, class: 'up-vote' do |f|
-      = f.hidden_field :positive
-      %h2= button_tag fa_icon('chevron-circle-up')
+    = render partial: 'votes/vote', locals: {object: question, positive: true}
     .down-vote
-    = form_for [question, question.question_votes.new(positive: false)], remote: true, class: 'down-vote' do |f|
-      = f.hidden_field :positive
-      %h2= button_tag fa_icon('chevron-circle-down')
+      = render partial: 'votes/vote', locals: {object: question, positive: false}
     .vote-total
       %h3
         .small= (question.vote_total.to_f / 10.0)
