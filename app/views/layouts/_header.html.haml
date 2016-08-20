@@ -4,6 +4,7 @@
 
   .links.col-sm-3.col-sm-offset-5
     - if user_signed_in?
+      = link_to truncate(current_user.name || current_user.email, length: 18)
       = link_to "Log Out", destroy_user_session_path, :method => :delete
     - else
       = link_to "Log In", new_user_session_path

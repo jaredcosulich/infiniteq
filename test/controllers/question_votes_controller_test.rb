@@ -14,9 +14,9 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     question_vote = questions(:two).question_votes.last
-    assert_equal 1, question_vote.trust
+    assert_equal 10, question_vote.trust
 
-    assert_select '.vote-total .small', '0.1'
+    assert_select '.vote-total .small', '1.0'
   end
 
   test "should create question_vote with negative value" do
@@ -27,9 +27,9 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     question_vote = questions(:two).question_votes.last
-    assert_equal -1, question_vote.trust
+    assert_equal -10, question_vote.trust
 
-    assert_select '.vote-total .small', '-0.1'
+    assert_select '.vote-total .small', '-1.0'
   end
 
   # test "should not create new question_vote if one already exists" do

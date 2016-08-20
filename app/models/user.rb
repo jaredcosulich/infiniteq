@@ -4,4 +4,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable
+
+  before_save :update_trust
+
+  private
+
+    def update_trust
+      self.trust = 10 if confirmed?
+    end
+
+
+
 end

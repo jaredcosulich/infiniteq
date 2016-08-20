@@ -12,7 +12,8 @@ class QuestionVote < ApplicationRecord
   private
 
   def set_trust
-    self.trust = (positive == 'false' ? -1 : 1)
+    t = user.present? ? user.trust : 1
+    self.trust = (positive == 'false' ? t * -1 : t)
   end
 
   def update_question
