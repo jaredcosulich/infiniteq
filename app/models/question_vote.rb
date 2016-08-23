@@ -8,6 +8,13 @@ class QuestionVote < ApplicationRecord
   before_save :set_trust
   after_commit :update_question
 
+  def topic
+    'Question'
+  end
+
+  def topic_id
+    question_id
+  end
 
   private
 

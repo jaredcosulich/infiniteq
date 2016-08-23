@@ -13,7 +13,7 @@ class QuestionVotesController < ApplicationController
           if @question_vote.user.present?
             render @question
           else
-            update_temporary_user
+            update_temporary_user(@question_vote)
             redirect_to join_path(o: 'QuestionVote', i: @question_vote.id)
           end
         }
@@ -51,16 +51,9 @@ class QuestionVotesController < ApplicationController
       params.require(:question_vote).permit(:question_id, :positive)
     end
 
-    def update_temporary_user
-      temporary_user = TemporaryUser.find_by(ip_address: request.remote_ip)
-
-      if temporary_user.nil?
-        temporary_user = TemporaryUser.create(ip_address: request.remote_ip)
-      end
-
-      votes = JSON.parse(temporary_user.votes || {'questions' => [], 'answers' => []}.to_json)
-      votes['questions'] << @question_vote.id
-      temporary_user.update(votes: votes.to_json)
+    def update_temporary_user(question_vote)
+      temporary_user = TemporaryUser.find_or_create_by(ip_address: request.remote_ip)
+      temporary_user.add_vote(question_vote)
     end
 
 end

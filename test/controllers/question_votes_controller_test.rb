@@ -52,7 +52,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
 
     temporary_user = TemporaryUser.last
     assert_equal '1.1.1.1', temporary_user.ip_address
-    assert_equal([question_vote.id], JSON.parse(temporary_user.votes)['questions'])
+    assert_equal({question_vote.question_id.to_s => question_vote.id}, JSON.parse(temporary_user.votes)['question'])
 
     assert_redirected_to join_path(o: 'QuestionVote', i: question_vote.id)
   end
