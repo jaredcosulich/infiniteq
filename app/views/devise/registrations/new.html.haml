@@ -8,8 +8,10 @@
 
     .form-group
       %h5
-        = f.label :name, 'Display Name (the name displayed on this site)'
+        = f.label :name, 'Display Name'
         = f.text_field :name, class: 'form-control', autofocus: true
+      .small
+        Note: Your display name will be shown on leaderboards, so if you want credit for your activity on a topic you may want to use your real name.
 
     %br
 
