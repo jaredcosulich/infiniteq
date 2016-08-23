@@ -2,6 +2,7 @@ class Question < ApplicationRecord
   extend FriendlyId
   friendly_id :text, use: :slugged
 
+  belongs_to :user
   belongs_to :topic, counter_cache: true
   has_many :answers
   has_many :question_votes
