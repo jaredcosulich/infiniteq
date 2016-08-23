@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  resources :temporary_users
-  devise_for :users
-  resources :answer_votes
-  resources :answers
+  resources :topics
   resources :questions do
     resources :question_votes
   end
-  resources :topics
+  resources :answers
+  resources :answer_votes
+
+  resources :temporary_users
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
+
   get 'join' => 'welcome#join'
   root 'welcome#index'
 
