@@ -32,14 +32,6 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     assert_select '.vote-total .small', '-1.0'
   end
 
-  # test "should not create new question_vote if one already exists" do
-  #   assert_no_difference('QuestionVote.count') do
-  #     post question_question_votes_url(questions(:two)), params: { question_vote: { positive: 'true' } }
-  #   end
-  #
-  #   assert_redirected_to question_vote_url(QuestionVote.last)
-  # end
-
   test "should allow you to vote even if not registered, but should then ask you to register" do
     assert_difference('questions(:two).question_votes.count TemporaryUser.count') do
       post question_question_votes_url(questions(:two)),
@@ -64,4 +56,45 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
 
     assert_select '.vote-total .small', '-0.1'
   end
+
+  test 'updates existing vote if made by same temporary user' do
+    question = questions(:two)
+    post question_question_votes_url(question),
+      params: { question_vote: { positive: 'false' } },
+      headers: { REMOTE_ADDR: '9.1.1.1' }
+
+    assert_equal -1, question.reload.vote_total
+
+    assert_no_difference('QuestionVote.count') do
+      post question_question_votes_url(question),
+        params: { question_vote: { positive: 'true' } },
+        headers: { REMOTE_ADDR: '9.1.1.1' }
+    end
+
+    assert_equal 1, question.reload.vote_total
+  end
+
+  test 'updates existing vote if made by same user' do
+    user = users(:registered)
+    question = questions(:two)
+
+    sign_in user
+
+    assert_difference('user.question_votes.count') do
+      post question_question_votes_url(question),
+        params: { question_vote: { positive: 'false' } },
+        headers: { REMOTE_ADDR: '10.10.10.10' }
+    end
+
+    assert_equal -10, user.question_votes.last.trust
+
+    assert_no_difference('user.question_votes.count') do
+      post question_question_votes_url(question),
+        params: { question_vote: { positive: 'true' } },
+        headers: { REMOTE_ADDR: '10.10.10.10' }
+    end
+
+    assert_equal 10, user.question_votes.last.trust
+  end
+
 end

@@ -5,7 +5,15 @@ class QuestionVotesController < ApplicationController
   # POST /question_votes
   # POST /question_votes.json
   def create
-    @question_vote = @question.question_votes.new(question_vote_params.merge(user: current_user))
+    if user_signed_in?
+      @question_vote = current_user.question_votes.find_by(question_id: @question.id)
+    end
+
+    if @question_vote.present?
+      @question_vote.assign_attributes(question_vote_params)
+    else
+      @question_vote = @question.question_votes.new(question_vote_params.merge(user: current_user))
+    end
 
     respond_to do |format|
       if @question_vote.save
