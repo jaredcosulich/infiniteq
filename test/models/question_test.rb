@@ -10,4 +10,9 @@ class QuestionTest < ActiveSupport::TestCase
     assert question.unverified?
   end
 
+  test 'has a vote_total equal to the trust of the user that created the question' do
+    question = Question.create(text: 'A new question', user: users(:registered))
+    assert_equal 10, question.vote_total
+  end
+
 end
