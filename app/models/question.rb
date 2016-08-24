@@ -15,25 +15,31 @@ class Question < ApplicationRecord
 
   after_commit :update_topic_recursive_question_count, on: [:create, :destroy]
   after_create :update_votes
+  after_save :transition_states
+
 
   include AASM
   aasm do
+    state :verified
     state :unverified, :initial => true
     state :flagged
     state :suspect
-    state :verified
     state :deleted
 
     event :verify do
-      transitions :from => [:anonymous, :suspect], :to => :verified
+      transitions :from => [:unverified, :suspect], :to => :verified
     end
 
-    event :flag do
-      transitions :from => [:anonymous, :verified], :to => :suspect
+    event :unverify do
+      transitions :from => [:verified, :suspect], :to => :unverified
+    end
+
+    event :mark_suspect do
+      transitions :from => [:unverified, :verified], :to => :suspect
     end
 
     event :mark_deleted do
-      transitions :from => [:anonymous, :suspect, :verified], :to => :deleted
+      transitions :from => [:unverified, :suspect, :verified], :to => :deleted
     end
   end
 
