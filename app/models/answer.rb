@@ -9,5 +9,5 @@ class Answer < ApplicationRecord
   scope :persisted, -> { where "id IS NOT NULL" }
 
   after_create :update_votes
-
+  # after_save :transition_states
 end
