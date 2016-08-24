@@ -116,7 +116,6 @@ i.fa {
 
 .vote {
   text-align: center;
-  border-right: 1px solid #ccc;
 
   h2, h3 {
     margin: 0;
@@ -135,4 +134,8 @@ i.fa {
       margin: 0;
     }
   }
+}
+
+.votable {
+  border-left: 1px solid #ccc;
 }

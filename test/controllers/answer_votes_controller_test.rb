@@ -5,44 +5,94 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     @answer_vote = answer_votes(:one)
   end
 
-  test "should get index" do
-    get answer_votes_url
-    assert_response :success
-  end
+  test "should create answer_vote with positive value" do
+    sign_in users(:registered)
 
-  test "should get new" do
-    get new_answer_vote_url
-    assert_response :success
-  end
-
-  test "should create answer_vote" do
-    assert_difference('AnswerVote.count') do
-      post answer_votes_url, params: { answer_vote: { answer_id: @answer_vote.answer_id, trust: @answer_vote.trust, user_id: @answer_vote.user_id } }
+    assert_difference('answers(:two).answer_votes.count') do
+      post answer_answer_votes_url(answers(:two)), params: { answer_vote: { positive: 'true' } }
     end
 
-    assert_redirected_to answer_vote_url(AnswerVote.last)
+    answer_vote = answers(:two).answer_votes.last
+    assert_equal 10, answer_vote.trust
+
+    assert_select '.vote-total .small', '1.0'
   end
 
-  test "should show answer_vote" do
-    get answer_vote_url(@answer_vote)
-    assert_response :success
+  test "should create answer_vote with negative value" do
+    sign_in users(:registered)
+
+    assert_difference('answers(:two).answer_votes.count') do
+      post answer_answer_votes_url(answers(:two)), params: { answer_vote: { positive: 'false' } }
+    end
+
+    answer_vote = answers(:two).answer_votes.last
+    assert_equal -10, answer_vote.trust
+
+    assert_select '.vote-total .small', '-1.0'
   end
 
-  test "should get edit" do
-    get edit_answer_vote_url(@answer_vote)
-    assert_response :success
-  end
+  test "should allow you to vote even if not registered, but should then ask you to register" do
+    assert_difference('answers(:two).answer_votes.count TemporaryUser.count') do
+      post answer_answer_votes_url(answers(:two)),
+        params: { answer_vote: { positive: 'true' } },
+        headers: { REMOTE_ADDR: '1.1.1.1' }
+    end
 
-  test "should update answer_vote" do
-    patch answer_vote_url(@answer_vote), params: { answer_vote: { answer_id: @answer_vote.answer_id, trust: @answer_vote.trust, user_id: @answer_vote.user_id } }
-    assert_redirected_to answer_vote_url(@answer_vote)
+    answer_vote = answers(:two).answer_votes.last
+    assert_equal 1, answer_vote.trust
+
+    temporary_user = TemporaryUser.last
+    assert_equal '1.1.1.1', temporary_user.ip_address
+    assert_equal({answer_vote.answer_id.to_s => answer_vote.id}, JSON.parse(temporary_user.votes)['answer'])
+
+    assert_redirected_to join_path(o: 'answerVote', i: answer_vote.id)
   end
 
   test "should destroy answer_vote" do
-    assert_difference('AnswerVote.count', -1) do
-      delete answer_vote_url(@answer_vote)
+    assert_difference('answers(:one).answer_votes.count', -1) do
+      delete answer_answer_vote_url(answers(:one), @answer_vote)
     end
 
-    assert_redirected_to answer_votes_url
+    assert_select '.vote-total .small', '-0.1'
+  end
+
+  test 'updates existing vote if made by same temporary user' do
+    answer = answers(:two)
+    post answer_answer_votes_url(answer),
+      params: { answer_vote: { positive: 'false' } },
+      headers: { REMOTE_ADDR: '9.1.1.1' }
+
+    assert_equal -1, answer.reload.vote_total
+
+    assert_no_difference('AnswerVote.count') do
+      post answer_answer_votes_url(answer),
+        params: { answer_vote: { positive: 'true' } },
+        headers: { REMOTE_ADDR: '9.1.1.1' }
+    end
+
+    assert_equal 1, answer.reload.vote_total
+  end
+
+  test 'updates existing vote if made by same user' do
+    user = users(:registered)
+    answer = answers(:two)
+
+    sign_in user
+
+    assert_difference('user.answer_votes.count') do
+      post answer_answer_votes_url(answer),
+        params: { answer_vote: { positive: 'false' } },
+        headers: { REMOTE_ADDR: '10.10.10.10' }
+    end
+
+    assert_equal -10, user.answer_votes.last.trust
+
+    assert_no_difference('user.answer_votes.count') do
+      post answer_answer_votes_url(answer),
+        params: { answer_vote: { positive: 'true' } },
+        headers: { REMOTE_ADDR: '10.10.10.10' }
+    end
+
+    assert_equal 10, user.answer_votes.last.trust
   end
 end
