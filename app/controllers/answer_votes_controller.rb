@@ -19,7 +19,7 @@ class AnswerVotesController < ApplicationController
       if @answer_vote.save
         format.html {
           if @answer_vote.user.present?
-            render @answer
+            render @answer.reload
           else
             update_temporary_user(@answer_vote)
             redirect_to join_path(o: 'answerVote', i: @answer_vote.id)

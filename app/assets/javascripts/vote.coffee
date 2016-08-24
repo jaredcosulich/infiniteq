@@ -1,6 +1,6 @@
 initVote = ->
-  $('.new_question_vote').on 'ajax:success', (e, data, status, xhr) ->
-    $(this).closest('.question').replaceWith(data)
+  $('.new_question_vote, .new_answer_vote').on 'ajax:success', (e, data, status, xhr) ->
+    $(this).closest('.question, .answer').replaceWith(data)
     initVote()
 
 $(document).ready(initVote)
