@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+  include Votable
   extend FriendlyId
   friendly_id :text, use: :slugged
 
@@ -13,6 +14,7 @@ class Question < ApplicationRecord
   scope :for_topics, -> (topic_ids) { where('topic_id in (?)', topic_ids) }
 
   after_commit :update_topic_recursive_question_count, on: [:create, :destroy]
+  after_create :update_votes
 
   include AASM
   aasm do
@@ -33,10 +35,6 @@ class Question < ApplicationRecord
     event :mark_deleted do
       transitions :from => [:anonymous, :suspect, :verified], :to => :deleted
     end
-  end
-
-  def update_votes
-    update_column :vote_total, question_votes.sum(:trust)
   end
 
   private

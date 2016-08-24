@@ -1,4 +1,5 @@
 class Answer < ApplicationRecord
+  include Votable
 
   belongs_to :user
   belongs_to :question, counter_cache: true
@@ -7,8 +8,6 @@ class Answer < ApplicationRecord
   default_scope { order(vote_total: :desc, created_at: :desc) }
   scope :persisted, -> { where "id IS NOT NULL" }
 
-  def update_votes
-    update_column :vote_total, answer_votes.sum(:trust)
-  end
+  after_create :update_votes
 
 end
