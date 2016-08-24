@@ -6,7 +6,7 @@
     .vote-total
       %h3
         .small= (question.vote_total.to_f / 10.0)
-  .col-sm-10
+  .votable.col-sm-11
     %h4
       %span.title Q:
       = link_to(question.text, question)

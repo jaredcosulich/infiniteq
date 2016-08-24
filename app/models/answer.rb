@@ -6,4 +6,8 @@ class Answer < ApplicationRecord
 
   scope :persisted, -> { where "id IS NOT NULL" }
 
+  def update_votes
+    update_column :vote_total, answer_votes.sum(:trust)
+  end
+
 end

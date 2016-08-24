@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   resources :questions do
     resources :question_votes
   end
-  resources :answers
-  resources :answer_votes
-
+  resources :answers do
+    resources :answer_votes
+  end
   resources :temporary_users
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 

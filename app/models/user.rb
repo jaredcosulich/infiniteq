@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :confirmable, :omniauthable
 
   has_many :question_votes
+  has_many :answer_votes
 
   before_save :update_trust
 
