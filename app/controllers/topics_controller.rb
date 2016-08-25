@@ -34,6 +34,7 @@ class TopicsController < ApplicationController
       if @topic.save
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
+        AdminMailer.object_created(@topic).deliver_now
       else
         format.html { render :new }
         format.json { render json: @topic.errors, status: :unprocessable_entity }
