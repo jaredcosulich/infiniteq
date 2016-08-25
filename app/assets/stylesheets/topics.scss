@@ -14,8 +14,14 @@
       width: 100%;
       margin-top: 12px;
 
-      .form-control {
+      .question_field {
         width: 80%;
+      }
+
+      .details_field {
+        width: 100%;
+        height: 2.5em;
+        margin-top: 12px;
       }
     }
   }
