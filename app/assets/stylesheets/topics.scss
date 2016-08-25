@@ -1,6 +1,4 @@
-// Place all the styles related to the Topics controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables";
 
 .topics-controller {
   .topic-title {
@@ -27,7 +25,7 @@
     	white-space: nowrap;
 
       .fa-plus-circle {
-        color: #FF9A35;
+        color: $orange-color;
       }
     }
   }

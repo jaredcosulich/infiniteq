@@ -1,5 +1,4 @@
-// COLORS: https://coolors.co/f26419-ff9a35-2f4858-33658a-86bbd8
-
+@import "variables";
 
 body {
   padding: 0;
@@ -27,13 +26,13 @@ a, a:visited, a:hover {
 .notice, .warning {
   text-align: center;
   color: white;
-  background-color: #FF9A35;
+  background-color: $orange-color;
   padding: 12px 0;
   margin-bottom: 30px;
 }
 
 .btn-default {
-  background-color: #FF9A35;
+  background-color: $orange-color;
   color: white;
 }
 
@@ -93,7 +92,7 @@ a, a:visited, a:hover {
 
   .about {
     padding: 12px;
-    background-color: #33658A;
+    background-color: $blue-color;
     color: white;
 
     a {
@@ -111,7 +110,7 @@ a, a:visited, a:hover {
 }
 
 i.fa {
-  color: #FF9A35;
+  color: $orange-color;
 }
 
 .vote {
@@ -169,5 +168,5 @@ i.fa {
 }
 
 .label-warning {
-  background-color: #FF9A35;
+  background-color: $orange-color;
 }
