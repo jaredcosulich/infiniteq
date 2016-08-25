@@ -1,0 +1,45 @@
+%ul.nav.nav-tabs{role: 'tablist'}
+  %li.active{role: 'presentation'}
+    %a{href: '#verified', role: 'tab', aria: {controls: 'verified'}, data: {toggle: 'tab'}}
+      Verified
+      %span.label.label-success= records.verified.count
+  - if type == 'questions'
+    %li{role: 'presentation'}
+      %a{href: '#unanswered', role: 'tab', aria: {controls: 'unanswered'}, data: {toggle: 'tab'}}
+        Unanswered
+        %span.label.label-danger= records.verified.unanswered.count
+  %li{role: 'presentation'}
+    %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
+      Unverified
+      %span.label.label-warning= records.unverified.count
+  %li{role: 'presentation'}
+    %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
+      Flagged
+      %span.label.label-default= records.flagged.count
+  %li{role: 'presentation'}
+    %a{href: '#suspect', role: 'tab', aria: {controls: 'suspect'}, data: {toggle: 'tab'}}
+      Suspect
+      %span.label.label-default= records.suspect.count
+
+.votable.tab-content
+  .tab-pane.active{id: 'verified', role: 'tabpanel'}
+    = render records.verified
+    - if records.verified.empty?
+      %h4.none= "No #{type} have been verified yet."
+  - if type == 'questions'
+    .tab-pane{id: 'unanswered', role: 'tabpanel'}
+      = render records.verified.unanswered
+      - if records.verified.unanswered.empty?
+        %h4.none there are currently no unanswered verified questions.
+  .tab-pane{id: 'unverified', role: 'tabpanel'}
+    = render records.unverified
+    - if records.unverified.empty?
+      %h4.none= "There are currently no unverified #{type}."
+  .tab-pane{id: 'flagged', role: 'tabpanel'}
+    = render records.flagged
+    - if records.flagged.empty?
+      %h4.none= "There are currently no flagged #{type}."
+  .tab-pane{id: 'suspect', role: 'tabpanel'}
+    = render records.suspect
+    - if records.suspect.empty?
+      %h4.none= "There are currently no suspect #{type}."

@@ -14,9 +14,5 @@
         = f.submit 'Submit Answer', class: 'btn btn-default'
 
 
-  %h5 Answers
-  .answers
-    = render @question.answers.persisted
-    - if @question.answers.persisted.empty?
-      %br
-      %h5 No answers have been provided yet.
+  %h4 Answers
+  = render partial: 'votable/tabs', locals: {records: @question.answers.persisted, type: 'answers'}

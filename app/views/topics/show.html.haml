@@ -26,48 +26,4 @@
       &nbsp;|&nbsp;
       = link_to_if params[:f] == 't',  'Include Subtopics', url_for(f: nil)
   %h4 Questions
-
-  - base_questions = (params[:f] == 't' ? @topic.questions : @topic.all_questions)
-  %ul.nav.nav-tabs{role: 'tablist'}
-    %li.active{role: 'presentation'}
-      %a{href: '#verified', role: 'tab', aria: {controls: 'verified'}, data: {toggle: 'tab'}}
-        Verified
-        %span.label.label-success= base_questions.verified.count
-    %li{role: 'presentation'}
-      %a{href: '#unanswered', role: 'tab', aria: {controls: 'unanswered'}, data: {toggle: 'tab'}}
-        Unanswered
-        %span.label.label-danger= base_questions.verified.unanswered.count
-    %li{role: 'presentation'}
-      %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
-        Unverified
-        %span.label.label-warning= base_questions.unverified.count
-    %li{role: 'presentation'}
-      %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
-        Flagged
-        %span.label.label-default= base_questions.flagged.count
-    %li{role: 'presentation'}
-      %a{href: '#suspect', role: 'tab', aria: {controls: 'suspect'}, data: {toggle: 'tab'}}
-        Suspect
-        %span.label.label-default= base_questions.suspect.count
-
-  .questions.tab-content
-    .tab-pane.active{id: 'verified', role: 'tabpanel'}
-      = render base_questions.verified
-      - if base_questions.verified.empty?
-        %h4.none No questions have been verified yet.
-    .tab-pane{id: 'unanswered', role: 'tabpanel'}
-      = render base_questions.verified.unanswered
-      - if base_questions.verified.unanswered.empty?
-        %h4.none There are currently no unanswered verified questions.
-    .tab-pane{id: 'unverified', role: 'tabpanel'}
-      = render base_questions.unverified
-      - if base_questions.unverified.empty?
-        %h4.none There are currently no unverified questions.
-    .tab-pane{id: 'flagged', role: 'tabpanel'}
-      = render base_questions.flagged
-      - if base_questions.flagged.empty?
-        %h4.none There are currently no flagged questions.
-    .tab-pane{id: 'suspect', role: 'tabpanel'}
-      = render base_questions.suspect
-      - if base_questions.suspect.empty?
-        %h4.none There are currently no suspect questions.
+  = render partial: 'votable/tabs', locals: {records: (params[:f] == 't' ? @topic.questions : @topic.all_questions), type: 'questions'}
