@@ -19,4 +19,4 @@
       = question.created_at.strftime('%m/%d/%y')
       &nbsp; &nbsp;
       By
-      = question.user.present? ? link_to(question.user.name, question) : 'Anonymous'
+      = question.user.present? ? link_to(question.user.name, '') : 'Anonymous'

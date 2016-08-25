@@ -11,4 +11,7 @@
     .details.small
       = answer.created_at.strftime('%m/%d/%y')
       &nbsp; &nbsp;
+      By
+      = answer.user.present? ? link_to(answer.user.name, '') : 'Anonymous'
+      &nbsp; &nbsp;
       = link_to fa_icon('pencil-square-o'), edit_answer_path(answer)
