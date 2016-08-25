@@ -49,6 +49,17 @@
       a {
         border: none;
       }
+
+      .answer {
+        position: relative;
+        height: 4em;
+        overflow: hidden;
+      }
+
+      .details {
+        padding: 6px 12px;
+        background-color: #efefef;
+      }
     }
   }
 

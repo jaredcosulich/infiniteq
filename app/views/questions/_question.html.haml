@@ -10,3 +10,13 @@
     %h4
       %span.title Q:
       = link_to(question.text, question)
+
+    .small.answer
+      = markdown("**A:** #{question.answers.first.text}") if question.answers.present?
+      = link_to '&nbsp;'.html_safe, question, class: 'fadeout'
+
+    .details.small
+      = question.created_at.strftime('%m/%d/%y')
+      &nbsp; &nbsp;
+      By
+      = question.user.present? ? link_to(question.user.name, question) : 'Anonymous'
