@@ -2,11 +2,13 @@
   = render('topics/topic_path', topic: @question.topic) if @question.topic.present?
 
   .question
+    %h3 Question:
     %h4= @question.text
-    .small= @question.details
+    - if @question.details.present?
+      .small= markdown(@question.details)
 
   .answer_question
-    %h5 Answer This Question
+    %h4 Answer This Question
     = form_for @answer do |f|
       .form-group
         = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
