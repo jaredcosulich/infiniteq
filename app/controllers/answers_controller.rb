@@ -25,6 +25,7 @@ class AnswersController < ApplicationController
       if @answer.save
         format.html { redirect_to @answer.question, notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
+        AdminMailer.object_created(@answer).deliver_now
       else
         format.html { render :new }
         format.json { render json: @answer.errors, status: :unprocessable_entity }
