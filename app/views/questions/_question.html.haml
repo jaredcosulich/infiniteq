@@ -16,6 +16,9 @@
       = link_to '&nbsp;'.html_safe, question, class: 'fadeout'
 
     .details.small
+      Topic:
+      = link_to question.topic.title, question.topic
+      &nbsp; &nbsp;
       = question.created_at.strftime('%m/%d/%y')
       &nbsp; &nbsp;
       By
