@@ -43,6 +43,10 @@ class Question < ApplicationRecord
     end
   end
 
+  def normalize_friendly_id(string)
+    super[0..60]
+  end
+
   private
   def update_topic_recursive_question_count
     return if topic.nil?
