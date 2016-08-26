@@ -3,9 +3,13 @@
 one:
   text: MyText1
   question: :one
-  user_id: 1
+  user: :registered
+  vote_total: 19
+  aasm_state: verified
 
 two:
   text: MyText2
   question: :one
-  user_id: 1
+  user: :anonymous
+  vote_total: 1
+  aasm_state: unverified

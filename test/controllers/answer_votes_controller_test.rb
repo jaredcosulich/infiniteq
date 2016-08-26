@@ -15,7 +15,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     answer_vote = answers(:two).answer_votes.last
     assert_equal 10, answer_vote.trust
 
-    assert_select '.vote-total .small', '1.0'
+    assert_select '.vote-total .small', '1.1'
   end
 
   test "should create answer_vote with negative value" do
@@ -28,7 +28,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     answer_vote = answers(:two).answer_votes.last
     assert_equal -10, answer_vote.trust
 
-    assert_select '.vote-total .small', '-1.0'
+    assert_select '.vote-total .small', '-0.9'
   end
 
   test "should allow you to vote even if not registered, but should then ask you to register" do
@@ -45,7 +45,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     assert_equal '1.1.1.1', temporary_user.ip_address
     assert_equal({answer_vote.answer_id.to_s => answer_vote.id}, JSON.parse(temporary_user.votes)['answer'])
 
-    assert_redirected_to join_path(o: 'answerVote', i: answer_vote.id)
+    assert_redirected_to join_path(o: 'AnswerVote', i: answer_vote.id)
   end
 
   test "should destroy answer_vote" do
@@ -53,7 +53,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
       delete answer_answer_vote_url(answers(:one), @answer_vote)
     end
 
-    assert_select '.vote-total .small', '-0.1'
+    assert_select '.vote-total .small', '0.9'
   end
 
   test 'updates existing vote if made by same temporary user' do
@@ -62,7 +62,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
       params: { answer_vote: { positive: 'false' } },
       headers: { REMOTE_ADDR: '9.1.1.1' }
 
-    assert_equal -1, answer.reload.vote_total
+    assert_equal 0, answer.reload.vote_total
 
     assert_no_difference('AnswerVote.count') do
       post answer_answer_votes_url(answer),
@@ -70,7 +70,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '9.1.1.1' }
     end
 
-    assert_equal 1, answer.reload.vote_total
+    assert_equal 2, answer.reload.vote_total
   end
 
   test 'updates existing vote if made by same user' do

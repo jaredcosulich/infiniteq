@@ -1,1 +1,59 @@
-= link_to "RETURN", params[:return_to]
+.col-sm-12.text-center
+  %h3
+    Anonymous
+    - if params[:o] == 'Question'
+      Question Submitted
+    - elsif params[:o] == 'Answer'
+      Answer Submitted
+    - else
+      Vote Recorded
+
+  %br
+  %br
+
+  %p= "Thank you for your #{params[:o] =~ /Vote/ ? 'vote' : params[:o].downcase}."
+
+  %br
+  %br
+
+  - if params[:o] =~ /Vote/
+    %p
+      As an anonymous user (not logged in) your vote counts as
+      = "#{pluralize(@object.trust.to_f/10.0, 'point')}."
+
+      %p If you log in or create an account than this vote will count 10x more.
+  - else
+    %p
+      As an anonymous user (not logged in) your
+      = params[:o].downcase
+      will be displayed in the "unverified" tab with
+      = @object.vote_total.to_f / 10.0
+      trust points assigned to it.
+
+    %p
+      If you log in or create an account than your
+      = params[:o].downcase
+      will receive 10x more trust points and will be moved to the "verified" tab.
+  %br
+  %br
+
+  %p Either way, thank you for contributing.
+
+  %br
+  %br
+
+  %p
+    = link_to "Log In", new_user_session_path, class: 'btn btn-action'
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    = link_to "Register", new_user_registration_path, class: 'btn btn-action'
+
+  %br
+  %br
+
+  %p
+    - if params[:o] == 'Question'
+      = link_to "View Your Question", @object, class: 'btn btn-primary'
+    - elsif params[:o] == 'QuestionVote'
+      = link_to "Back To The Topic", @object.question.topic, class: 'btn btn-primary'
+    - else
+      = link_to "Back To The Question", @object.try(:question) || @object.answer.question, class: 'btn btn-primary'

@@ -11,6 +11,8 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create answer" do
+    sign_in users(:registered)
+
     assert_difference('Answer.count') do
       post answers_url, params: { answer: { question_id: @answer.question_id, text: @answer.text, user_id: @answer.user_id } }
     end
