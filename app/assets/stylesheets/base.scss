@@ -31,11 +31,6 @@ a, a:visited, a:hover {
   margin-bottom: 30px;
 }
 
-.btn-default {
-  background-color: $orange-color;
-  color: white;
-}
-
 .header {
   border-bottom: 1px solid #eee;
   padding: 0;
@@ -173,4 +168,14 @@ i.fa {
 
 .label-warning {
   background-color: $orange-color;
+}
+
+.btn-action, a.btn-action {
+  background-color: $orange-color;
+  color: white;
+}
+
+.btn-primary, a.btn-primary {
+  background-color: $blue-color;
+  color: white;
 }

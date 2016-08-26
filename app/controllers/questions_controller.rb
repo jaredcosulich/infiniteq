@@ -25,11 +25,18 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(question_params.merge(user: current_user))
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html do
+          if @question.user.present?
+            redirect_to @question, notice: 'Question was successfully created.'
+          else
+            TemporaryUser.add_object(@question, request.remote_ip)
+            redirect_to join_path(o: 'Question', i: @question.id)
+          end
+        end
         format.json { render :show, status: :created, location: @question }
         AdminMailer.object_created(@question).deliver_now
       else
@@ -73,4 +80,5 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:text, :details, :topic_id, :user_id)
     end
+
 end

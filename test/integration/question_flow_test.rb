@@ -6,6 +6,8 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "asking a question about an original topic" do
+    sign_in users(:registered)
+
     get "/topics/#{@topic.slug}"
     assert_response :success
     assert_select 'form input:not([value])[name="question[text]"]', true
@@ -26,7 +28,7 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     assert_select 'h4', question.text
 
     get "/topics/#{@topic.slug}"
-    assert_select '.question', 4
+    assert_select '.question', 5 # new question shows up in verified and unanswered
 
     get "/questions/#{question.slug}"
     assert_select 'form textarea:not([value])[name="answer[text]"]', true
@@ -42,5 +44,25 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h4', question.text
     assert_select 'p', question.answers.first.text
+  end
+
+  test 'asking a question anonymously' do
+    get "/topics/#{@topic.slug}"
+    assert_response :success
+    assert_select 'form input:not([value])[name="question[text]"]', true
+    assert_select "form input[name='question[topic_id]'][value='#{@topic.id}']", true
+
+    assert_difference '@topic.questions.count' do
+      post "/questions",
+        params: { question: { text: "What is the point of this topic?", topic_id: @topic.id } }
+    end
+
+    assert_response :redirect
+    follow_redirect!
+
+    assert_select 'p', /Thank you for your question/
+    assert_select 'p', /anonymous user/
+    assert_select 'p', /"unverified" tab/
+    assert_select 'p', /0.1/
   end
 end

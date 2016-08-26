@@ -21,7 +21,7 @@ class QuestionVotesController < ApplicationController
           if @question_vote.user.present?
             render @question.reload
           else
-            update_temporary_user(@question_vote)
+            TemporaryUser.add_object(@question_vote, request.remote_ip)
             redirect_to join_path(o: 'QuestionVote', i: @question_vote.id)
           end
         }
@@ -57,11 +57,6 @@ class QuestionVotesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_vote_params
       params.require(:question_vote).permit(:question_id, :positive)
-    end
-
-    def update_temporary_user(question_vote)
-      temporary_user = TemporaryUser.find_or_create_by(ip_address: request.remote_ip)
-      temporary_user.add_vote(question_vote)
     end
 
 end

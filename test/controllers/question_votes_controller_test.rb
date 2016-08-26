@@ -16,7 +16,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     question_vote = questions(:two).question_votes.last
     assert_equal 10, question_vote.trust
 
-    assert_select '.vote-total .small', '1.0'
+    assert_select '.vote-total .small', '1.1'
   end
 
   test "should create question_vote with negative value" do
@@ -29,7 +29,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     question_vote = questions(:two).question_votes.last
     assert_equal -10, question_vote.trust
 
-    assert_select '.vote-total .small', '-1.0'
+    assert_select '.vote-total .small', '-0.9'
   end
 
   test "should allow you to vote even if not registered, but should then ask you to register" do
@@ -67,7 +67,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
       params: { question_vote: { positive: 'false' } },
       headers: { REMOTE_ADDR: '9.1.1.1' }
 
-    assert_equal -1, question.reload.vote_total
+    assert_equal 0, question.reload.vote_total 
 
     assert_no_difference('QuestionVote.count') do
       post question_question_votes_url(question),
@@ -75,7 +75,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '9.1.1.1' }
     end
 
-    assert_equal 1, question.reload.vote_total
+    assert_equal 2, question.reload.vote_total
   end
 
   test 'updates existing vote if made by same user' do
