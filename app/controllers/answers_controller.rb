@@ -19,11 +19,18 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(answer_params)
+    @answer = Answer.new(answer_params.merge(user: current_user))
 
     respond_to do |format|
       if @answer.save
-        format.html { redirect_to @answer.question, notice: 'Answer was successfully created.' }
+        format.html do
+          if @answer.user.present?
+            redirect_to @answer.question, notice: 'Answer was successfully created.'
+          else
+            TemporaryUser.add_object(@answer, request.remote_ip)
+            redirect_to join_path(o: 'Answer', i: @answer.id)
+          end
+        end
         format.json { render :show, status: :created, location: @answer }
         AdminMailer.object_created(@answer).deliver_now
       else

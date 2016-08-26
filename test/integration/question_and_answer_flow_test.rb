@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class QuestionFlowTest < ActionDispatch::IntegrationTest
+class QuestionAndAnswerFlowTest < ActionDispatch::IntegrationTest
   def setup
     @topic = topics(:one)
   end
@@ -65,4 +65,27 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     assert_select 'p', /"unverified" tab/
     assert_select 'p', /0.1/
   end
+
+
+  test 'answering a question anonymously' do
+    question = @topic.questions.find_by(slug: 'mystring1')
+    get "/questions/#{question.slug}"
+    assert_response :success
+    assert_select 'form textarea:not([value])[name="answer[text]"]', true
+    assert_select "form input[name='answer[question_id]'][value='#{question.id}']", true
+
+    assert_difference 'question.answers.count' do
+      post "/answers",
+        params: { answer: { text: "Here is the answer", question_id: question.id } }
+    end
+
+    assert_response :redirect
+    follow_redirect!
+
+    assert_select 'p', /Thank you for your answer/
+    assert_select 'p', /anonymous user/
+    assert_select 'p', /"unverified" tab/
+    assert_select 'p', /0.1/
+  end
+
 end

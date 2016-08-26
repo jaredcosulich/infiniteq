@@ -13,8 +13,8 @@ class WelcomeController < ApplicationController
         AnswerVote.find_by(id: params[:i])
       when 'Question'
         Question.find_by(id: params[:i])
-      # when 'Answer'
-      #   Answer.find_by(id: params[:i])
+      when 'Answer'
+        Answer.find_by(id: params[:i])
     end
   end
 end
