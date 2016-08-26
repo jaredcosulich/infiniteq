@@ -50,11 +50,15 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy question_vote" do
+    question = questions(:one)
+    question.update_votes
+    assert_equal 19, question.reload.vote_total
+
     assert_difference('questions(:one).question_votes.count', -1) do
       delete question_question_vote_url(questions(:one), @question_vote)
     end
 
-    assert_select '.vote-total .small', '-0.1'
+    assert_select '.vote-total .small', '0.9'
   end
 
   test 'updates existing vote if made by same temporary user' do

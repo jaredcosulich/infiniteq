@@ -6,6 +6,9 @@ class WelcomeController < ApplicationController
   end
 
   def join
-    # @object = params[:o].
+    @object = case params[:o]
+      when 'QuestionVote'
+        QuestionVote.find_by(id: params[:i])
+    end
   end
 end

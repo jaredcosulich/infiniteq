@@ -22,7 +22,7 @@ class QuestionFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'a', @topic.title
 
-    assert question = @topic.questions.first
+    assert question = @topic.questions.unscoped.last
     assert_select 'h4', question.text
 
     get "/topics/#{@topic.slug}"

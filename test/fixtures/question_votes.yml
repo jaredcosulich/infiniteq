@@ -2,10 +2,10 @@
 
 one:
   question: :one
-  user_id: :registered
-  trust: 1
+  user: :another_registered
+  trust: 10
 
 two:
   question: :one
-  user_id: :anonymous
+  user: :anonymous
   trust: -1

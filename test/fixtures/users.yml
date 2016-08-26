@@ -11,6 +11,13 @@ registered:
   confirmed_at: <%= 1.year.ago %>
   trust: 10
 
+another_registered:
+  email: 'another_registered@example.com'
+  name: 'Another Registered Person'
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  confirmed_at: <%= 1.day.ago %>
+  trust: 10
+
 unconfirmed:
   email: 'unconfirmed@example.com'
   name: 'Unconfirmed Person'
