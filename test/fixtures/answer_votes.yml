@@ -2,8 +2,8 @@
 
 one:
   answer: :one
-  user: :registered
-  trust: 1
+  user: :another_registered
+  trust: 10
 
 two:
   answer: :one

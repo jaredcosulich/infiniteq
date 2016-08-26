@@ -22,7 +22,7 @@ class AnswerVotesController < ApplicationController
             render @answer.reload
           else
             update_temporary_user(@answer_vote)
-            redirect_to join_path(o: 'answerVote', i: @answer_vote.id)
+            redirect_to join_path(o: 'AnswerVote', i: @answer_vote.id)
           end
         }
         format.json { render :show, status: :created, location: @answer_vote }

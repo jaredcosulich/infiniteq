@@ -45,7 +45,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     assert_equal '1.1.1.1', temporary_user.ip_address
     assert_equal({answer_vote.answer_id.to_s => answer_vote.id}, JSON.parse(temporary_user.votes)['answer'])
 
-    assert_redirected_to join_path(o: 'answerVote', i: answer_vote.id)
+    assert_redirected_to join_path(o: 'AnswerVote', i: answer_vote.id)
   end
 
   test "should destroy answer_vote" do
@@ -53,7 +53,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
       delete answer_answer_vote_url(answers(:one), @answer_vote)
     end
 
-    assert_select '.vote-total .small', '0.0'
+    assert_select '.vote-total .small', '0.9'
   end
 
   test 'updates existing vote if made by same temporary user' do

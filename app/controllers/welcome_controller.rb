@@ -9,12 +9,12 @@ class WelcomeController < ApplicationController
     @object = case params[:o]
       when 'QuestionVote'
         QuestionVote.find_by(id: params[:i])
-      # when 'AnswerVote'
-      #   AnswerVote.find_by(id: params[:i])
+      when 'AnswerVote'
+        AnswerVote.find_by(id: params[:i])
       when 'Question'
         Question.find_by(id: params[:i])
-      when 'QuestionVote'
-        Answer.find_by(id: params[:i])
+      # when 'Answer'
+      #   Answer.find_by(id: params[:i])
     end
   end
 end
