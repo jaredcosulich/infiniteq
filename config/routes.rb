@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :answers do
     resources :answer_votes
   end
+  resources :comments
+
   resources :temporary_users
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
