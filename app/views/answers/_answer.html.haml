@@ -16,10 +16,13 @@
     .small.details
       .pull-right
         = link_to('Add Comment / Follow-Up Question', new_comment_path(comment: {answer_id: answer.id}))
+        - if user_signed_in? && current_user == answer.user
+          &nbsp; &nbsp;
+          = link_to fa_icon('pencil-square-o'), edit_answer_path(answer)
+          &nbsp; &nbsp;
+          = link_to fa_icon('trash'), answer_path(answer), method: :delete, data: {confirm: 'Are you sure you want to delete this answer?'}
 
       = answer.created_at.strftime('%m/%d/%y')
       &nbsp; &nbsp;
       By
       = answer.user.present? ? link_to(answer.user.name, '') : 'Anonymous'
-      &nbsp; &nbsp;
-      = link_to fa_icon('pencil-square-o'), edit_answer_path(answer)

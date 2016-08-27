@@ -40,6 +40,6 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       delete answer_url(@answer)
     end
 
-    assert_redirected_to answers_url
+    assert_redirected_to questions(:one)
   end
 end

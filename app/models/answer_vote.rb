@@ -24,7 +24,7 @@ class AnswerVote < ApplicationRecord
   end
 
   def update_answer
-    answer.update_votes
+    answer.update_votes unless answer.destroyed?
   end
 
 end

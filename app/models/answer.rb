@@ -3,8 +3,8 @@ class Answer < ApplicationRecord
 
   belongs_to :user
   belongs_to :question, counter_cache: true
-  has_many :answer_votes
-  has_many :comments
+  has_many :answer_votes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   default_scope { order(vote_total: :desc, created_at: :desc) }
   scope :persisted, -> { where "id IS NOT NULL" }
