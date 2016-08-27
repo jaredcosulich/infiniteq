@@ -2,18 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.comment {
-  padding: 9px 6px 6px 6px;
-  border-bottom: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  background-color: #fafafa;
-
-  a {
-    border: none;
-  }
-
+.comments {
+  margin-bottom: 12px;
+  
   .comment {
-    margin: 6px 12px 0 12px;
+    padding: 9px 6px 6px 6px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    background-color: #fafafa;
+
+    a {
+      border: none;
+    }
+
+    .comment {
+      margin: 6px 12px 0 12px;
+    }
   }
 }
 

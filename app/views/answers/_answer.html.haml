@@ -8,7 +8,15 @@
         .small= (answer.vote_total.to_f / 10.0)
   .votable.col-sm-11
     .text= markdown(answer.text)
-    .details.small
+
+    - if answer.comments.present?
+      .comments
+        = render answer.comments
+
+    .small.details
+      .pull-right
+        = link_to('Add Comment / Follow-Up Question', new_comment_path(comment: {answer_id: answer.id}))
+
       = answer.created_at.strftime('%m/%d/%y')
       &nbsp; &nbsp;
       By

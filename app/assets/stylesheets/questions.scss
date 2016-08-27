@@ -44,7 +44,11 @@
         background-color: #efefef;
         a {
           border: none;
-          font-size: larger;
+          color: $orange-color;
+
+          i {
+            font-size: larger;
+          }
         }
       }
     }
