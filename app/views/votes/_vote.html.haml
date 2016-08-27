@@ -1,4 +1,7 @@
-- new_object_vote = object.public_send("#{object.class.to_s.downcase}_votes").new(positive: positive)
+- object_class = object.class.to_s.downcase
+- new_object_vote = object.public_send("#{object_class}_votes").new(positive: positive)
+- already_voted = @temporary_user.try('voted_on?', object, positive) || current_user.try('voted_on?', object, positive)
+
 = form_for [object, new_object_vote], remote: true, class: (positive ? 'up-vote' : 'down-vote') do |f|
   = f.hidden_field :positive
-  %h2= button_tag fa_icon("chevron-circle-#{positive ? 'up' : 'down'}")
+  %h2= button_tag fa_icon("chevron-circle-#{positive ? 'up' : 'down'}", class: (already_voted ? 'already-voted' : ''))

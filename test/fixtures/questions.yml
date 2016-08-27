@@ -14,7 +14,7 @@ two:
   text: MyString2
   details: MyText
   topic: :one
-  user: :anonymous
+  user: :unconfirmed
   slug: 'mystring2'
   aasm_state: verified
   answers_count: 0

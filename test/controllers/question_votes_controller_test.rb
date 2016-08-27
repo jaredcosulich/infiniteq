@@ -67,7 +67,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
       params: { question_vote: { positive: 'false' } },
       headers: { REMOTE_ADDR: '9.1.1.1' }
 
-    assert_equal 0, question.reload.vote_total 
+    assert_equal 0, question.reload.vote_total
 
     assert_no_difference('QuestionVote.count') do
       post question_question_votes_url(question),

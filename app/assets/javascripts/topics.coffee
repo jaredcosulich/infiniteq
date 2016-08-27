@@ -5,5 +5,4 @@ initDetails = ->
   details.focus -> $(this).height('3em')
   details.blur -> $(this).height(height)
 
-$(document).ready(initDetails)
-$(document).on('page:load', initDetails)
+$(document).on('turbolinks:load', initDetails)
