@@ -1,0 +1,20 @@
+.comment_form
+  = form_for(comment) do |f|
+    - if comment.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(comment.errors.count, "error")
+          prohibited this comment from being saved:
+        %ul
+          - comment.errors.full_messages.each do |message|
+            %li= message
+
+    .form-group
+      %h5= f.label :text, "Your Clarifying Question / Comment"
+      = f.text_area :text, class: 'form-control'
+      = f.hidden_field :question_id
+      = f.hidden_field :answer_id
+      = f.hidden_field :parent_comment_id
+
+    .form-group
+      = f.submit 'Save Comment', class: 'btn btn-action'
