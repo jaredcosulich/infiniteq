@@ -11,7 +11,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       post comments_url, params: { comment: { answer_id: @comment.answer_id, text: @comment.text, user_id: @comment.user_id } }
     end
 
-    assert_redirected_to answers(:one)
+    assert_redirected_to questions(:one)
   end
 
   test "should get edit" do
@@ -29,6 +29,6 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       delete comment_url(@comment)
     end
 
-    assert_redirected_to comments_url
+    assert_redirected_to questions(:one)
   end
 end

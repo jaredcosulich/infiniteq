@@ -2,6 +2,10 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
+  def new
+    @comment = Comment.new(comment_params)
+  end
+
   # GET /comments/1/edit
   def edit
   end
@@ -13,7 +17,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.parent, notice: 'Comment was successfully created.' }
+        format.html { redirect_to @comment.root_parent, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }
@@ -39,9 +43,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    root_parent = @comment.root_parent
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to root_parent, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

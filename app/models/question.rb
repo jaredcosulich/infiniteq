@@ -7,6 +7,7 @@ class Question < ApplicationRecord
   belongs_to :topic, counter_cache: true
   has_many :answers
   has_many :question_votes
+  has_many :comments
 
   default_scope { order(vote_total: :desc, created_at: :desc) }
   scope :persisted, -> { where "id IS NOT NULL" }
