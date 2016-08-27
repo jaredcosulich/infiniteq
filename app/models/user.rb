@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable
 
+  has_many :questions
+  has_many :answers
   has_many :question_votes
   has_many :answer_votes
 
@@ -12,9 +14,9 @@ class User < ApplicationRecord
 
   def voted_on?(object, positive)
     object_type = object.class.to_s.downcase
+    return positive == true if public_send("#{object_type}s").where(id: object.id).present?
     vote = public_send("#{object_type}_votes").find_by("#{object_type}_id" => object.id)
-    return false if vote.blank?
-    positive == vote.trust > 0
+    vote.present? ? (positive == vote.trust > 0) : false
   end
 
 

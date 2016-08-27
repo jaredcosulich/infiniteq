@@ -2,6 +2,7 @@ class TemporaryUser < ApplicationRecord
 
   def voted_on?(object, positive)
     object_type = object.class.to_s.downcase
+    return positive == true if (public_send("parsed_#{object_type}s") || {})[object.id.to_s].present?
     vote_id = parsed_votes[object_type][object.id.to_s]
     return false if vote_id.nil?
     vote = object.public_send("#{object_type}_votes").find(vote_id)
@@ -35,9 +36,24 @@ class TemporaryUser < ApplicationRecord
     end
   end
 
+  def parsed_questions
+    JSON.parse(questions || {}.to_json)
+  end
+
   def add_question(question)
-    parsed_questions = JSON.parse(questions || {}.to_json)
-    parsed_questions[question.id] = true
+    pq = parsed_questions
+    pq[question.id.to_s] = true
+    update(questions: pq.to_json)
+  end
+
+  def parsed_answers
+    JSON.parse(answers || {}.to_json)
+  end
+
+  def add_answer(answer)
+    pa = parsed_answers
+    pa[answer.id.to_s] = true
+    update(answers: pa.to_json)
   end
 
 end

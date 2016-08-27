@@ -21,9 +21,21 @@ class UserTest < ActiveSupport::TestCase
 
     assert !user.voted_on?(question, true)
     assert user.voted_on?(question, false)
-
-    assert !user.voted_on?(questions(:one), true)
-    assert !user.voted_on?(questions(:one), false)
   end
 
+  test '#voted_on? always positive for object created by user' do
+    user = users(:registered)
+    question = user.questions.create(text: 'A question?')
+
+    assert user.voted_on?(question, true)
+    assert !user.voted_on?(question, false)
+  end
+
+  test '#voted_on? always negative if not created by user or voted on by user' do
+    user = users(:unconfirmed)
+    question = user.questions.create(text: 'A question?')
+
+    assert !users(:registered).voted_on?(question, true)
+    assert !users(:registered).voted_on?(question, false)
+  end
 end
