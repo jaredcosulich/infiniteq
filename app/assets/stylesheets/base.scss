@@ -106,6 +106,10 @@ a, a:visited, a:hover {
 
 i.fa {
   color: $orange-color;
+
+  &.already-voted {
+    color: $blue-color;
+  }
 }
 
 .vote {

@@ -2,16 +2,19 @@
   %li.active{role: 'presentation'}
     %a{href: '#verified', role: 'tab', aria: {controls: 'verified'}, data: {toggle: 'tab'}}
       Verified
-      %span.label.label-success= records.verified.count
+      %span.label{class: "label-#{records.verified.count > 0 ? 'success' : 'default'}"}
+        = records.verified.count
   - if type == 'questions'
     %li{role: 'presentation'}
       %a{href: '#unanswered', role: 'tab', aria: {controls: 'unanswered'}, data: {toggle: 'tab'}}
         Unanswered
-        %span.label.label-danger= records.verified.unanswered.count
+        %span.label{class: "label-#{records.verified.unanswered.count > 0 ? 'danger' : 'default'}"}
+          = records.verified.unanswered.count
   %li{role: 'presentation'}
     %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
       Unverified
-      %span.label.label-warning= records.unverified.count
+      %span.label{class: "label-#{records.unverified.count > 0 ? 'warning' : 'default'}"}
+        = records.unverified.count
   %li{role: 'presentation'}
     %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
       Flagged

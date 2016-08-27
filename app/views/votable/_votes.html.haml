@@ -1,0 +1,7 @@
+.vote.col-sm-1
+  = render partial: 'votes/vote', locals: {object: object, positive: true}
+  .down-vote
+    = render partial: 'votes/vote', locals: {object: object, positive: false}
+  .vote-total
+    %h3
+      .small= (object.vote_total.to_f / 10.0)

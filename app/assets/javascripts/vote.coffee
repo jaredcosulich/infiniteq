@@ -1,7 +1,6 @@
 initVote = ->
   $('.new_question_vote, .new_answer_vote').on 'ajax:success', (e, data, status, xhr) ->
-    $(this).closest('.question, .answer').replaceWith(data)
+    $(this).closest('.vote').replaceWith(data)
     initVote()
 
-$(document).ready(initVote)
-$(document).on('page:load', initVote)
+$(document).on('turbolinks:load', initVote)

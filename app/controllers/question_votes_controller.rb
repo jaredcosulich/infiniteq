@@ -19,7 +19,7 @@ class QuestionVotesController < ApplicationController
       if @question_vote.save
         format.html {
           if @question_vote.user.present?
-            render @question.reload
+            render partial: 'votable/votes', locals: {object: @question.reload}
           else
             TemporaryUser.add_object(@question_vote, request.remote_ip)
             redirect_to join_path(o: 'QuestionVote', i: @question_vote.id)

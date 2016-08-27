@@ -1,11 +1,5 @@
 .answer.col-sm-12
-  .vote.col-sm-1
-    = render partial: 'votes/vote', locals: {object: answer, positive: true}
-    .down-vote
-      = render partial: 'votes/vote', locals: {object: answer, positive: false}
-    .vote-total
-      %h3
-        .small= (answer.vote_total.to_f / 10.0)
+  = render partial: 'votable/votes', locals: {object: answer}
   .votable.col-sm-11
     .text= markdown(answer.text)
 
