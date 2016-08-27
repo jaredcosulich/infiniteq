@@ -3,9 +3,27 @@
 
   .question
     %h3 Question:
-    %h4= @question.text
-    - if @question.details.present?
-      .small= markdown(@question.details)
+
+    .vote.col-sm-1
+      = render partial: 'votes/vote', locals: {object: @question, positive: true}
+      .down-vote
+        = render partial: 'votes/vote', locals: {object: @question, positive: false}
+      .vote-total
+        %h3
+          .small= (@question.vote_total.to_f / 10.0)
+    .votable.col-sm-11
+      %h4= @question.text
+      %p.small
+        - if @question.details.present?
+          = markdown(@question.details)
+        - else
+          &nbsp;
+      - if @question.comments.present?
+        .comments
+          = render @question.comments
+          =# link_to '&nbsp;'.html_safe, @question, class: 'fadeout'
+      %p.small.comment_link
+        = link_to('Ask A Clarifying Question', new_comment_path(comment: {question_id: @question.id}))
 
   .answer_question
     %h4 Answer This Question

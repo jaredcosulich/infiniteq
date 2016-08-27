@@ -1,0 +1,12 @@
+%h3
+  Add A Clarifying Question / Comment To This
+  = @comment.parent.class.to_s
+  %br
+  %br
+  %small
+    = @comment.parent.text
+
+%br
+%br
+
+= render 'form', comment: @comment

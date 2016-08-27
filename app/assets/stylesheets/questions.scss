@@ -3,15 +3,27 @@
 .questions-controller {
   .question {
     padding: 12px 0 24px 0;
+
+    .comments {
+      margin-bottom: 12px;
+
+      .comment {
+        padding: 9px 6px 6px 6px;
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        background-color: #fafafa;
+      }
+    }
   }
 
   .answer_question {
-      padding: 24px 0;
+    clear: left;
+    padding: 24px 0;
 
-      textarea {
-        height: 5em;
-        margin-bottom: 12px;
-      }
+    textarea {
+      height: 5em;
+      margin-bottom: 12px;
+    }
   }
 
   .votable {
@@ -32,7 +44,11 @@
         background-color: #efefef;
         a {
           border: none;
-          font-size: larger;
+          color: $orange-color;
+
+          i {
+            font-size: larger;
+          }
         }
       }
     }
