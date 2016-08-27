@@ -3,4 +3,6 @@ initVote = ->
     $(this).closest('.vote').replaceWith(data)
     initVote()
 
+  $('.already-voted').click -> alert("You've already voted this up.")
+
 $(document).on('turbolinks:load', initVote)
