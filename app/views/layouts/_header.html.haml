@@ -1,11 +1,24 @@
-.header.col-sm-12
-  .col-sm-4
-    %h1= link_to('InfiniteQ', root_path, class: 'title')
+%nav.navbar.col-sm-12
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle{"data-target" => "#account_navbar", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %h1= link_to('InfiniteQ', root_path, class: 'title')
+    #account_navbar.collapse.navbar-collapse
+      %ul.nav.nav-pills.navbar-right
+        - if user_signed_in?
+          %li= link_to 'My Account', ''
+          %li= link_to "Log Out", destroy_user_session_path, :method => :delete
+        - else
+          %li= link_to "Log In", new_user_session_path
+          %li= link_to "Register", new_user_registration_path
 
-  .links.col-sm-3.col-sm-offset-5
-    - if user_signed_in?
-      = link_to truncate(current_user.name || current_user.email, length: 18)
-      = link_to "Log Out", destroy_user_session_path, :method => :delete
-    - else
-      = link_to "Log In", new_user_session_path
-      = link_to "Register", new_user_registration_path
+
+-#
+  .header.col-sm-12
+    .col-sm-4
+      %h1= link_to('InfiniteQ', root_path, class: 'title')
+
+    .links.col-sm-3.col-sm-offset-5
