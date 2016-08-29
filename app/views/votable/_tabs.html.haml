@@ -1,28 +1,58 @@
-%ul.nav.nav-tabs{role: 'tablist'}
-  %li.active{role: 'presentation'}
-    %a{href: '#verified', role: 'tab', aria: {controls: 'verified'}, data: {toggle: 'tab'}}
-      Verified
-      %span.label{class: "label-#{records.verified.count > 0 ? 'success' : 'default'}"}
-        = records.verified.count
-  - if type == 'questions'
-    %li{role: 'presentation'}
-      %a{href: '#unanswered', role: 'tab', aria: {controls: 'unanswered'}, data: {toggle: 'tab'}}
-        Unanswered
-        %span.label{class: "label-#{records.verified.unanswered.count > 0 ? 'danger' : 'default'}"}
-          = records.verified.unanswered.count
-  %li{role: 'presentation'}
-    %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
-      Unverified
-      %span.label{class: "label-#{records.unverified.count > 0 ? 'warning' : 'default'}"}
-        = records.unverified.count
-  %li{role: 'presentation'}
-    %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
-      Flagged
-      %span.label.label-default= records.flagged.count
-  %li{role: 'presentation'}
-    %a{href: '#suspect', role: 'tab', aria: {controls: 'suspect'}, data: {toggle: 'tab'}}
-      Suspect
-      %span.label.label-default= records.suspect.count
+.tabs
+  %ul.nav.nav-tabs{role: 'tablist'}
+    %li.active{role: 'presentation'}
+      %a{href: '#verified', role: 'tab', aria: {controls: 'verified'}, data: {toggle: 'tab'}}
+        Verified
+        %span.label{class: "label-#{records.verified.count > 0 ? 'success' : 'default'}"}
+          = records.verified.count
+    - if type == 'questions'
+      %li{role: 'presentation'}
+        %a{href: '#unanswered', role: 'tab', aria: {controls: 'unanswered'}, data: {toggle: 'tab'}}
+          Unanswered
+          %span.label{class: "label-#{records.verified.unanswered.count > 0 ? 'danger' : 'default'}"}
+            = records.verified.unanswered.count
+    %li.hidden-xs{role: 'presentation'}
+      %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
+        Unverified
+        %span.label{class: "label-#{records.unverified.count > 0 ? 'warning' : 'default'}"}
+          = records.unverified.count
+    %li.hidden-xs.hidden-md{role: 'presentation'}
+      %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
+        Flagged
+        %span.label.label-default= records.flagged.count
+    %li.hidden-xs.hidden-md.hidden-sm{role: 'presentation'}
+      %a{href: '#suspect', role: 'tab', aria: {controls: 'suspect'}, data: {toggle: 'tab'}}
+        Suspect
+        %span.label.label-default= records.suspect.count
+    %li.hidden-lg{role: 'presentation', class: 'dropdown'}
+      %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        Other
+        %span.caret
+      %ul.dropdown-menu
+        %li.hidden-sm.hidden-md{role: 'presentation'}
+          %a{href: '#unverified', role: 'tab', aria: {controls: 'unverified'}, data: {toggle: 'tab'}}
+            Unverified
+            %span.label{class: "label-#{records.unverified.count > 0 ? 'warning' : 'default'}"}
+              = records.unverified.count
+        %li.hidden-sm{role: 'presentation'}
+          %a{href: '#flagged', role: 'tab', aria: {controls: 'flagged'}, data: {toggle: 'tab'}}
+            Flagged
+            %span.label.label-default= records.flagged.count
+        %li{role: 'presentation'}
+          %a{href: '#suspect', role: 'tab', aria: {controls: 'suspect'}, data: {toggle: 'tab'}}
+            Suspect
+            %span.label.label-default= records.suspect.count
+
+-#
+  .col-xs-2.col-sm-2.col-md-1
+    %button.navbar-toggle.visible-xs.visible-md.visible-sm{"data-target" => "#tabs_navbar", "data-toggle" => "collapse", :type => "button"}
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+
+  #tabs_navbar.collapse.navbar-collapse
+    HI
+
 
 .votable.tab-content
   .tab-pane.active{id: 'verified', role: 'tabpanel'}

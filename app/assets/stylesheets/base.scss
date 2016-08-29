@@ -45,12 +45,7 @@ a, a:visited, a:hover {
   }
 
   .navbar-toggle {
-    border-color: black;
     margin-top: 15px;
-
-    .icon-bar {
-      background-color: black;
-    }
   }
 
   li {
@@ -59,8 +54,16 @@ a, a:visited, a:hover {
       border: 1px solid #ccc;
     }
   }
-
 }
+
+.navbar-toggle {
+  border-color: black;
+
+  .icon-bar {
+    background-color: black;
+  }
+}
+
 
 .sidebar {
   border-left: 1px solid #eee;
@@ -192,4 +195,18 @@ i.fa {
 .btn-primary, a.btn-primary {
   background-color: $blue-color;
   color: white;
+}
+
+.tabs {
+  .navbar-toggle {
+    margin-top: 6px;
+    padding: 6px;
+  }
+
+  .dropdown-menu {
+    a {
+      padding: 12px;
+      border: none;
+    }
+  }
 }
