@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826162306) do
+ActiveRecord::Schema.define(version: 20160829201401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,16 @@ ActiveRecord::Schema.define(version: 20160826162306) do
     t.integer  "questions_count",           default: 0
     t.integer  "recursive_questions_count", default: 0
     t.text     "recursive_subtopic_ids"
+  end
+
+  create_table "trust_events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trust"
+    t.integer  "event_type",      default: 0, null: false
+    t.integer  "event_object_id"
+    t.integer  "event_user_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade do |t|

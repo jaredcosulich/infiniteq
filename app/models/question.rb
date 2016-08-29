@@ -16,6 +16,7 @@ class Question < ApplicationRecord
 
   after_commit :update_topic_recursive_question_count, on: [:create, :destroy]
   after_create :update_votes
+  after_create :create_trust_event
   after_save :transition_states
 
   include AASM
@@ -48,8 +49,12 @@ class Question < ApplicationRecord
   end
 
   private
-  def update_topic_recursive_question_count
-    return if topic.nil?
-    topic.update_recursive_questions_count
-  end
+    def update_topic_recursive_question_count
+      return if topic.nil?
+      topic.update_recursive_questions_count
+    end
+
+    def create_trust_event
+      user.trust_events.question_created.create(event_object_id: id, trust: 1, event_user: user)
+    end
 end
