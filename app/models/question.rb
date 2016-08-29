@@ -55,6 +55,7 @@ class Question < ApplicationRecord
     end
 
     def create_trust_event
+      return if user.nil?
       user.trust_events.question_created.create(event_object_id: id, trust: 1, event_user: user)
     end
 end
