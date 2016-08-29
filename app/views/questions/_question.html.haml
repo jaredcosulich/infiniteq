@@ -1,6 +1,6 @@
-.question.col-sm-12
+.question.col-xs-12
   = render partial: 'votable/votes', locals: {object: question}
-  .votable.col-sm-11
+  .votable.col-xs-10.col-sm-11.col-md-10.col-lg-11
     %h4
       %span.title Q:
       = link_to(question.text, question)
@@ -16,4 +16,4 @@
       = question.created_at.strftime('%m/%d/%y')
       &nbsp; &nbsp;
       By
-      = question.user.present? ? link_to(question.user.name, '') : 'Anonymous'
+      = question.user.try(:name).present? ? link_to(question.user.name, '') : 'Anonymous'

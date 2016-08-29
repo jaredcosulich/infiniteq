@@ -1,6 +1,6 @@
 .answer.col-sm-12
   = render partial: 'votable/votes', locals: {object: answer}
-  .votable.col-sm-11
+  .votable.col-xs-10.col-sm-11.col-md-10.col-lg-11
     .text= markdown(answer.text)
 
     - if answer.comments.present?

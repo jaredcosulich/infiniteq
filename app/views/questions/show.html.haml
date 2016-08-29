@@ -5,7 +5,7 @@
     %h3 Question:
 
     = render partial: 'votable/votes', locals: {object: @question}
-    .votable.col-sm-11
+    .votable.col-xs-10.col-sm-11.col-md-10.col-lg-11
       %h4= @question.text
       %p.small
         - if @question.details.present?
