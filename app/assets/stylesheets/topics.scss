@@ -7,15 +7,14 @@
 
   .ask_a_question {
     margin: 24px 0 48px 0;
-    padding: 12px;
+    padding: 0 0 12px 0;
     border: 1px solid #eee;
 
     .form-group {
       width: 100%;
-      margin-top: 12px;
 
       .question_field {
-        width: 80%;
+        width: 100%;
       }
 
       .details_field {
@@ -37,7 +36,7 @@
   }
 
   .filter {
-    margin-top: 12px;
+    margin-top: 3px;
   }
 
   .votable {

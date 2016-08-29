@@ -31,7 +31,7 @@ a, a:visited, a:hover {
   margin-bottom: 30px;
 }
 
-.header {
+.navbar {
   border-bottom: 1px solid #eee;
   padding: 0;
   margin-bottom: 12px;
@@ -44,14 +44,26 @@ a, a:visited, a:hover {
     }
   }
 
-  .links {
-    text-align: right;
+  .navbar-toggle {
+    margin-top: 15px;
+  }
+
+  li {
+    margin: 12px 18px 12px 0;
     a {
-      line-height: 60px;
-      margin-right: 39px;
+      border: 1px solid #ccc;
     }
   }
 }
+
+.navbar-toggle {
+  border-color: black;
+
+  .icon-bar {
+    background-color: black;
+  }
+}
+
 
 .sidebar {
   border-left: 1px solid #eee;
@@ -183,4 +195,18 @@ i.fa {
 .btn-primary, a.btn-primary {
   background-color: $blue-color;
   color: white;
+}
+
+.tabs {
+  .navbar-toggle {
+    margin-top: 6px;
+    padding: 6px;
+  }
+
+  .dropdown-menu {
+    a {
+      padding: 12px;
+      border: none;
+    }
+  }
 }

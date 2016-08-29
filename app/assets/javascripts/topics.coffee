@@ -1,5 +1,5 @@
 initDetails = ->
-  details = $('.ask_a_question .details')
+  details = $('.ask_a_question .details_field')
   height = details.height()
 
   details.focus -> $(this).height('3em')
