@@ -41,13 +41,8 @@
 
   .votable {
     .question {
-      padding: 12px;
+      padding: 24px 0;
       border-bottom: 1px dashed #ccc;
-
-      %h4 {
-        display: inline;
-        font-weight: bold;
-      }
 
       a {
         border: none;

@@ -6,6 +6,11 @@ body {
   color: #2F4858;
   font-family: sans-serif;
   line-height: 1.25em;
+
+  .content {
+    margin-left: 2%;
+  }
+
 }
 
 a, a:visited, a:hover {
@@ -124,7 +129,7 @@ i.fa {
   }
 }
 
-.vote {
+.votes {
   text-align: center;
 
   h2, h3 {
@@ -147,10 +152,23 @@ i.fa {
 }
 
 .votable {
-  border-left: 1px solid #ccc;
+  padding: 0;
 
   .none {
     padding: 30px;
+  }
+
+  .votes {
+    padding: 0;
+  }
+
+  .voted {
+    padding: 0;
+
+    h4 {
+      margin: 0;
+    }
+
   }
 }
 

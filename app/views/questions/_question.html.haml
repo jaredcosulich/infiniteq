@@ -1,6 +1,6 @@
 .question.col-xs-12
   = render partial: 'votable/votes', locals: {object: question}
-  .votable.col-xs-10.col-sm-11.col-md-10.col-lg-11
+  .voted.col-xs-10.col-sm-11
     %h4
       %span.title Q:
       = link_to(question.text, question)

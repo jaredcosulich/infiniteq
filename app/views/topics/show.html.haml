@@ -1,4 +1,4 @@
-.col-xs-12
+.content
   = render 'topics/topic_path', topic: @topic
   .small.subtopics
     %strong Subtopics:
@@ -27,7 +27,7 @@
 
   - if @topic.subtopics.present?
     .small.pull-right.filter
-      = link_to_unless params[:f] == 't', 'Just This Topic', url_for(f: 't')
+      = link_to_unless params[:f] == 't', 'This Topic', url_for(f: 't')
       &nbsp;|&nbsp;
       = link_to_if params[:f] == 't',  'Include Subtopics', url_for(f: nil)
   %h4 Questions
