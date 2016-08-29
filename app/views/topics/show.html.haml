@@ -18,9 +18,9 @@
     = form_for @question, html: {class: 'form-inline'} do |f|
       = f.hidden_field :topic_id
       .form-group
-        .col-xs-8
+        .col-xs-9.col-sm-10.col-md-9.col-lg-10
           = f.text_field :text, class: 'question_field form-control', placeholder: "Your Question about #{@topic.title}"
-        .col-xs-2
+        .col-xs-3.col-sm-2.col-md-3.col-lg-2
           = f.submit 'Ask', class: 'btn btn-action'
         .col-xs-12
           = f.text_area :details, class: 'details_field form-control', placeholder: "Additional details to help people answer your question."
