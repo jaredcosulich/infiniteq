@@ -4,6 +4,7 @@
 
 = form_for [object, new_object_vote], remote: true, class: (positive ? 'up-vote' : 'down-vote') do |f|
   = f.hidden_field :positive
+  = hidden_field_tag :return_to
   %h2
     - if already_voted
       = fa_icon("chevron-circle-#{positive ? 'up' : 'down'}", class: 'already-voted')
