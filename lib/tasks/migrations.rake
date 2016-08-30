@@ -8,4 +8,15 @@ namespace :migrations do
     AnswerVote.all.each  { |av| av.update(trust: av.trust * 10)}
   end
 
+  task create_trust_events: :environment do
+    [
+      Question.all.unscoped,
+      Answer.all.unscoped,
+      QuestionVote.all.unscoped,
+      AnswerVote.all.unscoped
+    ].flatten.each do |object|
+      object.send(:create_trust_event)
+    end
+  end
+
 end
