@@ -9,6 +9,10 @@ class TrustEvent < ApplicationRecord
     case event_type
       when 'question_created'
         Question
+      when 'answer_created'
+        Answer
+      when 'question_vote_created'
+        QuestionVote
     end
   end
 
