@@ -49,6 +49,9 @@ class TrustEventFlowTest < ActionDispatch::IntegrationTest
     assert_equal QuestionVote.unscoped.last, user_trust_event.event_object
   end
 
+  test "voting on a question creates a trust event with 0 trust if voter has negative trust" do
+  end
+
   test "voting on an answer creates a trust event" do
   end
 end
