@@ -238,3 +238,9 @@ i.fa {
     color: $green-color;
   }
 }
+
+.highlighted_links_orange {
+  a, a:visited, a:hover {
+    color: $orange-color;
+  }
+}
