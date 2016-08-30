@@ -23,4 +23,12 @@ class ActionDispatch::IntegrationTest
     assert_response :success
     assert_select '.notice', 'Signed in successfully.'
   end
+
+  def sign_out
+    delete '/users/sign_out'
+    follow_redirect!
+
+    assert_response :success
+    assert_select '.notice', 'Signed out successfully.'
+  end
 end

@@ -24,7 +24,7 @@ class User < ApplicationRecord
   private
 
     def update_trust
-      self.trust = 10 if confirmed?
+      self.trust = 100 if confirmed?
     end
 
 

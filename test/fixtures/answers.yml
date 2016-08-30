@@ -4,12 +4,12 @@ one:
   text: MyText1
   question: :one
   user: :registered
-  vote_total: 19
+  vote_total: 190
   aasm_state: verified
 
 two:
   text: MyText2
   question: :one
-  user: :anonymous
-  vote_total: 1
+  user: :unconfirmed
+  vote_total: 10
   aasm_state: unverified

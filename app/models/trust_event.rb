@@ -13,6 +13,8 @@ class TrustEvent < ApplicationRecord
         Answer
       when 'question_vote_created'
         QuestionVote
+      when 'answer_vote_created'
+        AnswerVote
     end
   end
 

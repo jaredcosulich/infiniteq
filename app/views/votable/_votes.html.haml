@@ -4,4 +4,4 @@
     = render partial: 'votes/vote', locals: {object: object, positive: false}
   .vote-total
     %h3
-      .small= (object.vote_total.to_f / 10.0)
+      .small= (object.vote_total / 10.0).round / 10.0

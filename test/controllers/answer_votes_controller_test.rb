@@ -13,7 +13,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     answer_vote = answers(:two).answer_votes.last
-    assert_equal 10, answer_vote.trust
+    assert_equal 100, answer_vote.trust
 
     assert_select '.vote-total .small', '1.1'
   end
@@ -26,7 +26,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     answer_vote = answers(:two).answer_votes.last
-    assert_equal -10, answer_vote.trust
+    assert_equal -100, answer_vote.trust
 
     assert_select '.vote-total .small', '-0.9'
   end
@@ -39,7 +39,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     answer_vote = answers(:two).answer_votes.last
-    assert_equal 1, answer_vote.trust
+    assert_equal 10, answer_vote.trust
 
     temporary_user = TemporaryUser.last
     assert_equal '1.1.1.1', temporary_user.ip_address
@@ -70,7 +70,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '9.1.1.1' }
     end
 
-    assert_equal 2, answer.reload.vote_total
+    assert_equal 20, answer.reload.vote_total
   end
 
   test 'updates existing vote if made by same user' do
@@ -85,7 +85,7 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '10.10.10.10' }
     end
 
-    assert_equal -10, user.answer_votes.last.trust
+    assert_equal -100, user.answer_votes.last.trust
 
     assert_no_difference('user.answer_votes.count') do
       post answer_answer_votes_url(answer),
@@ -93,6 +93,6 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '10.10.10.10' }
     end
 
-    assert_equal 10, user.answer_votes.last.trust
+    assert_equal 100, user.answer_votes.last.trust
   end
 end

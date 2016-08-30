@@ -7,17 +7,17 @@ class UserTest < ActiveSupport::TestCase
 
   test "user's trust goes up to 10 when confirmed" do
     user = users(:unconfirmed)
-    assert_equal 1, user.trust
+    assert_equal 10, user.trust
 
     user.confirm
-    assert_equal 10, user.trust
+    assert_equal 100, user.trust
   end
 
   test '#voted_on? for object and direction' do
     question = questions(:two)
     user = users(:registered)
     user.question_votes.destroy_all
-    vote = QuestionVote.create(question: question, user: user, trust: -1)
+    vote = QuestionVote.create(question: question, user: user, trust: -100)
 
     assert !user.voted_on?(question, true)
     assert user.voted_on?(question, false)

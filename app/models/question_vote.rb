@@ -21,7 +21,7 @@ class QuestionVote < ApplicationRecord
 
   def set_trust
     return if positive.blank?
-    t = user.present? ? user.trust : 1
+    t = user.present? ? (user.trust > 0 ? user.trust : 0) : 10
     self.trust = (positive == 'false' ? t * -1 : t)
   end
 
@@ -33,13 +33,13 @@ class QuestionVote < ApplicationRecord
     params = {event_object_id: id, event_user: user}
     if question.user.present?
       question.user.trust_events.question_vote_created.create(
-        params.merge(trust: trust)
+        params.merge(trust: trust / 10.0)
       )
     end
 
     if user.present?
       user.trust_events.question_vote_created.create(
-        params.merge(trust: 0)
+        params.merge(trust: 1)
       )
     end
   end
