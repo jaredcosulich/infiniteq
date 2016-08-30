@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :answers
   has_many :question_votes
   has_many :answer_votes
+  has_many :trust_events
 
   before_save :update_trust
 
@@ -23,7 +24,7 @@ class User < ApplicationRecord
   private
 
     def update_trust
-      self.trust = 10 if confirmed?
+      self.trust = 100 if confirmed?
     end
 
 

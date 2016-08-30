@@ -1,4 +1,4 @@
-.col-sm-12.text-center
+.content.text-center
   %h3
     Anonymous
     - if params[:o] == 'Question'
@@ -19,7 +19,7 @@
   - if params[:o] =~ /Vote/
     %p
       As an anonymous user (not logged in) your vote counts as
-      = "#{pluralize(@object.trust.to_f/10.0, 'point')}."
+      = "#{pluralize(@object.trust.to_f/100.0, 'point')}."
 
       %p If you log in or create an account than this vote will count 10x more.
   - else
@@ -27,7 +27,7 @@
       As an anonymous user (not logged in) your
       = params[:o].downcase
       will be displayed in the "unverified" tab with
-      = @object.vote_total.to_f / 10.0
+      = @object.vote_total.to_f / 100.0
       trust points assigned to it.
 
     %p

@@ -1,0 +1,5 @@
+%strong{class: event.trust > 0 ? 'positive' : 'negative'}
+  - if event.trust > 0
+    = "+ #{event.trust} Trust"
+  - else
+    = "- #{event.trust * -1} Trust"

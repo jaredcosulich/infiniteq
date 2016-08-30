@@ -3,9 +3,9 @@
 one:
   question: :one
   user: :another_registered
-  trust: 10
+  trust: 100
 
 two:
   question: :one
   user: :anonymous
-  trust: -1
+  trust: -10

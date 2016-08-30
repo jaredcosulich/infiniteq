@@ -1,31 +1,32 @@
-= render('topics/topic_path', topic: @question.topic) if @question.topic.present?
+.content
+  = render('topics/topic_path', topic: @question.topic) if @question.topic.present?
 
-.question
-  %h3 Question:
+  .question
+    %h3 Question:
 
-  .votable
-    = render partial: 'votable/votes', locals: {object: @question}
-    .voted.col-xs-10.col-sm-11
-      %h4= @question.text
-      %p.small
-        - if @question.details.present?
-          = markdown(@question.details)
-        - else
-          &nbsp;
-      - if @question.comments.present?
-        .comments
-          = render @question.comments
-      %p.small.comment_link
-        = link_to('Ask A Clarifying Question', new_comment_path(comment: {question_id: @question.id}))
+    .votable
+      = render partial: 'votable/votes', locals: {object: @question}
+      .voted.col-xs-10.col-sm-11
+        %h4= @question.text
+        %p.small
+          - if @question.details.present?
+            = markdown(@question.details)
+          - else
+            &nbsp;
+        - if @question.comments.present?
+          .comments
+            = render @question.comments
+        %p.small.comment_link
+          = link_to('Ask A Clarifying Question', new_comment_path(comment: {question_id: @question.id}))
 
-.answer_question
-  %h4 Answer This Question
-  = form_for @answer do |f|
-    .form-group
-      = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
-      = f.hidden_field :question_id
-      = f.submit 'Submit Answer', class: 'btn btn-action'
+  .answer_question
+    %h4 Answer This Question
+    = form_for @answer do |f|
+      .form-group
+        = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
+        = f.hidden_field :question_id
+        = f.submit 'Submit Answer', class: 'btn btn-action'
 
 
-%h4 Answers
-= render partial: 'votable/tabs', locals: {records: @question.answers.persisted, type: 'answers'}
+  %h4 Answers
+  = render partial: 'votable/tabs', locals: {records: @question.answers.persisted, type: 'answers'}

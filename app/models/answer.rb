@@ -10,6 +10,7 @@ class Answer < ApplicationRecord
   scope :persisted, -> { where "id IS NOT NULL" }
 
   after_create :update_votes
+  after_create :create_trust_event
   after_save :transition_states
 
   include AASM
@@ -36,5 +37,12 @@ class Answer < ApplicationRecord
       transitions :from => [:unverified, :suspect, :verified], :to => :deleted
     end
   end
+
+  private
+    def create_trust_event
+      return if user.nil?
+      user.trust_events.answer_created.create(event_object_id: id, trust: 10, event_user: user)
+    end
+
 
 end

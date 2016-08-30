@@ -12,13 +12,13 @@ class QuestionTest < ActiveSupport::TestCase
 
   test 'has a vote_total equal to the trust of the user that created the question' do
     question = Question.create(text: 'A new question', user: users(:registered))
-    assert_equal 10, question.vote_total
+    assert_equal 100, question.vote_total
   end
 
   test 'is verified if vote_total is equal to or greater than 10' do
     question = Question.create(text: 'A new question', user: users(:registered))
     question.reload
-    assert_equal 10, question.vote_total
+    assert_equal 100, question.vote_total
     assert question.verified?
   end
 end

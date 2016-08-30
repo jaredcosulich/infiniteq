@@ -14,7 +14,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     question_vote = questions(:two).question_votes.last
-    assert_equal 10, question_vote.trust
+    assert_equal 100, question_vote.trust
 
     assert_select '.vote-total .small', '1.1'
   end
@@ -27,7 +27,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     question_vote = questions(:two).question_votes.last
-    assert_equal -10, question_vote.trust
+    assert_equal -100, question_vote.trust
 
     assert_select '.vote-total .small', '-0.9'
   end
@@ -40,7 +40,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     question_vote = questions(:two).question_votes.last
-    assert_equal 1, question_vote.trust
+    assert_equal 10, question_vote.trust
 
     temporary_user = TemporaryUser.last
     assert_equal '1.1.1.1', temporary_user.ip_address
@@ -52,7 +52,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
   test "should destroy question_vote" do
     question = questions(:one)
     question.update_votes
-    assert_equal 19, question.reload.vote_total
+    assert_equal 190, question.reload.vote_total
 
     assert_difference('questions(:one).question_votes.count', -1) do
       delete question_question_vote_url(questions(:one), @question_vote)
@@ -75,7 +75,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '9.1.1.1' }
     end
 
-    assert_equal 2, question.reload.vote_total
+    assert_equal 20, question.reload.vote_total
   end
 
   test 'updates existing vote if made by same user' do
@@ -90,7 +90,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '10.10.10.10' }
     end
 
-    assert_equal -10, user.question_votes.last.trust
+    assert_equal -100, user.question_votes.last.trust
 
     assert_no_difference('user.question_votes.count') do
       post question_question_votes_url(question),
@@ -98,7 +98,7 @@ class QuestionVotesControllerTest < ActionDispatch::IntegrationTest
         headers: { REMOTE_ADDR: '10.10.10.10' }
     end
 
-    assert_equal 10, user.question_votes.last.trust
+    assert_equal 100, user.question_votes.last.trust
   end
 
 end
