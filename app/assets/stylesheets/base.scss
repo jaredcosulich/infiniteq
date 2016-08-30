@@ -232,3 +232,9 @@ i.fa {
     }
   }
 }
+
+.highlighted_links {
+  a, a:visited, a:hover {
+    color: $green-color;
+  }
+}

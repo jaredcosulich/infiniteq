@@ -13,7 +13,7 @@
 
   %ul
     - @user.trust_events.order(created_at: :desc).limit(20).each do |trust_event|
-      %li= render partial: "trust_events/#{trust_event.event_type}", locals: {event: trust_event}
+      %li.highlighted_links= render partial: "trust_events/#{trust_event.event_type}", locals: {event: trust_event}
     - if @user.trust_events.length < 20
       %li
         = @user.name

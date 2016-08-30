@@ -1,4 +1,5 @@
 = render partial: 'trust_events/time', locals: {event: event}
 = link_to(event.user.name, event.user)
-added an answer.
+added an answer to a
+= "#{link_to('question', event.event_object.question)}.".html_safe
 = render partial: 'trust_events/trust', locals: {event: event}

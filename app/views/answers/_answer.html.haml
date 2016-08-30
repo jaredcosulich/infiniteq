@@ -1,7 +1,7 @@
 .answer.col-sm-12
   = render partial: 'votable/votes', locals: {object: answer}
   .voted.col-xs-10.col-sm-11
-    .text= markdown(answer.text)
+    .text.highlighted_links= markdown(answer.text)
 
     - if answer.comments.present?
       .comments
