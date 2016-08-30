@@ -17,6 +17,10 @@ class QuestionVote < ApplicationRecord
     question_id
   end
 
+  def positive?
+    trust > 0
+  end
+
   private
 
   def set_trust

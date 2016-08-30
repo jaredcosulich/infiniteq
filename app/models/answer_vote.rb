@@ -18,6 +18,10 @@ class AnswerVote < ApplicationRecord
     answer_id
   end
 
+  def positive?
+    trust > 0
+  end
+
   private
 
   def set_trust

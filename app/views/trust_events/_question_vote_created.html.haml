@@ -1,6 +1,8 @@
 = render partial: 'trust_events/time', locals: {event: event}
 = link_to(event.user.name, event.user)
-voted up a
+voted
+= event.event_object.positive? ? 'up' : 'down'
+a
 = link_to('question', event.event_object.question)
 written by
 = event.event_user.name

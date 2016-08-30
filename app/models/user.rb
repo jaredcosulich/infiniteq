@@ -24,7 +24,7 @@ class User < ApplicationRecord
   private
 
     def update_trust
-      self.trust = 100 if confirmed?
+      self.trust = self.trust_events.sum(:trust) + (confirmed? ? 100 : 10)
     end
 
 
