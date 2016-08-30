@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :temporary_users
   devise_for :users, :controllers => {:registrations => "users/registrations"}
+  resources :users, only: [:show]
 
   get 'join' => 'welcome#join'
   root 'welcome#index'

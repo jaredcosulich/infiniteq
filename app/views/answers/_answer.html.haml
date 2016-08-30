@@ -19,4 +19,4 @@
       = answer.created_at.strftime('%m/%d/%y')
       &nbsp; &nbsp;
       By
-      = answer.user.present? ? link_to(answer.user.name, '') : 'Anonymous'
+      = answer.user.present? ? link_to(answer.user.name, answer.user) : 'Anonymous'

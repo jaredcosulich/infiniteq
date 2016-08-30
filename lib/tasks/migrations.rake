@@ -14,8 +14,9 @@ namespace :migrations do
       Answer.all.unscoped,
       QuestionVote.all.unscoped,
       AnswerVote.all.unscoped
-    ].flatten.each do |object|
-      object.send(:create_trust_event)
+    ].flatten.sort { |a,b| a.created_at <=> b.created_at }.each do |object|
+      event = object.send(:create_trust_event)
+      event.update(created_at: object.created_at)
     end
   end
 
