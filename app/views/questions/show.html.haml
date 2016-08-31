@@ -1,7 +1,7 @@
 .content
   = render('topics/topic_path', topic: @question.topic) if @question.topic.present?
 
-  .question
+  .question{id: "question-#{@question.id}"}
     %h3 Question:
 
     .votable
