@@ -7,5 +7,4 @@ one:
 
 two:
   answer: :one
-  user: :anonymous
   trust: -10

@@ -2,7 +2,7 @@
 
 one:
   text: MyString1
-  details: MyText
+  details: MyText1
   topic: :one
   user: :registered
   slug: 'mystring1'
@@ -12,7 +12,7 @@ one:
 
 two:
   text: MyString2
-  details: MyText
+  details: MyText2
   topic: :one
   user: :unconfirmed
   slug: 'mystring2'
