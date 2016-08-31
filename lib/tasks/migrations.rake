@@ -21,12 +21,12 @@ namespace :migrations do
   #     event.update(created_at: object.created_at)
   #   end
   # end
-
-  desc "For migration ReviseTrustEvents: add object type to ever trust_event"
-  task add_object_to_trust_events: :environment do
-    TrustEvent.all.each do |te|
-      te.update(object_type: te.event_object_type)
-    end
-  end
+  #
+  # desc "For migration ReviseTrustEvents: add object type to ever trust_event"
+  # task add_object_to_trust_events: :environment do
+  #   TrustEvent.all.each do |te|
+  #     te.update(object_type: te.event_object_type)
+  #   end
+  # end
 
 end

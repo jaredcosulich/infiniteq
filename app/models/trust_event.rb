@@ -5,19 +5,6 @@ class TrustEvent < ApplicationRecord
 
   enum event_type: [ :question_created, :answer_created, :question_vote_created, :answer_vote_created ]
 
-  def event_object_type
-    case event_type
-      when 'question_created'
-        Question
-      when 'answer_created'
-        Answer
-      when 'question_vote_created'
-        QuestionVote
-      when 'answer_vote_created'
-        AnswerVote
-    end
-  end
-
   def object
     object_type.constantize.find_by(id: object_id)
   end
