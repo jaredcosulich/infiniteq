@@ -68,7 +68,10 @@ group :development do
 end
 
 group 'test' do
-  # gem 'rails-controller-testing' DO WE NEED CONTROLLER TESTING? CAN IT BE DONE BETTER IN INTEGRATION TEST?
+  gem 'capybara'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'poltergeist'
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

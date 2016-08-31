@@ -1,4 +1,4 @@
-.question.col-xs-12
+.question.col-xs-12{id: "question-#{question.id}"}
   = render partial: 'votable/votes', locals: {object: question}
   .voted.col-xs-10.col-sm-11
     %h4
