@@ -34,7 +34,7 @@ class QuestionVote < ApplicationRecord
   end
 
   def create_trust_event
-    params = {event_object_id: id, event_user: user}
+    params = {object_type: 'QuestionVote', object_id: id, event_user: user}
     if question.user.present?
       question.user.trust_events.question_vote_created.create(
         params.merge(trust: trust / 10.0)

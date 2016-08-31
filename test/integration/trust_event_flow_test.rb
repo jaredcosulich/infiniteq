@@ -15,7 +15,7 @@ class TrustEventFlowTest < ActionDispatch::IntegrationTest
     assert_equal 10, trust_event.trust
     assert_equal @user, trust_event.user
     assert_equal @user, trust_event.event_user
-    assert_equal Question.unscoped.last, trust_event.event_object
+    assert_equal Question.unscoped.last, trust_event.object
   end
 
   test "creating an answer creates a trust event" do
@@ -27,7 +27,7 @@ class TrustEventFlowTest < ActionDispatch::IntegrationTest
     assert_equal 10, trust_event.trust
     assert_equal @user, trust_event.user
     assert_equal @user, trust_event.event_user
-    assert_equal Answer.unscoped.last, trust_event.event_object
+    assert_equal Answer.unscoped.last, trust_event.object
   end
 
   test "voting on a question creates a trust event" do
@@ -40,13 +40,13 @@ class TrustEventFlowTest < ActionDispatch::IntegrationTest
     assert_equal -10, trust_event.trust
     assert_equal question.user, trust_event.user
     assert_equal @user, trust_event.event_user
-    assert_equal QuestionVote.unscoped.last, trust_event.event_object
+    assert_equal QuestionVote.unscoped.last, trust_event.object
 
     assert user_trust_event = @user.trust_events.last
     assert_equal 1, user_trust_event.trust
     assert_equal @user, user_trust_event.user
     assert_equal @user, user_trust_event.event_user
-    assert_equal QuestionVote.unscoped.last, user_trust_event.event_object
+    assert_equal QuestionVote.unscoped.last, user_trust_event.object
   end
 
   test "voting on a question creates a trust event with 0 trust if voter has negative trust" do
@@ -79,12 +79,12 @@ class TrustEventFlowTest < ActionDispatch::IntegrationTest
     assert_equal 10, trust_event.trust
     assert_equal answer.user, trust_event.user
     assert_equal @user, trust_event.event_user
-    assert_equal AnswerVote.unscoped.last, trust_event.event_object
+    assert_equal AnswerVote.unscoped.last, trust_event.object
 
     assert user_trust_event = @user.trust_events.last
     assert_equal 1, user_trust_event.trust
     assert_equal @user, user_trust_event.user
     assert_equal @user, user_trust_event.event_user
-    assert_equal AnswerVote.unscoped.last, user_trust_event.event_object
+    assert_equal AnswerVote.unscoped.last, user_trust_event.object
   end
 end
