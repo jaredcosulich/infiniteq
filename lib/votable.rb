@@ -3,7 +3,7 @@ module Votable
   def update_votes
     total_trust = self.public_send("#{self.class.to_s.downcase}_votes").sum(:trust)
     if user.present?
-      total_trust += user.trust
+      total_trust += 100
     else
       total_trust += 10
     end
