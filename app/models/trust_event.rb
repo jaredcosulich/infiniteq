@@ -18,7 +18,7 @@ class TrustEvent < ApplicationRecord
     end
   end
 
-  def event_object
-    event_object_type.find_by(id: event_object_id)
+  def object
+    object_type.find_by(id: object_id)
   end
 end
