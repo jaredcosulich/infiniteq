@@ -17,6 +17,7 @@
       %h4
         Ask A Question
         - unless user_signed_in?
+          %br{class: 'visible-xs'}
           %small (no registration required)
     = form_for @question, html: {class: 'form-inline'} do |f|
       = f.hidden_field :topic_id

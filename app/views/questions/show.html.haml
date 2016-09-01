@@ -23,6 +23,7 @@
     %h4
       Answer This Question
       - unless user_signed_in?
+        %br{class: 'visible-xs'}
         %small (no registration required)
     = form_for @answer do |f|
       .form-group
