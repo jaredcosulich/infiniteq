@@ -3,6 +3,8 @@ class Question < ApplicationRecord
   extend FriendlyId
   friendly_id :text, use: :slugged
 
+  validates :text, presence: true
+
   belongs_to :user
   belongs_to :topic, counter_cache: true
   has_many :answers

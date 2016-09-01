@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :trust_events
 
   before_save :update_trust
+  after_save :consume_temporary_user_based_on_ip, if: Proc.new { |u| u.ip_address.present? }
+
+  attr_accessor :ip_address
 
   def voted_on?(object, positive)
     object_type = object.class.to_s.downcase
@@ -20,6 +23,17 @@ class User < ApplicationRecord
     vote.present? ? (positive == vote.trust > 0) : false
   end
 
+  def consume_temporary_user(temporary_user)
+    return if temporary_user.nil?
+    temporary_user.parsed_questions.keys.each { |question_id| Question.find(question_id).update(user: self) }
+    temporary_user.parsed_answers.keys.each { |answer_id| Answer.find(answer_id).update(user: self) }
+    temporary_user.parsed_votes.each do |type, votes|
+      votes.each do |vote_id|
+        type.capitalize.constantize.find(vote_id).update(user: self) 
+      end
+    end
+    temporary_user.destroy
+  end
 
   private
 
@@ -27,6 +41,8 @@ class User < ApplicationRecord
       self.trust = self.trust_events.sum(:trust) + (confirmed? ? 100 : 10)
     end
 
-
+    def consume_temporary_user_based_on_ip
+      consume_temporary_user(TemporaryUser.where(ip_address: ip_address).first)
+    end
 
 end

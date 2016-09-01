@@ -1,21 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
-  # GET /questions
-  # GET /questions.json
-  def index
-    @questions = Question.all
-  end
-
   # GET /questions/1
   # GET /questions/1.json
   def show
     @answer = @question.answers.new
-  end
-
-  # GET /questions/new
-  def new
-    @question = Question.new
   end
 
   # GET /questions/1/edit
@@ -40,7 +29,9 @@ class QuestionsController < ApplicationController
         format.json { render :show, status: :created, location: @question }
         AdminMailer.object_created(@question).deliver_now
       else
-        format.html { render :new }
+        format.html do
+          redirect_to @question.topic, notice: "There were problems with the question you asked: #{@question.errors.full_messages.join(', ')}"
+        end
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
