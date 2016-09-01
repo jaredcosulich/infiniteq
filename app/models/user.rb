@@ -16,6 +16,19 @@ class User < ApplicationRecord
 
   attr_accessor :ip_address
 
+  # include AASM
+  # aasm do
+  #   state :new, :initial => true
+  #   state :assistant_editor
+  #   state :editor
+  #   state :admin
+  #   state :super_admin
+  #
+  #   event :verify do
+  #     transitions :from => [:unverified, :suspect], :to => :verified
+  #   end
+  # end
+
   def voted_on?(object, positive)
     object_type = object.class.to_s.downcase
     return positive == true if public_send("#{object_type}s").where(id: object.id).present?
@@ -29,7 +42,7 @@ class User < ApplicationRecord
     temporary_user.parsed_answers.keys.each { |answer_id| Answer.find(answer_id).update(user: self) }
     temporary_user.parsed_votes.each do |type, votes|
       votes.each do |vote_id|
-        type.capitalize.constantize.find(vote_id).update(user: self) 
+        type.capitalize.constantize.find(vote_id).update(user: self)
       end
     end
     temporary_user.destroy
