@@ -18,7 +18,8 @@
 
   .answer_question {
     clear: left;
-    padding: 24px 0;
+    margin: 24px 0 48px 0;
+    border: 1px solid #eee;
 
     textarea {
       height: 5em;
@@ -30,6 +31,10 @@
     .answer {
       padding: 12px;
       margin-bottom: 12px;
+
+      .text {
+        padding: 6px 0 18px 0;
+      }
 
       .details {
         padding: 6px 12px;

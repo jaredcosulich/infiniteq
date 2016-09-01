@@ -19,8 +19,11 @@
         %p.small.comment_link
           = link_to('Ask A Clarifying Question', new_comment_path(comment: {question_id: @question.id}))
 
-  .answer_question
-    %h4 Answer This Question
+  .answer_question.col-xs-12
+    %h4
+      Answer This Question
+      - unless user_signed_in?
+        %small (no registration required)
     = form_for @answer do |f|
       .form-group
         = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
@@ -28,5 +31,6 @@
         = f.submit 'Submit Answer', class: 'btn btn-action'
 
 
-  %h4 Answers
+  .col-xs-12
+    %h4 Answers
   = render partial: 'votable/tabs', locals: {records: @question.answers.persisted, type: 'answers'}
