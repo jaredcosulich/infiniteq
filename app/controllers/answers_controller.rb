@@ -34,7 +34,9 @@ class AnswersController < ApplicationController
         format.json { render :show, status: :created, location: @answer }
         AdminMailer.object_created(@answer).deliver_now
       else
-        format.html { render :new }
+        format.html do
+          redirect_to @answer.question, notice: "There were problems with your answer: #{@answer.errors.full_messages.join(', ')}"
+        end
         format.json { render json: @answer.errors, status: :unprocessable_entity }
       end
     end

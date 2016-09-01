@@ -1,6 +1,8 @@
 class Answer < ApplicationRecord
   include Votable
 
+  validates :text, presence: true
+
   belongs_to :user
   belongs_to :question, counter_cache: true
   has_many :answer_votes, dependent: :destroy

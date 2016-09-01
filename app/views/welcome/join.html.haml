@@ -23,6 +23,26 @@
 
       %p If you log in or create an account than this vote will count 10x more.
   - else
+  - if params[:o] == 'Question' || params[:o] == 'Answer'
+    - if params[:o] == 'Question'
+      %p Would you like to be notified when someone answers your question?
+    - if params[:o] == 'Answer'
+      %p Would you like to be notified if someone comments on or votes up your answer?
+
+    = form_for(User.new, as: :user, url: registration_path(:user), html: {class: 'form-inline'}) do |f|
+      .form-group
+        = f.label :email, class: 'sr-only'
+        - pw = Time.new.to_i.to_s
+        = f.hidden_field :ip_address, value: request.remote_ip
+        = f.hidden_field :password, value: pw
+        = f.hidden_field :password_confirmation, value: pw
+        = f.text_field :email, class: 'form-control', placeholder: 'Your Email'
+      = f.submit 'Save', class: 'btn btn-action'
+
+    %br
+    %br
+    %br
+
     %p
       As an anonymous user (not logged in) your
       = params[:o].downcase

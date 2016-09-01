@@ -5,16 +5,6 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     @question = questions(:one)
   end
 
-  test "should get index" do
-    get questions_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_question_url
-    assert_response :success
-  end
-
   test "should show question" do
     get question_url(@question)
     assert_response :success
