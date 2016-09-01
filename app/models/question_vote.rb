@@ -8,6 +8,7 @@ class QuestionVote < ApplicationRecord
   before_save :set_trust
   after_commit :update_question
   after_create :create_trust_event
+  has_many :trust_events, -> { where(object_type: 'QuestionVote') }, foreign_key: :object_id, dependent: :destroy
 
   def topic
     'Question'

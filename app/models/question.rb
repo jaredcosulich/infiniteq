@@ -8,6 +8,7 @@ class Question < ApplicationRecord
   has_many :answers
   has_many :question_votes
   has_many :comments
+  has_many :trust_events, -> { where(object_type: 'Question') }, foreign_key: :object_id, dependent: :destroy
 
   default_scope { order(vote_total: :desc, created_at: :desc) }
   scope :persisted, -> { where "id IS NOT NULL" }

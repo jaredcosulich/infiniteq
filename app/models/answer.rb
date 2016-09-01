@@ -5,6 +5,7 @@ class Answer < ApplicationRecord
   belongs_to :question, counter_cache: true
   has_many :answer_votes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :trust_events, -> { where(object_type: 'Answer') }, foreign_key: :object_id, dependent: :destroy
 
   default_scope { order(vote_total: :desc, created_at: :desc) }
   scope :persisted, -> { where "id IS NOT NULL" }
