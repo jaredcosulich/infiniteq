@@ -1,19 +1,19 @@
 .modal.fade{id: modal_id, role: 'dialog', tabindex: '-1'}
   .modal-dialog{:role => 'document'}
-    .modal-content
+    .modal-content.text-center
       .modal-header
         %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
           %span{'aria-hidden' => 'true'} ×
         %h4.modal-title= "Is this a real #{object_name}?"
       .modal-body
-        %p= "Most anonymous #{object_name.pluralize} are legitimate."
+        %p= "Most anonymous #{object_name.pluralize} are real."
         %br
-        %p But sometimes people want to test out the feature.
+        %p But some people want to test things out.
         %br
-        %p= "If this is a test, please cancel the action below."
+        %p If this is a test, please cancel below.
         %br
-        %p= "But if this is a real #{object_name} then thank You!"
+        %p= "But if this is a real #{object_name} thank you!"
 
       .modal-footer
-        %span.btn.btn-default{data: {dismiss: 'modal'}}= "Cancel: just testing"
+        %span.btn.btn-default{data: {dismiss: 'modal'}}= "Cancel"
         = form.submit "Yes, it is a real #{object_name}", class: 'btn btn-action'
