@@ -23,30 +23,33 @@ class AnswerVote < ApplicationRecord
     trust > 0
   end
 
+  def total_identifier
+    "answer_vote-#{id}"
+  end
+
   private
-
-  def set_trust
-    t = user.present? ? (user.trust > 0 ? user.trust : 0) : 10
-    self.trust = (positive == 'false' ? t * -1 : t)
-  end
-
-  def update_answer
-    answer.update_votes unless answer.destroyed?
-  end
-
-  def create_trust_event
-    params = {object_type: 'AnswerVote', object_id: id, event_user: user}
-    if answer.user.present?
-      answer.user.trust_events.answer_vote_created.create(
-        params.merge(trust: trust / 10.0)
-      )
+    def set_trust
+      t = user.present? ? (user.trust > 0 ? user.trust : 0) : 10
+      self.trust = (positive == 'false' ? t * -1 : t)
     end
 
-    if user.present?
-      user.trust_events.answer_vote_created.create(
-        params.merge(trust: 1)
-      )
+    def update_answer
+      answer.update_votes unless answer.destroyed?
     end
-  end
+
+    def create_trust_event
+      params = {object_type: 'AnswerVote', object_id: id, event_user: user}
+      if answer.user.present?
+        answer.user.trust_events.answer_vote_created.create(
+          params.merge(trust: trust / 10.0)
+        )
+      end
+
+      if user.present?
+        user.trust_events.answer_vote_created.create(
+          params.merge(trust: 1)
+        )
+      end
+    end
 
 end

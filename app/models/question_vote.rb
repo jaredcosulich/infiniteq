@@ -22,6 +22,10 @@ class QuestionVote < ApplicationRecord
     trust > 0
   end
 
+  def total_identifier
+    "question_vote-#{id}"
+  end
+
   private
 
   def set_trust

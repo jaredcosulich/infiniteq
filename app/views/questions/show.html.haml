@@ -28,7 +28,13 @@
       .form-group
         = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
         = f.hidden_field :question_id
-        = f.submit 'Submit Answer', class: 'btn btn-action'
+        - if user_signed_in?
+          = f.submit 'Submit Answer', class: 'btn btn-action'
+        - else
+          - modal_id = "confirm-anonymous-#{@answer.total_identifier}"
+          %span.btn.btn-action{data: {toggle: 'modal', target: "##{modal_id}"}} Submit Answer
+          = render partial: 'anonymous/submit_modal', locals: {modal_id: modal_id, object_name: 'answer', form: f}
+
 
 
   .col-xs-12

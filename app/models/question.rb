@@ -49,6 +49,10 @@ class Question < ApplicationRecord
     super[0..60]
   end
 
+  def total_identifier
+    "question-#{id}"
+  end
+
   private
     def update_topic_recursive_question_count
       return if topic.nil?

@@ -6,8 +6,13 @@
 = form_for [object, new_object_vote], remote: true, class: "#{direction}-vote" do |f|
   = f.hidden_field :positive
   = hidden_field_tag :return_to
-  %h2
+  .vote
     - if already_voted
       = fa_icon("chevron-circle-#{direction}", class: 'already-voted')
     - else
-      = button_tag fa_icon("chevron-circle-#{direction}"), id: "vote-#{direction}-#{object_class}-#{object.id}"
+      - if user_signed_in?
+        = button_tag fa_icon("chevron-circle-#{direction}"), id: "vote-#{direction}-#{object.total_identifier}"
+      - else
+        - modal_id = "confirm-anonymous-#{object.total_identifier}"
+        = fa_icon("chevron-circle-#{direction}", data: {toggle: 'modal', target: "##{modal_id}"})
+        = render partial: 'anonymous/submit_modal', locals: {modal_id: modal_id, object_name: 'vote', form: f}

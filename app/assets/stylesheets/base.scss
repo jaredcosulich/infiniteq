@@ -140,6 +140,14 @@ i.fa {
     margin: 0;
   }
 
+  .vote {
+    i {
+      font-size: 30px;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+  }
+
   .vote-total {
     margin-top: 6px;
   }

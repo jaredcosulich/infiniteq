@@ -24,7 +24,12 @@
         .col-xs-9.col-sm-10.col-md-9.col-lg-10
           = f.text_field :text, class: 'question_field form-control', placeholder: "Your Question about #{@topic.title}"
         .col-xs-3.col-sm-2.col-md-3.col-lg-2
-          = f.submit 'Ask', class: 'btn btn-action'
+          - if user_signed_in?
+            = f.submit 'Ask', class: 'btn btn-action'
+          - else
+            - modal_id = "confirm-anonymous-#{@question.total_identifier}"
+            %span.btn.btn-action{data: {toggle: 'modal', target: "##{modal_id}"}} Ask
+            = render partial: 'anonymous/submit_modal', locals: {modal_id: modal_id, object_name: 'question', form: f}
         .col-xs-12
           = f.text_area :details, class: 'details_field form-control', placeholder: "Additional details to help people answer your question."
 

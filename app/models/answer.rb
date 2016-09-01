@@ -39,6 +39,10 @@ class Answer < ApplicationRecord
     end
   end
 
+  def total_identifier
+    "answer-#{id}"
+  end
+
   private
     def create_trust_event
       return if user.nil?
