@@ -5,7 +5,15 @@ class TrustEvent < ApplicationRecord
 
   enum event_type: [ :question_created, :answer_created, :question_vote_created, :answer_vote_created ]
 
+  after_commit :update_user
+
   def object
     object_type.constantize.find_by(id: object_id)
   end
+
+  private
+    def update_user
+      return if user.nil?
+      user.save!
+    end
 end
