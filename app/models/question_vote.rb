@@ -30,7 +30,7 @@ class QuestionVote < ApplicationRecord
 
   def set_trust
     return if positive.blank?
-    t = user.present? ? (user.trust > 0 ? user.trust : 0) : 10
+    t = user.present? ? (user.trust > 0 ? (user.trust > 100 ? 100 : user.trust) : 0) : 10
     self.trust = (positive == 'false' ? t * -1 : t)
   end
 
