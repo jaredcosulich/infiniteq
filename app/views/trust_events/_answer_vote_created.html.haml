@@ -3,5 +3,6 @@
 voted
 = event.object.positive? ? 'up' : 'down'
 an answer written by
-= event.try(:event_user).try(:name) || 'Anonymous'
+- answer_user_name = event.object.try(:user).try(:name)
+= answer_user_name.present? ? link_to(answer_user_name, event.object.try(:user)) : 'Anonymous'
 = render partial: 'trust_events/time', locals: {event: event}
