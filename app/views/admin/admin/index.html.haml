@@ -1,0 +1,18 @@
+.row
+  .col-xs-12
+    %p= "#{User.count} users, #{User.today.count} today, #{User.this_week.count} this week"
+
+    %br
+
+    %p= "#{Question.count} questions, #{Question.today.count} today, #{Question.this_week.count} this week"
+    %ul
+      %li= "#{Question.unanswered.verified.count} unanswered"
+      %li= "#{Question.unverified.count} unverified"
+      %li= "#{Question.flagged.count} flagged"
+      %li= "#{Question.suspect.count} suspect"
+    %p= "#{QuestionVote.count} question votes"
+
+    %br
+
+    %p= "#{Answer.count} answers"
+    %p= "#{AnswerVote.count} answer votes"

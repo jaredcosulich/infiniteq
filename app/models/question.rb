@@ -16,6 +16,8 @@ class Question < ApplicationRecord
   scope :persisted, -> { where "id IS NOT NULL" }
   scope :unanswered, -> { where(answers_count: 0) }
   scope :for_topics, -> (topic_ids) { where('topic_id in (?)', topic_ids) }
+  scope :today, -> { where('created_at > ?', 1.day.ago) }
+  scope :this_week, -> { where('created_at > ?', 7.days.ago) }
 
   after_commit :update_topic_recursive_question_count, on: [:create, :destroy]
   after_create :update_votes

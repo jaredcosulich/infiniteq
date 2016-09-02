@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    root :to => "admin#index"
+  end
+
   resources :topics
   resources :questions do
     resources :question_votes
@@ -13,7 +17,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
 
   get 'join' => 'welcome#join'
+
   root 'welcome#index'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

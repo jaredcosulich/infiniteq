@@ -14,7 +14,23 @@ class User < ApplicationRecord
   before_save :update_trust
   after_save :consume_temporary_user_based_on_ip, if: Proc.new { |u| u.ip_address.present? }
 
+  scope :today, -> { where('created_at > ?', 1.day.ago) }
+  scope :this_week, -> { where('created_at > ?', 7.days.ago) }
+
   attr_accessor :ip_address
+
+  # include AASM
+  # aasm do
+  #   state :new, :initial => true
+  #   state :assistant_editor
+  #   state :editor
+  #   state :admin
+  #   state :super_admin
+  #
+  #   event :verify do
+  #     transitions :from => [:unverified, :suspect], :to => :verified
+  #   end
+  # end
 
   def voted_on?(object, positive)
     object_type = object.class.to_s.downcase
@@ -29,7 +45,7 @@ class User < ApplicationRecord
     temporary_user.parsed_answers.keys.each { |answer_id| Answer.find(answer_id).update(user: self) }
     temporary_user.parsed_votes.each do |type, votes|
       votes.each do |vote_id|
-        type.capitalize.constantize.find(vote_id).update(user: self) 
+        type.capitalize.constantize.find(vote_id).update(user: self)
       end
     end
     temporary_user.destroy

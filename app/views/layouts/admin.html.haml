@@ -1,0 +1,25 @@
+!!!
+%html
+  %head
+    %title InfiniteQ Admin
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,700' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  .container{class: "#{controller.controller_name}-controller"}
+    = render 'layouts/header'
+
+    .main_content.col-md-7.col-lg-9
+      %h3.text-center ADMIN SECTION
+      - if notice.present?
+        .notice= notice
+      - if alert.present?
+        .alert= alert
+
+      = yield
+
+      .clearfix
+
+
+  = render 'layouts/analytics'
