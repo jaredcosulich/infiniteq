@@ -14,6 +14,9 @@ class User < ApplicationRecord
   before_save :update_trust
   after_save :consume_temporary_user_based_on_ip, if: Proc.new { |u| u.ip_address.present? }
 
+  scope :today, -> { where('created_at > ?', 1.day.ago) }
+  scope :this_week, -> { where('created_at > ?', 7.days.ago) }
+
   attr_accessor :ip_address
 
   # include AASM
