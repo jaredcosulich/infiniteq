@@ -5,5 +5,5 @@ voted
 a
 = link_to('question', event.object.question)
 written by
-= event.try(:event_user).try(:name) || NO EVENT USER 
+= event.try(:event_user).try(:name) || 'NO EVENT USER' 
 = render partial: 'trust_events/time', locals: {event: event}
