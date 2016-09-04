@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831171921) do
+ActiveRecord::Schema.define(version: 20160902204940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,20 @@ ActiveRecord::Schema.define(version: 20160831171921) do
     t.string   "text"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "flags", force: :cascade do |t|
+    t.integer  "reason"
+    t.integer  "question_id"
+    t.integer  "answer_id"
+    t.integer  "user_id"
+    t.integer  "trust"
+    t.text     "details"
+    t.boolean  "suspect",     default: false
+    t.boolean  "confirmed"
+    t.integer  "editor_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "question_votes", force: :cascade do |t|

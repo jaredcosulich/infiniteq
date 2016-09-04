@@ -1,7 +1,9 @@
 module Votable
 
   def update_votes
-    total_trust = self.public_send("#{self.class.to_s.downcase}_votes").sum(:trust)
+    vote_trust = self.public_send("#{self.class.to_s.downcase}_votes").sum(:trust)
+    flag_trust = flags.sum(:trust)
+    total_trust = vote_trust - flag_trust
     if user.present? && user.confirmed?
       total_trust += 100
     else
@@ -13,6 +15,10 @@ module Votable
   def transition_states
     verify! if vote_total >= 100 and !verified?
     unverify! if vote_total < 100 and !unverified?
+  end
+
+  def display_votes
+    (vote_total / 10.0).round / 10.0
   end
 
 end

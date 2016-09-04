@@ -252,3 +252,22 @@ i.fa {
     color: $orange-color;
   }
 }
+
+.flag {
+  margin: 12px 0;
+  button {
+    font-size: 8pt;
+    padding: 3px 6px;
+    i { color: white; }
+  }
+
+  h6 {
+    display: inline;
+  }
+
+  .preview {
+    margin-top: 6px;
+    padding: 3px 6px;
+    border: 1px solid #ccc;
+  }
+}

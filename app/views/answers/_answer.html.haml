@@ -7,6 +7,10 @@
       .comments
         = render answer.comments
 
+    %button.flag.btn.btn-sm.btn-action
+      = fa_icon('flag')
+      Flag
+
     .small.details
       .pull-right
         = link_to('Add Comment / Follow-Up Question', new_comment_path(comment: {answer_id: answer.id}))

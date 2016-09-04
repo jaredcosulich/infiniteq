@@ -19,6 +19,8 @@ class User < ApplicationRecord
 
   attr_accessor :ip_address
 
+  MAX_TRUST_POTENTIAL = 10
+
   # include AASM
   # aasm do
   #   state :new, :initial => true
@@ -31,6 +33,10 @@ class User < ApplicationRecord
   #     transitions :from => [:unverified, :suspect], :to => :verified
   #   end
   # end
+
+  def trust_potential
+    (1..[(trust / 100).round, MAX_TRUST_POTENTIAL].min).to_a
+  end
 
   def voted_on?(object, positive)
     object_type = object.class.to_s.downcase

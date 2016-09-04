@@ -1,0 +1,18 @@
+.flag
+  %button.btn.btn-sm.btn-action{data: {toggle: 'modal', target: "##{flag.object.total_identifier}-flag-modal"}}
+    = fa_icon('flag')
+    Flag
+  %h6
+    %strong Flags:
+    - flag_count = flag.object.flags.count
+    %small= "(#{flag_count == 0 ? 'none' : flag_count})"
+
+  - flag.object.flags.persisted.each do |flag|
+    .small.preview
+      %strong Reason:
+      = flag.reason_string
+      %br
+      %strong Action:
+      = flag.action_string
+
+  = render partial: 'flags/flag_modal', locals: {flag: flag}
