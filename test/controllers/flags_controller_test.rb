@@ -17,10 +17,11 @@ class FlagsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create flag" do
     assert_difference('Flag.count') do
-      post flags_url, params: { flag: { answer_id: @flag.answer_id, details: @flag.details, question_id: @flag.question_id, reason: @flag.reason, trust: @flag.trust, user_id: @flag.user_id } }
+      post flags_url, params: { flag: { action: 'trust', details: @flag.details, question_id: @flag.question_id, reason: @flag.reason, trust: @flag.trust } }
     end
 
-    assert_redirected_to flag_url(Flag.last)
+    assert_response :success
+    assert_select '.vote-total', /-1.9/
   end
 
   test "should show flag" do
@@ -34,7 +35,7 @@ class FlagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update flag" do
-    patch flag_url(@flag), params: { flag: { answer_id: @flag.answer_id, details: @flag.details, question_id: @flag.question_id, reason: @flag.reason, trust: @flag.trust, user_id: @flag.user_id } }
+    patch flag_url(@flag), params: { flag: { action: 'trust', details: @flag.details, question_id: @flag.question_id, reason: @flag.reason, trust: @flag.trust, user_id: @flag.user_id } }
     assert_redirected_to flag_url(@flag)
   end
 

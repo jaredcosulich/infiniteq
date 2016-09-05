@@ -73,6 +73,7 @@ group 'test' do
   gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
   gem 'launchy'
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
