@@ -35,8 +35,12 @@
           - modal_id = "confirm-anonymous-#{@answer.total_identifier}"
           %span.btn.btn-action{data: {toggle: 'modal', target: "##{modal_id}"}} Submit Answer
           = render partial: 'anonymous/submit_modal', locals: {modal_id: modal_id, object_name: 'answer', form: f}
-
-
+        %small
+          ( format answers with
+          = link_to('markdown', 'https://en.support.wordpress.com/markdown-quick-reference/', target: '_blank')
+          ) &nbsp; (
+          = link_to('Markdown Q&A', 'http://www.infiniteq.net/topics/markdown', target: '_blank')
+          )
 
   .col-xs-12
     %h4 Answers
