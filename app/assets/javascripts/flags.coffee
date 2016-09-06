@@ -5,11 +5,12 @@
 initFlags = ->
   $('.flag-modal form').on 'ajax:success', (e, data, status, xhr) ->
     form = $(this)
-    form.closest('.modal').modal('hide')
-    setTimeout(( ->
+    modal = form.closest('.modal')
+    modal.on 'hidden.bs.modal', ->
       form.closest('.question').replaceWith(data)
       initFlags()
-    ), 500)
+    modal.modal('hide')
+
 
 
 $(document).on('turbolinks:load', initFlags)
