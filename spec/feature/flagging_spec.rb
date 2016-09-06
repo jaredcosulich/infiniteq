@@ -28,6 +28,7 @@ feature "Flagging", js: true do
     end
 
     wait_for_ajax
+    sleep 1
 
     within("#question-#{question.id}") do
       expect(page).to_not have_content(1.9)
