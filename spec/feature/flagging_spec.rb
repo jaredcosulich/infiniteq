@@ -27,7 +27,7 @@ feature "Flagging", js: true do
       click_button 'Flag'
     end
 
-    sleep 5
+    wait_for_ajax
 
     within("#question-#{question.id}") do
       expect(page).to_not have_content(1.9)
