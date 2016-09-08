@@ -13,6 +13,7 @@ module Votable
   end
 
   def transition_states
+    return if suspect?
     verify! if vote_total >= 100 and !verified?
     unverify! if vote_total < 100 and !unverified?
   end

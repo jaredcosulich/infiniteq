@@ -28,7 +28,13 @@ class FlagsController < ApplicationController
 
     respond_to do |format|
       if @flag.save
-        format.html { render @flag.object.reload }
+        format.html do
+          if @flag.suspect
+            head :ok
+          else
+            render @flag.object.reload
+          end
+        end
         format.json { render @flag.object.reload, status: :created, location: @flag }
       else
         format.html { render :new }

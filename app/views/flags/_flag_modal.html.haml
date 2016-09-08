@@ -46,7 +46,7 @@
                   (you can remove up to 100x the trust points if you are a registered user)
 
             .form-group
-              = f.radio_button :action, 'suspect_object'
+              = f.radio_button :action, 'suspect'
               = f.label :action, 'Remove this question and place in \'Suspect\' tab.'
               .small
                 - if user_signed_in?

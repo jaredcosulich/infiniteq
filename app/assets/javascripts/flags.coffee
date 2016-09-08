@@ -5,10 +5,16 @@
 initFlags = ->
   $('.flag-modal form').on 'ajax:success', (e, data, status, xhr) ->
     form = $(this)
+    question = form.closest('.question')
     modal = form.closest('.modal')
+
     modal.on 'hidden.bs.modal', ->
-      form.closest('.question').replaceWith(data)
-      initFlags()
+      question.html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i></div>')
+      if data.length
+        question.replaceWith(data)
+        initFlags()
+      else
+        window.location.reload()
     modal.modal('hide')
 
 

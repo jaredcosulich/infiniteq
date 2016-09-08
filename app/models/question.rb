@@ -34,15 +34,15 @@ class Question < ApplicationRecord
     state :deleted
 
     event :verify do
-      transitions :from => [:unverified, :suspect], :to => :verified
+      transitions :from => [:unverified], :to => :verified
     end
 
     event :unverify do
-      transitions :from => [:verified, :suspect], :to => :unverified
+      transitions :from => [:verified], :to => :unverified
     end
 
     event :mark_suspect do
-      transitions :from => [:unverified, :verified], :to => :suspect
+      transitions :from => [:unverified, :verified, :flagged], :to => :suspect
     end
 
     event :mark_deleted do

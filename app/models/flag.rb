@@ -9,6 +9,7 @@ class Flag < ApplicationRecord
   validates :reason, presence: true
   validates :action, presence: true
 
+  before_save :take_action
   after_commit :update_object
   after_create :create_trust_event
 
@@ -73,6 +74,7 @@ class Flag < ApplicationRecord
   private
     def update_object
       object.update_votes
+      object.mark_suspect! if suspect?
     end
 
     def create_trust_event
@@ -88,6 +90,10 @@ class Flag < ApplicationRecord
           params.merge(trust: 1)
         )
       end
+    end
+
+    def take_action
+      self.suspect = true if action == 'suspect'
     end
 
 
