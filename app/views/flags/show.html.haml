@@ -1,0 +1,60 @@
+.content
+
+  %h3
+    = @flag.object.class.to_s
+    Flag
+
+  %br
+
+  %h4
+    = @flag.object.class.to_s
+    Being Flagged:
+  %p= @flag.object.text
+
+  %br
+
+  %h4 Flagged By:
+  %p= @flag.user.present? ? link_to(@flag.user.name, @flag.user) : 'Anonymous'
+
+  %br
+
+  %h4 Reviewed By (Editor):
+  %p= @flag.confirmed? ? link_to(@flag.editor.name, @flag.editor) : 'Not yet reviewed'
+
+  %br
+
+  %h4 Flag Reason:
+  %p= @flag.reason_string
+
+  %br
+
+  %h4 Action Taken:
+  %p= @flag.action_string
+
+  %br
+
+  %h4 Details
+  %p= @flag.details.present? ? @flag.details : 'No details provided.'
+
+  %br
+  %br
+  %br
+
+  %p
+    %button.btn.btn-action{data: {toggle: 'modal', target: "##{@flag.object.total_identifier}-flag-modal"}}
+      = fa_icon('flag')
+      Confirm Flag
+
+    &nbsp;
+    &nbsp;
+
+    %button.btn.btn-reject{data: {toggle: 'modal', target: "##{@flag.object.total_identifier}-flag-modal"}}
+      Dispute Flag
+
+  %br
+  %br
+
+  %p= link_to("< Back To #{@flag.object.class.to_s}", @flag.object)
+
+
+  = render partial: 'flags/flag_modal', locals: {flag: @flag.object.flags.new}

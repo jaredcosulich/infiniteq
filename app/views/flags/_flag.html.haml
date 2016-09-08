@@ -7,12 +7,17 @@
     - flag_count = flag.object.flags.count
     %small= "(#{flag_count == 0 ? 'none' : flag_count})"
 
-  - flag.object.flags.persisted.each do |flag|
+  - flag.object.flags.persisted.each do |f|
     .small.preview
       %strong Reason:
-      = flag.reason_string
+      = f.reason_string
+
       %br
+
+      .pull-right.highlighted_links_orange
+        = link_to 'Details', f
+
       %strong Action:
-      = flag.action_string
+      = f.action_string
 
   = render partial: 'flags/flag_modal', locals: {flag: flag}

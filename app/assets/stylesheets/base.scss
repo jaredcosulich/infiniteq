@@ -220,11 +220,19 @@ i.fa {
 .btn-action, a.btn-action {
   background-color: $orange-color;
   color: white;
+  i { color: white; }
+}
+
+.btn-reject, a.btn-reject {
+  background-color: $red-color;
+  color: white;
+  i { color: white; }
 }
 
 .btn-primary, a.btn-primary {
   background-color: $blue-color;
   color: white;
+  i { color: white; }
 }
 
 .tabs {
@@ -258,7 +266,6 @@ i.fa {
   button {
     font-size: 8pt;
     padding: 3px 6px;
-    i { color: white; }
   }
 
   h6 {
