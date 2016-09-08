@@ -50,6 +50,7 @@ class FlagsController < ApplicationController
       if @flag.update(flag_params)
         format.html { redirect_to @flag, notice: 'Flag was successfully updated.' }
         format.json { render :show, status: :ok, location: @flag }
+        AdminMailer.object_created(@flag).deliver_now
       else
         format.html { render :edit }
         format.json { render json: @flag.errors, status: :unprocessable_entity }
