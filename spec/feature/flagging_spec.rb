@@ -83,3 +83,42 @@ feature "Flagging", js: true do
     end
   end
 end
+
+feature "Disputing A Flag", js: true do
+  fixtures :all
+
+  given(:user) { users(:registered) }
+  given(:flag) { flags(:one) }
+
+  background do
+    sign_in user
+  end
+
+  scenario "lets you create a flag with negative points" do
+    visit "/flags/#{flag.id}"
+
+    expect(page).to have_content('-1.9')
+
+    click_button 'Dispute Flag'
+
+    within "##{flag.question.total_identifier}-flag-modal-dispute" do
+      expect(page).to have_content('Flag Dispute')
+      expect(page).to have_content('You are disputing this flag: "Factually Incorrect"')
+
+      within '#flag_trust' do
+        select('1 trust point')
+      end
+
+      click_button 'Dispute Flag'
+    end
+
+    wait_for_ajax
+    expect(page).to_not have_css('.fa-spin')
+
+    expect(page).to have_content('-0.9')
+  end
+
+  scenario "lets you cancel out the flag" do
+
+  end
+end

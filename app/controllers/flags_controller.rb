@@ -29,7 +29,7 @@ class FlagsController < ApplicationController
     respond_to do |format|
       if @flag.save
         format.html do
-          if @flag.suspect
+          if @flag.suspect || @flag.dispute?
             head :ok
           else
             render @flag.object.reload
@@ -76,6 +76,6 @@ class FlagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def flag_params
-      params.require(:flag).permit(:reason, :question_id, :answer_id, :trust, :details, :action)
+      params.require(:flag).permit(:reason, :question_id, :answer_id, :trust, :details, :action, :dispute)
     end
 end

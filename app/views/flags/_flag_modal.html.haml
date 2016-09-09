@@ -1,21 +1,37 @@
-.modal.fade.flag-modal{id: "#{flag.object.total_identifier}-flag-modal", role: 'dialog', tabindex: '-1'}
+.modal.fade.flag-modal{id: "#{flag.object.total_identifier}-flag-modal#{'-dispute' if flag.dispute?}", role: 'dialog', tabindex: '-1'}
   .modal-dialog{:role => 'document'}
     = form_for flag, html: { class: 'modal-content', remote: true } do |f|
       .modal-header
         %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
           %span{'aria-hidden' => 'true'} ×
-        %h4.modal-title= 'Why are you flagging this question?'
+        %h4.modal-title
+          - if flag.dispute?
+            Flag Dispute
+          - elsif flag.reason.present?
+            Flag Question
+            Do you confirm this flag:
+            = @flag.reason_string
+          - else
+            Why are you flagging this question?
       .modal-body
         .row
-          .form-group
-            = f.collection_radio_buttons(:reason, Flag.reason_structs, :symbol, :text) do |r|
-              %p.col-xs-6
-                = r.radio_button
-                = r.label
-
-          .form-group
+          - if flag.dispute?
             .col-xs-12
-              = f.text_area :details, class: 'form-control', placeholder: "Additional details about why you are flagging."
+              = f.hidden_field :dispute
+              = f.hidden_field :reason
+              %p= "You are disputing this flag: \"#{@flag.reason_string}\""
+              %p
+                If you believe this flag is inappropriate you can vote against it below.
+          - else
+            .form-group
+              = f.collection_radio_buttons(:reason, Flag.reason_structs, :symbol, :text) do |r|
+                %p.col-xs-6
+                  = r.radio_button
+                  = r.label
+
+            .form-group
+              .col-xs-12
+                = f.text_area :details, class: 'form-control', placeholder: "Additional details about why you are flagging."
 
       .modal-header
         %h4.modal-title What action should be taken?
@@ -24,10 +40,13 @@
         .row
           .col-xs-12
             .form-group
-              = f.radio_button :action, 'trust'
-              = f.label :action, "Remove#{' 0.1 trust points' unless user_signed_in?}"
+              - if flag.dispute?
+                = f.hidden_field :action, value: 'trust'
+              - else
+                = f.radio_button :action, 'trust'
+              = f.label :action, "#{flag.dispute? ? 'Add' : 'Remove'}#{' 0.1 trust points' unless user_signed_in?}"
               - if user_signed_in?
-                = f.select :trust, current_user.trust_potential.map { |i| [pluralize(i, 'trust point'), i*100]}
+                = f.select :trust, current_user.trust_potential.map { |i| [pluralize(i, 'trust point'), i*(flag.dispute? ? -100 : 100)]}
                 %small
                   = "(#{flag.object.class.to_s.downcase}"
                   currently has
@@ -35,7 +54,8 @@
                   trust points.)
                 - if current_user.trust_potential.last < User::MAX_TRUST_POTENTIAL
                   .small
-                    (you'll be able to remove
+                    (you'll be able to
+                    = flag.dispute? ? 'add' : 'remove'
                     = current_user.trust_potential.last + 1
                     trust points once you've gained
                     = link_to "#{(current_user.trust_potential.last + 1) * 100} trust points", current_user
@@ -45,16 +65,17 @@
                 .small
                   (you can remove up to 100x the trust points if you are a registered user)
 
-            .form-group
-              = f.radio_button :action, 'suspect'
-              = f.label :action, 'Remove this question and place in \'Suspect\' tab.'
-              .small
-                - if user_signed_in?
-                  (your account may be penalized if this is not an appropriate action)
-                - else
-                  (only available to registered users)
+            - unless flag.dispute?
+              .form-group
+                = f.radio_button :action, 'suspect'
+                = f.label :action, 'Remove this question and place in \'Suspect\' tab.'
+                .small
+                  - if user_signed_in?
+                    (your account may be penalized if this is not an appropriate action)
+                  - else
+                    (only available to registered users)
       .modal-footer
         = f.hidden_field :question_id
         = f.hidden_field :answer_id
         %span.btn.btn-default{data: {dismiss: 'modal'}}= "Cancel"
-        = f.submit "Flag", class: 'btn btn-action'
+        = f.submit "#{'Dispute ' if flag.dispute?}Flag", class: 'btn btn-action'

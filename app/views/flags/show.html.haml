@@ -30,7 +30,11 @@
 
   %h4 Action Taken:
   %p= @flag.action_string
-
+  %p
+    = @flag.object.class.to_s
+    currently has
+    = pluralize(@flag.object.display_votes, 'trust vote')
+    
   %br
 
   %h4 Details
@@ -48,7 +52,7 @@
     &nbsp;
     &nbsp;
 
-    %button.btn.btn-reject{data: {toggle: 'modal', target: "##{@flag.object.total_identifier}-flag-modal"}}
+    %button.btn.btn-reject{data: {toggle: 'modal', target: "##{@flag.object.total_identifier}-flag-modal-dispute"}}
       Dispute Flag
 
   %br
@@ -57,4 +61,5 @@
   %p= link_to("< Back To #{@flag.object.class.to_s}", @flag.object)
 
 
-  = render partial: 'flags/flag_modal', locals: {flag: @flag.object.flags.new}
+  = render partial: 'flags/flag_modal', locals: {flag: @flag.object.flags.new(reason: @flag.reason)}
+  = render partial: 'flags/flag_modal', locals: {flag: @flag.object.flags.new(reason: @flag.reason, dispute: true)}
