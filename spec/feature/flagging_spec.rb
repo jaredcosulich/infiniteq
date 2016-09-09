@@ -136,9 +136,7 @@ feature "Disputing A Flag", js: true do
 
     click_link '< Back To Question'
 
-    within "##{flag.question.total_identifier}" do
-      expect(page).to have_content('1 disputed')
-      expect(page).to_not have_css('.flag-preview')
-    end
+    expect(page).to have_content('1 disputed')
+    expect(page).to_not have_css('.flag-preview')
   end
 end
