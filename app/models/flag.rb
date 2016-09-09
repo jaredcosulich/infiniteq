@@ -24,6 +24,10 @@ class GroupedFlag
     not_disputing.length > 0
   end
 
+  def applicable_trust
+    [0, trust].max
+  end
+
   def disputed?
     trust <= 0
   end
@@ -62,6 +66,7 @@ class Flag < ApplicationRecord
   belongs_to :question
   belongs_to :answer
   belongs_to :user
+  has_many :trust_events, -> { where(object_type: 'Flag') }, foreign_key: :object_id, dependent: :destroy
 
   attr_accessor :action
 
