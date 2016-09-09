@@ -4,13 +4,28 @@ class GroupedFlag
     @flags = flags
   end
 
+  def flags
+    @flags
+  end
+
+  def not_disputing
+    @flags.select { |f| !f.dispute? }
+  end
+
+  def disputing
+    @flags.select { |f| f.dispute? }
+  end
+
   def trust
-    total_trust = @flags.map(&:trust).inject(:+)
-    [0, (total_trust || 0)].max
+    @flags.map(&:trust).inject(:+) || 0
+  end
+
+  def valid?
+    not_disputing.length > 0
   end
 
   def disputed?
-    trust == 0
+    trust <= 0
   end
 
   def method_missing(name, *args, &block)
@@ -22,7 +37,8 @@ class GroupedFlags
   def initialize(flags)
     @grouped_flags = []
     flags.group_by(&:reason).each do |reason, group|
-      @grouped_flags << GroupedFlag.new(group)
+      grouped_flag = GroupedFlag.new(group)
+      @grouped_flags << grouped_flag if grouped_flag.valid?
     end
   end
 
@@ -65,6 +81,10 @@ class Flag < ApplicationRecord
 
   def self.grouped(flags)
     GroupedFlags.new(flags.select(&:persisted?))
+  end
+
+  def group
+    Flag.grouped(object.flags).select { |gf| gf.reason == reason }.first
   end
 
   enum reason: [

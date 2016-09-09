@@ -10,6 +10,7 @@ class FlagsController < ApplicationController
   # GET /flags/1
   # GET /flags/1.json
   def show
+    @grouped_flag = @flag.group
   end
 
   # GET /flags/new

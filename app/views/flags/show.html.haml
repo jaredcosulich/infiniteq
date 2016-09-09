@@ -1,65 +1,73 @@
 .content
 
   %h3
-    = @flag.object.class.to_s
+    = @grouped_flag.object.class.to_s
     Flag
 
   %br
 
   %h4
-    = @flag.object.class.to_s
+    = @grouped_flag.object.class.to_s
     Being Flagged:
-  %p= @flag.object.text
+  %p= @grouped_flag.object.text
 
   %br
 
-  %h4 Flagged By:
-  %p= @flag.user.present? ? link_to(@flag.user.name, @flag.user) : 'Anonymous'
+  %h4
+    Flagged By
+    = @grouped_flag.not_disputing.length
+    People:
+  %p
+    - @grouped_flag.not_disputing.map(&:user).uniq.each do |user|
+      = user.present? ? link_to(@grouped_flag.user.name, @grouped_flag.user) : 'Anonymous'
 
   %br
 
   %h4 Reviewed By (Editor):
-  %p= @flag.confirmed? ? link_to(@flag.editor.name, @flag.editor) : 'Not yet reviewed'
+  %p= @grouped_flag.confirmed? ? link_to(@grouped_flag.editor.name, @grouped_flag.editor) : 'Not yet reviewed'
 
   %br
 
   %h4 Flag Reason:
-  %p= @flag.reason_string
+  %p= @grouped_flag.reason_string
 
   %br
 
   %h4 Action Taken:
-  %p= @flag.action_string
+  %p= @grouped_flag.action_string
   %p
-    = @flag.object.class.to_s
+    = @grouped_flag.object.class.to_s
     currently has
-    = pluralize(@flag.object.display_votes, 'trust vote')
-    
+    = pluralize(@grouped_flag.object.display_votes, 'trust vote')
+
   %br
 
   %h4 Details
-  %p= @flag.details.present? ? @flag.details : 'No details provided.'
+  %p= @grouped_flag.details.present? ? @grouped_flag.details : 'No details provided.'
 
   %br
   %br
   %br
 
   %p
-    %button.btn.btn-action{data: {toggle: 'modal', target: "##{@flag.object.total_identifier}-flag-modal"}}
-      = fa_icon('flag')
-      Confirm Flag
+    - if user_signed_in? && (user_flag = @grouped_flag.flags.select { |f| f.user == current_user }.first)
+      = link_to('Delete Flag', user_flag, method: :delete, class: 'btn btn-reject')
+    - else
+      %button.btn.btn-action{data: {toggle: 'modal', target: "##{@grouped_flag.object.total_identifier}-flag-modal"}}
+        = fa_icon('flag')
+        Confirm Flag
 
-    &nbsp;
-    &nbsp;
+      &nbsp;
+      &nbsp;
 
-    %button.btn.btn-reject{data: {toggle: 'modal', target: "##{@flag.object.total_identifier}-flag-modal-dispute"}}
-      Dispute Flag
+      %button.btn.btn-reject{data: {toggle: 'modal', target: "##{@grouped_flag.object.total_identifier}-flag-modal-dispute"}}
+        Dispute Flag
 
   %br
   %br
 
-  %p= link_to("< Back To #{@flag.object.class.to_s}", @flag.object)
+  %p= link_to("< Back To #{@grouped_flag.object.class.to_s}", @grouped_flag.object)
 
 
-  = render partial: 'flags/flag_modal', locals: {flag: @flag.object.flags.new(reason: @flag.reason)}
-  = render partial: 'flags/flag_modal', locals: {flag: @flag.object.flags.new(reason: @flag.reason, dispute: true)}
+  = render partial: 'flags/flag_modal', locals: {flag: @grouped_flag.object.flags.new(reason: @grouped_flag.reason)}
+  = render partial: 'flags/flag_modal', locals: {flag: @grouped_flag.object.flags.new(reason: @grouped_flag.reason, dispute: true)}
