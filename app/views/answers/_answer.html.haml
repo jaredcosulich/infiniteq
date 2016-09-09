@@ -7,9 +7,7 @@
       .comments
         = render answer.comments
 
-    %button.flag.btn.btn-sm.btn-action
-      = fa_icon('flag')
-      Flag
+    = render answer.flags.new
 
     .small.details
       .pull-right

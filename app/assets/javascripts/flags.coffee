@@ -5,13 +5,13 @@
 initFlags = ->
   $('.flag-modal form').on 'ajax:success', (e, data, status, xhr) ->
     form = $(this)
-    question = form.closest('.question')
+    object_area = form.closest('.question, .answer')
     modal = form.closest('.modal')
 
     modal.on 'hidden.bs.modal', ->
-      question.html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i></div>')
+      object_area.html('<div class="text-center"><i class="fa fa-spinner fa-spin"></i></div>')
       if data.length
-        question.replaceWith(data)
+        object_area.replaceWith(data)
         initFlags()
       else
         window.location.reload()

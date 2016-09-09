@@ -2,7 +2,7 @@ module Votable
 
   def update_votes
     vote_trust = self.public_send("#{self.class.to_s.downcase}_votes").sum(:trust)
-    flag_trust = Flag.grouped(flags).map(&:applicable_trust).inject(:+)
+    flag_trust = Flag.grouped(flags).map(&:applicable_trust).inject(:+) || 0
     total_trust = vote_trust - flag_trust
     if user.present? && user.confirmed?
       total_trust += 100
