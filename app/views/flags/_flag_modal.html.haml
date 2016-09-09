@@ -44,6 +44,7 @@
                 = f.hidden_field :action, value: 'trust'
               - else
                 = f.radio_button :action, 'trust'
+
               = f.label :action, "#{flag.dispute? ? 'Add' : 'Remove'}#{' 0.1 trust points' unless user_signed_in?}"
               - if user_signed_in?
                 = f.select :trust, current_user.trust_potential.map { |i| [pluralize(i, 'trust point'), i*(flag.dispute? ? -100 : 100)]}
@@ -61,7 +62,7 @@
                     = link_to "#{(current_user.trust_potential.last + 1) * 100} trust points", current_user
                     )
               - else
-                = f.hidden_field :trust, value: 10
+                = f.hidden_field :trust, value: (flag.dispute? ? -10 : 10)
                 .small
                   (you can remove up to 100x the trust points if you are a registered user)
 

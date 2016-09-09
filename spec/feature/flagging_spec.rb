@@ -90,14 +90,31 @@ feature "Disputing A Flag", js: true do
   given(:user) { users(:registered) }
   given(:flag) { flags(:one) }
 
-  background do
-    sign_in user
-  end
-
   scenario "lets you create a flag with negative points" do
     visit "/flags/#{flag.id}"
 
-    expect(page).to have_content('-1.9')
+    expect(page).to have_content('-0.9')
+
+    click_button 'Dispute Flag'
+
+    within "##{flag.question.total_identifier}-flag-modal-dispute" do
+      expect(page).to have_content('Flag Dispute')
+      expect(page).to have_content('You are disputing this flag: "Factually Incorrect"')
+      click_button 'Dispute Flag'
+    end
+
+    wait_for_ajax
+    expect(page).to_not have_css('.fa-spin')
+
+    expect(page).to have_content('-0.8')
+  end
+
+  scenario "lets you cancel out the flag" do
+    sign_in user
+
+    visit "/flags/#{flag.id}"
+
+    expect(page).to have_content('-0.9')
 
     click_button 'Dispute Flag'
 
@@ -115,10 +132,13 @@ feature "Disputing A Flag", js: true do
     wait_for_ajax
     expect(page).to_not have_css('.fa-spin')
 
-    expect(page).to have_content('-0.9')
-  end
+    expect(page).to have_content('0.1')
 
-  scenario "lets you cancel out the flag" do
+    click_link '< Back To Question'
 
+    within "##{flag.question.total_identifier}" do
+      expect(page).to have_content('1 disputed')
+      expect(page).to_not have_css('.flag-preview')
+    end
   end
 end

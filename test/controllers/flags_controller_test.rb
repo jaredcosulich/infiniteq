@@ -21,7 +21,7 @@ class FlagsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
-    assert_select '.vote-total', /-3.9/
+    assert_select '.vote-total', /-1.9/
   end
 
   test "should show flag" do

@@ -5,4 +5,4 @@ one:
   question: :three
   user: :another_registered
   details: MyText
-  trust: 200
+  trust: 100

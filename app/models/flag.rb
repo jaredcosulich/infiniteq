@@ -1,3 +1,46 @@
+class GroupedFlag
+
+  def initialize(flags)
+    @flags = flags
+  end
+
+  def trust
+    total_trust = @flags.map(&:trust).inject(:+)
+    [0, (total_trust || 0)].max
+  end
+
+  def disputed?
+    trust == 0
+  end
+
+  def method_missing(name, *args, &block)
+    @flags.first.send(name, *args, &block)
+  end
+end
+
+class GroupedFlags
+  def initialize(flags)
+    @grouped_flags = []
+    flags.group_by(&:reason).each do |reason, group|
+      @grouped_flags << GroupedFlag.new(group)
+    end
+  end
+
+  def not_disputed
+    @grouped_flags.select { |gf| !gf.disputed? }
+  end
+
+  def disputed
+    @grouped_flags.select { |gf| gf.disputed? }
+  end
+
+  def method_missing(name, *args, &block)
+    @grouped_flags.send(name, *args, &block)
+  end
+end
+
+Reason = Struct.new(:id, :symbol, :text)
+
 class Flag < ApplicationRecord
 
   belongs_to :question
@@ -20,7 +63,9 @@ class Flag < ApplicationRecord
     question || answer
   end
 
-  Reason = Struct.new(:id, :symbol, :text)
+  def self.grouped(flags)
+    GroupedFlags.new(flags.select(&:persisted?))
+  end
 
   enum reason: [
     :out_of_date,
