@@ -40,10 +40,11 @@ class FlagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy flag" do
+    object = @flag.object
     assert_difference('Flag.count', -1) do
       delete flag_url(@flag)
     end
 
-    assert_redirected_to flags_url
+    assert_redirected_to object
   end
 end
