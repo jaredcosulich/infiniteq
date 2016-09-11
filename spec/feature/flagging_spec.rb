@@ -214,3 +214,55 @@ feature "Disputing A Flag", js: true do
     expect(page).to_not have_css('.flag-preview')
   end
 end
+
+feature "Anonymous Flagging", js: true do
+  fixtures :all
+
+  given(:topic) { topics(:one) }
+  given(:question) { questions(:one) }
+
+  feature 'a question' do
+    background do
+      visit("/topics/#{topic.slug}")
+      within("#question-#{question.id}") do
+        expect(page).to have_content(1.9)
+        click_button 'Flag'
+      end
+    end
+
+    scenario "and removing trust" do
+      within "##{question.total_identifier}-flag-modal" do
+        expect(page).to have_content('Why are you flagging this question?')
+
+        3.times { choose('flag_reason_factually_incorrect') }
+        expect(find_field('flag_reason_factually_incorrect')).to be_checked
+
+        3.times { choose 'flag_action_trust' }
+        expect(find_field('flag_action_trust')).to be_checked
+
+        click_button 'Flag'
+      end
+
+      wait_for_ajax
+      expect(page).to_not have_css('.fa-spin')
+
+      expect(page).to have_css("#question-#{question.id}")
+      within("#question-#{question.id}") do
+        expect(page).to_not have_content(1.9)
+        expect(page).to have_content(1.8)
+        expect(page).to have_content('Reason: Factually Incorrect')
+        expect(page).to have_content('0.1 trust points removed.')
+      end
+    end
+
+
+    scenario "and marking suspect is not allowed" do
+      expect(page).to have_content('MyString1')
+
+      within "##{question.total_identifier}-flag-modal" do
+        expect(page).to have_content('Why are you flagging this question?')
+        expect(page).to have_css("input[type='radio'][value='suspect'][disabled='disabled']")
+      end
+    end
+  end
+end

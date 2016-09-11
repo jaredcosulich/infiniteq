@@ -68,7 +68,7 @@
 
             - unless flag.dispute?
               .form-group
-                = f.radio_button :action, 'suspect'
+                = f.radio_button :action, 'suspect', disabled: !user_signed_in?
                 = f.label :action, "Remove this #{flag.object.class.to_s.downcase} and place in 'Suspect' tab."
                 .small
                   - if user_signed_in?

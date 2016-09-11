@@ -283,3 +283,7 @@ i.fa {
     padding-top: 6px;
   }
 }
+
+input:disabled+label {
+  color: #aaa;
+}
