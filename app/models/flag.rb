@@ -70,8 +70,8 @@ class Flag < ApplicationRecord
 
   attr_accessor :action
 
-  validates :reason, presence: true
-  validates :action, presence: true
+  validates :reason, presence: {message: '(please provide a reason for flagging)'}
+  validates :action, presence: {message: '(please provide an action to take)'}
 
   before_save :take_action
   after_commit :update_object

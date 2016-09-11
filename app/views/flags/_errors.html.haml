@@ -1,0 +1,7 @@
+#error_explanation.modal-body
+  %h4
+    = pluralize(flag.errors.count, "error")
+    prohibited this flag from being saved:
+  %ul
+    - flag.errors.full_messages.each do |message|
+      %li= message

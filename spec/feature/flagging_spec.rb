@@ -48,7 +48,6 @@ feature "Flagging", js: true do
       end
     end
 
-
     scenario "and marking suspect" do
       expect(page).to have_content('MyString1')
 
@@ -80,6 +79,22 @@ feature "Flagging", js: true do
 
       expect(page).to have_content('MyString1')
       expect(page).to have_content('Reason: Factually Incorrect')
+    end
+
+    scenario "with errors" do
+      within "##{question.total_identifier}-flag-modal" do
+        expect(page).to have_content('Why are you flagging this question?')
+
+        3.times { choose('flag_reason_factually_incorrect') }
+        expect(find_field('flag_reason_factually_incorrect')).to be_checked
+
+        click_button 'Flag'
+
+        wait_for_ajax
+
+        expect(page).to have_content('please provide an action to take')
+      end
+
     end
   end
 

@@ -38,7 +38,7 @@ class FlagsController < ApplicationController
         end
         format.json { render @flag.object.reload, status: :created, location: @flag }
       else
-        format.html { render :new }
+        format.html { render partial: 'flags/errors', locals: {flag: @flag}, status: 400 }
         format.json { render json: @flag.errors, status: :unprocessable_entity }
       end
     end

@@ -14,6 +14,8 @@
           - else
             = "Why are you flagging this #{flag.object.class.to_s.downcase}?"
       .modal-body
+        .errors
+
         .row
           - if flag.dispute?
             .col-xs-12

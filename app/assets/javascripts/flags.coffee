@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 initFlags = ->
+  $('.flag-modal form').on 'ajax:error', (e, data, status, xhr) ->
+    $(this).find('.errors').html(data.responseText)
+
   $('.flag-modal form').on 'ajax:success', (e, data, status, xhr) ->
     form = $(this)
     object_area = form.closest('.question, .answer')
