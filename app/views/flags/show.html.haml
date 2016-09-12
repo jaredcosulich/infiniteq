@@ -9,16 +9,24 @@
   %h4
     = @grouped_flag.object.class.to_s
     Being Flagged:
-  %p= @grouped_flag.object.text
+  %p= markdown(@grouped_flag.object.text)
 
   %br
 
   %h4
     Flagged By
-    = @grouped_flag.not_disputing.length
-    People:
+    = pluralize(@grouped_flag.not_disputing.length, 'Person:', plural: 'People:')
   %p
     - @grouped_flag.not_disputing.map(&:user).uniq.each do |user|
+      = user.present? ? link_to(@grouped_flag.user.name, @grouped_flag.user) : 'Anonymous'
+
+  %br
+
+  %h4
+    Disputed By
+    = pluralize(@grouped_flag.disputing.length, 'Person:', plural: 'People:')
+  %p
+    - @grouped_flag.disputing.map(&:user).uniq.each do |user|
       = user.present? ? link_to(@grouped_flag.user.name, @grouped_flag.user) : 'Anonymous'
 
   %br
@@ -43,7 +51,15 @@
   %br
 
   %h4 Details
-  %p= @grouped_flag.details.present? ? @grouped_flag.details : 'No details provided.'
+  %p
+    - if (detailed_flags = @grouped_flag.detailed_flags).present?
+      - detailed_flags.each do |df|
+        .details
+          %strong
+            = "#{df.user_name}:"
+          = df.details
+    - else
+      No details provided.
 
   %br
   %br

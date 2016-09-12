@@ -32,6 +32,10 @@ class GroupedFlag
     trust <= 0
   end
 
+  def detailed_flags
+    @flags.select { |f| f.details.present? }
+  end
+
   def method_missing(name, *args, &block)
     @flags.first.send(name, *args, &block)
   end
@@ -84,6 +88,10 @@ class Flag < ApplicationRecord
     question || answer
   end
 
+  def user_name
+    user.present? ? user.name : 'Anonymous'
+  end
+
   def self.grouped(flags)
     GroupedFlags.new(flags.select(&:persisted?))
   end
@@ -119,7 +127,6 @@ class Flag < ApplicationRecord
   def display_trust
     (trust / 10.0).round / 10.0
   end
-
 
   def self.reason_structs
     reasons.collect do |symbol_string, id|

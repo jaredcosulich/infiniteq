@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :question_votes
   has_many :answer_votes
   has_many :trust_events
+  has_many :flags
 
   before_save :update_trust
   after_save :consume_temporary_user_based_on_ip, if: Proc.new { |u| u.ip_address.present? }
@@ -43,6 +44,10 @@ class User < ApplicationRecord
     return positive == true if public_send("#{object_type}s").where(id: object.id).present?
     vote = public_send("#{object_type}_votes").find_by("#{object_type}_id" => object.id)
     vote.present? ? (positive == vote.trust > 0) : false
+  end
+
+  def has_flagged?(object)
+    flags.find_by((object.is_a?(Question) ? 'question_id' : 'answer_id') => object.id).present?
   end
 
   def consume_temporary_user(temporary_user)

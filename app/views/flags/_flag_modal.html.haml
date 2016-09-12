@@ -5,7 +5,9 @@
         %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
           %span{'aria-hidden' => 'true'} ×
         %h4.modal-title
-          - if flag.dispute?
+          - if (current_user || @temporary_user).has_flagged?(flag.object)
+            You have already flagged this question.
+          - elsif flag.dispute?
             Flag Dispute
           - elsif flag.reason.present?
             Flag Question

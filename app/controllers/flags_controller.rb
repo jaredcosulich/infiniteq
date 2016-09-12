@@ -30,6 +30,10 @@ class FlagsController < ApplicationController
     respond_to do |format|
       if @flag.save
         format.html do
+          unless user_signed_in?
+            @temporary_user = TemporaryUser.add_object(@flag, request.remote_ip)
+          end
+
           if @flag.suspect || @flag.dispute?
             head :ok
           else
