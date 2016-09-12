@@ -27,6 +27,8 @@ feature "Flagging", js: true do
         3.times { choose('flag_reason_factually_incorrect') }
         expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
+        fill_in 'flag[details]', with: 'Because it is deserves a flag!'
+
         3.times { choose 'flag_action_trust' }
         expect(find_field('flag_action_trust')).to be_checked
 
@@ -46,6 +48,10 @@ feature "Flagging", js: true do
         expect(page).to have_content(0.9)
         expect(page).to have_content('Reason: Factually Incorrect')
       end
+
+      click_link 'Details'
+
+      expect(page).to have_content('Because it is deserves a flag!')
     end
 
     scenario "and marking suspect" do
@@ -96,33 +102,56 @@ feature "Flagging", js: true do
       end
     end
 
-    scenario "can't flag twice" do
-      within "##{question.total_identifier}-flag-modal" do
-        3.times { choose('flag_reason_factually_incorrect') }
-        expect(find_field('flag_reason_factually_incorrect')).to be_checked
+    feature 'once flagged' do
+      background do
+        within "##{question.total_identifier}-flag-modal" do
+          3.times { choose('flag_reason_factually_incorrect') }
+          expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
-        3.times { choose 'flag_action_trust' }
-        expect(find_field('flag_action_trust')).to be_checked
+          3.times { choose 'flag_action_trust' }
+          expect(find_field('flag_action_trust')).to be_checked
 
-        within '#flag_trust' do
-          select('1 trust point')
+          within '#flag_trust' do
+            select('1 trust point')
+          end
+
+          click_button 'Flag'
         end
 
-        click_button 'Flag'
+        wait_for_ajax
+        expect(page).to_not have_css('.fa-spin')
+
+        expect(page).to have_css("#question-#{question.id}")
       end
 
-      wait_for_ajax
-      expect(page).to_not have_css('.fa-spin')
+      scenario "can't flag twice" do
+        within("#question-#{question.id}") do
+          expect(page).to have_content('Reason: Factually Incorrect')
+          click_button 'Flag'
+        end
 
-      expect(page).to have_css("#question-#{question.id}")
-      within("#question-#{question.id}") do
-        expect(page).to have_content('Reason: Factually Incorrect')
-        click_button 'Flag'
+        within "##{question.total_identifier}-flag-modal" do
+          expect(page).to have_content('You have already flagged this question.')
+          expect(page).to_not have_content('Out Of Date')
+          expect(page).to_not have_content('What action should be taken?')
+          expect(page).to_not have_content('Remove this answer')
+          expect(page).to_not have_content('Flag')
+        end
       end
 
-      within "##{question.total_identifier}-flag-modal" do
-        expect(page).to have_content('You have already flagged this question.')
-        expect(page).to_not have_content('Flag')
+      scenario "can delete" do
+        within("#question-#{question.id}") do
+          expect(page).to have_content('Reason: Factually Incorrect')
+          click_link 'Details'
+        end
+
+        accept_confirm do
+          click_link 'Delete Flag'
+        end
+
+        expect(page).to_not have_content('Reason: Factually Incorrect')
+        expect(page).to have_css("#question-#{question.id}")
+        expect(page).to have_content('1.9')
       end
     end
   end
@@ -218,6 +247,9 @@ feature "Disputing A Flag", js: true do
     within "##{flag.question.total_identifier}-flag-modal-dispute" do
       expect(page).to have_content('Flag Dispute')
       expect(page).to have_content('You are disputing this flag: "Factually Incorrect"')
+
+      fill_in 'flag[details]', with: 'Because it is wrong!'
+
       click_button 'Dispute Flag'
     end
 
@@ -225,6 +257,7 @@ feature "Disputing A Flag", js: true do
     expect(page).to_not have_css('.fa-spin')
 
     expect(page).to have_content('-0.8')
+    expect(page).to have_content('Because it is wrong!')
   end
 
   scenario "lets you cancel out the flag" do
@@ -308,31 +341,51 @@ feature "Anonymous Flagging", js: true do
       end
     end
 
-    scenario "can't flag twice" do
-      within "##{question.total_identifier}-flag-modal" do
-        expect(page).to have_content('Why are you flagging this question?')
+    feature 'once flagged' do
+      background do
+        within "##{question.total_identifier}-flag-modal" do
+          expect(page).to have_content('Why are you flagging this question?')
 
-        3.times { choose('flag_reason_factually_incorrect') }
-        expect(find_field('flag_reason_factually_incorrect')).to be_checked
+          3.times { choose('flag_reason_factually_incorrect') }
+          expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
-        3.times { choose 'flag_action_trust' }
-        expect(find_field('flag_action_trust')).to be_checked
+          3.times { choose 'flag_action_trust' }
+          expect(find_field('flag_action_trust')).to be_checked
 
-        click_button 'Flag'
+          click_button 'Flag'
+        end
+
+        wait_for_ajax
+        expect(page).to_not have_css('.fa-spin')
+
+        expect(page).to have_css("#question-#{question.id}")
       end
 
-      wait_for_ajax
-      expect(page).to_not have_css('.fa-spin')
+      scenario "can't flag twice" do
+        within("#question-#{question.id}") do
+          expect(page).to have_content('Reason: Factually Incorrect')
+          click_button 'Flag'
+        end
 
-      expect(page).to have_css("#question-#{question.id}")
-      within("#question-#{question.id}") do
-        expect(page).to have_content('Reason: Factually Incorrect')
-        click_button 'Flag'
+        within "##{question.total_identifier}-flag-modal" do
+          expect(page).to have_content('You have already flagged this question.')
+          expect(page).to_not have_content('Flag')
+        end
       end
 
-      within "##{question.total_identifier}-flag-modal" do
-        expect(page).to have_content('You have already flagged this question.')
-        expect(page).to_not have_content('Flag')
+      scenario "can delete" do
+        within("#question-#{question.id}") do
+          expect(page).to have_content('Reason: Factually Incorrect')
+          click_link 'Details'
+        end
+
+        accept_confirm do
+          click_link 'Delete Flag'
+        end
+
+        expect(page).to_not have_content('Reason: Factually Incorrect')
+        expect(page).to have_css("#question-#{question.id}")
+        expect(page).to have_content('1.9')
       end
     end
   end

@@ -20,12 +20,30 @@ class GroupedFlag
     @flags.map(&:trust).inject(:+) || 0
   end
 
+  def display_trust
+    (trust / 10.0).round / 10.0
+  end
+
   def valid?
     not_disputing.length > 0
   end
 
   def applicable_trust
     [0, trust].max
+  end
+
+  def action_string
+    description = []
+    if (suspect_flags = @flags.select(&:suspect?)).present?
+      any_confirmed = suspect_flags.select(&:confirmed?)
+      description << "Moved to 'Suspect' tab: #{any_confirmed.empty? ? 'Pending Review' : 'Comfirmed'}"
+    end
+
+    if trust > 0
+      description << "#{display_trust.abs} trust points #{dispute? ? 'added back' : 'removed'}."
+    end
+
+    description.join(', ')
   end
 
   def disputed?
@@ -142,7 +160,7 @@ class Flag < ApplicationRecord
     end
 
     if trust.present?
-      description << "#{display_trust} trust points removed."
+      description << "#{display_trust.abs} trust points #{dispute? ? 'added back' : 'removed'}."
     end
 
     description.join(', ')

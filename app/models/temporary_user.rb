@@ -10,7 +10,15 @@ class TemporaryUser < ApplicationRecord
   end
 
   def has_flagged?(object)
-    parsed_flags[object.class.to_s.downcase][object.id.to_s].present?
+    flag_id_for(object).present?
+  end
+
+  def flag_id_for(object)
+    parsed_flags[object.class.to_s.downcase][object.id.to_s]
+  end
+
+  def flag_for(object)
+    Flag.find(flag_id_for(object))
   end
 
   def self.add_object(object, remote_ip)
@@ -21,6 +29,14 @@ class TemporaryUser < ApplicationRecord
       temporary_user.public_send("add_#{object.class.to_s.downcase}", object)
     end
     return temporary_user
+  end
+
+  def remove_object(object)
+    if object.class.to_s =~ /Vote/
+      remove_vote(object)
+    else
+      public_send("remove_#{object.class.to_s.downcase}", object)
+    end
   end
 
   def parsed_votes
@@ -71,6 +87,16 @@ class TemporaryUser < ApplicationRecord
       pf['question'][flag.question_id.to_s] = flag.id
     else
       pf['answer'][flag.answer_id.to_s] = flag.id
+    end
+    update(flags: pf.to_json)
+  end
+
+  def remove_flag(flag)
+    pf = parsed_flags
+    if flag.question_id.present?
+      pf['question'].delete flag.question_id.to_s
+    else
+      pf['answer'].delete flag.answer_id.to_s
     end
     update(flags: pf.to_json)
   end

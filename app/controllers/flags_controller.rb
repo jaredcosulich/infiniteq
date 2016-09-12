@@ -66,10 +66,14 @@ class FlagsController < ApplicationController
   # DELETE /flags/1
   # DELETE /flags/1.json
   def destroy
+    unless user_signed_in?
+      @temporary_user.remove_object(@flag)
+    end
+
     object = @flag.object
     @flag.destroy
     respond_to do |format|
-      format.html { redirect_to object, notice: 'Flag was successfully destroyed.' }
+      format.html { redirect_to object.try(:question) || object, notice: 'Flag was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
