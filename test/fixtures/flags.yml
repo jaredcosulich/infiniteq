@@ -1,0 +1,8 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reason: 1
+  question: :three
+  user: :another_registered
+  details: MyText
+  trust: 100

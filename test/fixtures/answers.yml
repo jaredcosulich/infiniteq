@@ -1,14 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  text: MyText1
+  text: MyAnswer1
   question: :one
   user: :registered
   vote_total: 190
   aasm_state: verified
 
 two:
-  text: MyText2
+  text: MyAnswer2
   question: :one
   user: :unconfirmed
   vote_total: 10

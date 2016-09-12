@@ -9,9 +9,8 @@
       .small.answer
         = markdown("**A:** #{answer.text}") if question.answers.present?
         = link_to '&nbsp;'.html_safe, question, class: 'fadeout'
-    - else
-      %br
-      %br
+
+    = render question.flags.new
 
     .details.small
       Topic:

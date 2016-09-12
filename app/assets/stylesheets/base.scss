@@ -220,11 +220,19 @@ i.fa {
 .btn-action, a.btn-action {
   background-color: $orange-color;
   color: white;
+  i { color: white; }
+}
+
+.btn-reject, a.btn-reject {
+  background-color: $red-color;
+  color: white;
+  i { color: white; }
 }
 
 .btn-primary, a.btn-primary {
   background-color: $blue-color;
   color: white;
+  i { color: white; }
 }
 
 .tabs {
@@ -251,4 +259,31 @@ i.fa {
   a, a:visited, a:hover {
     color: $orange-color;
   }
+}
+
+.flag {
+  margin: 12px 0;
+  button {
+    font-size: 8pt;
+    padding: 3px 6px;
+  }
+
+  h6 {
+    display: inline;
+  }
+
+  .flag-preview {
+    margin-top: 6px;
+    padding: 3px 6px;
+    border: 1px solid $yellow-color;
+    background-color: lighten($yellow-color, 25%);
+  }
+
+  .disputed {
+    padding-top: 6px;
+  }
+}
+
+input:disabled+label {
+  color: #aaa;
 }

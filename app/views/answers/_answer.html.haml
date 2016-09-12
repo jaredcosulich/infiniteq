@@ -7,6 +7,8 @@
       .comments
         = render answer.comments
 
+    = render answer.flags.new
+
     .small.details
       .pull-right
         = link_to('Add Comment / Follow-Up Question', new_comment_path(comment: {answer_id: answer.id}))

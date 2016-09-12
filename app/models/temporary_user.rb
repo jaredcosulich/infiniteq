@@ -9,12 +9,33 @@ class TemporaryUser < ApplicationRecord
     positive == vote.try(:trust) > 0
   end
 
+  def has_flagged?(object)
+    flag_id_for(object).present?
+  end
+
+  def flag_id_for(object)
+    parsed_flags[object.class.to_s.downcase][object.id.to_s]
+  end
+
+  def flag_for(object)
+    Flag.find(flag_id_for(object))
+  end
+
   def self.add_object(object, remote_ip)
     temporary_user = TemporaryUser.find_or_create_by(ip_address: remote_ip)
     if object.class.to_s =~ /Vote/
       temporary_user.add_vote(object)
     else
-      temporary_user.add_question(object)
+      temporary_user.public_send("add_#{object.class.to_s.downcase}", object)
+    end
+    return temporary_user
+  end
+
+  def remove_object(object)
+    if object.class.to_s =~ /Vote/
+      remove_vote(object)
+    else
+      public_send("remove_#{object.class.to_s.downcase}", object)
     end
   end
 
@@ -56,4 +77,27 @@ class TemporaryUser < ApplicationRecord
     update(answers: pa.to_json)
   end
 
+  def parsed_flags
+    JSON.parse(flags || {'question' => {}, 'answer' => {}}.to_json)
+  end
+
+  def add_flag(flag)
+    pf = parsed_flags
+    if flag.question_id.present?
+      pf['question'][flag.question_id.to_s] = flag.id
+    else
+      pf['answer'][flag.answer_id.to_s] = flag.id
+    end
+    update(flags: pf.to_json)
+  end
+
+  def remove_flag(flag)
+    pf = parsed_flags
+    if flag.question_id.present?
+      pf['question'].delete flag.question_id.to_s
+    else
+      pf['answer'].delete flag.answer_id.to_s
+    end
+    update(flags: pf.to_json)
+  end
 end

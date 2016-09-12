@@ -1,0 +1,35 @@
+- grouped_flags = Flag.grouped(flag.object.flags)
+.flag
+  %button.btn.btn-sm.btn-action{data: {toggle: 'modal', target: "##{flag.object.total_identifier}-flag-modal"}}
+    = fa_icon('flag')
+    Flag
+  %h6
+    %strong Flags:
+    %small
+      (
+      = grouped_flags.length == 0 ? 'none' : grouped_flags.length
+      - if grouped_flags.disputed.present?
+        = ": #{grouped_flags.disputed.length} disputed"
+      )
+
+  - grouped_flags.not_disputed.each do |gf|
+    .small.flag-preview
+      %strong Reason:
+      = gf.reason_string
+
+      %br
+
+      .pull-right.highlighted_links_orange
+        = link_to 'Details', gf
+
+      %strong Action:
+      = gf.action_string
+
+  - if local_assigns[:detailed] && grouped_flags.disputed.present?
+    .small.disputed
+      Disputed:
+      - grouped_flags.disputed.each do |gf|
+        = link_to gf.reason_string, gf
+
+
+  = render partial: 'flags/flag_modal', locals: {flag: flag}

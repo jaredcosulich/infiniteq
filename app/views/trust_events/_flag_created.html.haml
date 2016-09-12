@@ -1,0 +1,8 @@
+= render partial: 'trust_events/trust', locals: {event: event}
+= link_to(event.user.name, event.user)
+flagged a
+= event.object.object.class.to_s.downcase
+written by
+- object_user_name = event.object.object.try(:user).try(:name)
+= object_user_name.present? ? link_to(object_user_name, event.object.try(:user)) : 'Anonymous'
+= render partial: 'trust_events/time', locals: {event: event}

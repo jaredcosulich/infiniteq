@@ -19,6 +19,9 @@
         %p.small.comment_link
           = link_to('Ask A Clarifying Question', new_comment_path(comment: {question_id: @question.id}))
 
+        %br
+        = render @question.flags.new, detailed: true
+
   .answer_question.col-xs-12
     %h4
       Answer This Question

@@ -19,3 +19,12 @@ two:
   aasm_state: verified
   answers_count: 0
   vote_total: 10
+
+three:
+  text: MyString3
+  details: MyText3
+  topic: :two
+  slug: 'mystring3'
+  aasm_state: unverified
+  answers_count: 0
+  vote_total: -90
