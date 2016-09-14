@@ -8,9 +8,11 @@
       &nbsp;&nbsp;
     = link_to "#{fa_icon('plus-circle')} New Subtopic".html_safe, new_topic_path(parent_topic_id: @topic.id)
 
-  %h3.topic-title
-    = @topic.title
-    %small.description.highlighted_links= markdown(@topic.description)
+  .topic-title
+    %h3
+      = @topic.title
+      %small.description.highlighted_links= markdown(@topic.description)
+    = render @topic.followings.new
 
   .ask_a_question.col-xs-12
     .col-xs-12

@@ -1,6 +1,7 @@
 class QuestionVotesController < ApplicationController
   before_action :set_question
   before_action :set_question_vote, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to
 
   # POST /question_votes
   # POST /question_votes.json

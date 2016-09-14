@@ -1,5 +1,6 @@
 class FlagsController < ApplicationController
   before_action :set_flag, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to
 
   # GET /flags
   # GET /flags.json

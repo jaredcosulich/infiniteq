@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to, only: [:create, :update, :destroy]
 
   def new
     @comment = Comment.new(comment_params)

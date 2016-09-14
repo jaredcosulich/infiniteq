@@ -1,0 +1,39 @@
+.modal.fade{id: 'anonymous-following-modal', role: 'dialog', tabindex: '-1'}
+  .modal-dialog{:role => 'document'}
+    .modal-content
+      .modal-header
+        %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
+          %span{'aria-hidden' => 'true'} ×
+        %h4.modal-title
+          Follow This
+          = following.object.class.to_s
+      .modal-body
+        %br
+        %p
+          Please
+          = link_to "log in", new_user_session_path
+          or
+          = link_to "register", new_user_registration_path
+          or simply provide your email below to follow this
+          = "#{following.object.class.to_s.downcase}:"
+        %br
+        - new_user = User.new
+        - new_user.followings.build(following.attributes)
+        = form_for(new_user, as: :user, url: registration_path(:user), html: {class: 'form-inline'}) do |f|
+          .form-group
+            = f.label :email, class: 'sr-only'
+            - pw = Time.new.to_i.to_s
+            = f.fields_for :followings do |followings_form|
+              = followings_form.hidden_field :topic_id
+              = followings_form.hidden_field :question_id
+            = f.hidden_field :ip_address, value: request.remote_ip
+            = f.hidden_field :password, value: pw
+            = f.hidden_field :password_confirmation, value: pw
+            = f.text_field :email, class: 'form-control', placeholder: 'Your Email'
+          = f.submit 'Save', class: 'btn btn-action'
+        %br
+
+
+      .modal-footer
+        %span.btn.btn-default{data: {dismiss: 'modal'}} Cancel
+        =# f.submit 'Save', class: 'btn btn-action'

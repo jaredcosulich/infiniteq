@@ -1,4 +1,5 @@
 class WelcomeController < ApplicationController
+  skip_after_action :set_return_to
 
   def index
     @topics = Topic.parent_topics.order(created_at: :desc)

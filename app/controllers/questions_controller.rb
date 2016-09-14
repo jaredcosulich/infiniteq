@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to, only: [:create, :update, :destroy]
 
   # GET /questions/1
   # GET /questions/1.json
@@ -54,9 +55,10 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
+    topic = @question.topic
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to topic || root_path, notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

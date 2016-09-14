@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to, only: [:create, :update, :destroy]
 
   # GET /topics
   # GET /topics.json

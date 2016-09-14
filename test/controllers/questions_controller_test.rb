@@ -25,7 +25,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
       delete question_url(@question)
     end
 
-    assert_redirected_to questions_url
+    assert_redirected_to topics(:one)
   end
 
 end

@@ -1,5 +1,6 @@
 class TemporaryUsersController < ApplicationController
   before_action :set_temporary_user, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to
 
   # GET /temporary_users
   # GET /temporary_users.json
