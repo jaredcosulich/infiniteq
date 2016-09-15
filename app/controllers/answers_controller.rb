@@ -23,6 +23,11 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
+        AdminMailer.object_created(@answer).deliver_now
+        @answer.question.followings.each do |following|
+          FollowingMailer.object_created(@answer, following).deliver_now
+        end
+
         format.html do
           if @answer.user.present?
             redirect_to @answer.question, notice: 'Answer was successfully created.'
@@ -32,7 +37,6 @@ class AnswersController < ApplicationController
           end
         end
         format.json { render :show, status: :created, location: @answer }
-        AdminMailer.object_created(@answer).deliver_now
       else
         format.html do
           redirect_to @answer.question, notice: "There were problems with your answer: #{@answer.errors.full_messages.join(', ')}"

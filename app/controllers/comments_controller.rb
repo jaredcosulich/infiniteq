@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        AdminMailer.object_created(@comment).deliver_now
         format.html { redirect_to @comment.root_parent, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else

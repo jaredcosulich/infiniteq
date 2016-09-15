@@ -8,6 +8,7 @@ class FollowingsController < ApplicationController
 
     respond_to do |format|
       if @following.save
+        AdminMailer.object_created(@following).deliver_now
         format.html { redirect_to @following.object, notice: "You are now following this #{@following.object.class.to_s.downcase}." }
         format.json { render :show, status: :created, location: @following }
       else

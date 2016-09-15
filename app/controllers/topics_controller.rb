@@ -33,6 +33,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
+        AdminMailer.object_created(@topic).deliver_now
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
         AdminMailer.object_created(@topic).deliver_now

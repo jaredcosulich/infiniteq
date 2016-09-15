@@ -30,6 +30,7 @@ class FlagsController < ApplicationController
 
     respond_to do |format|
       if @flag.save
+        AdminMailer.object_created(@flag).deliver_now
         format.html do
           unless user_signed_in?
             @temporary_user = TemporaryUser.add_object(@flag, request.remote_ip)

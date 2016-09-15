@@ -29,6 +29,7 @@ class TemporaryUsersController < ApplicationController
 
     respond_to do |format|
       if @temporary_user.save
+        AdminMailer.object_created(@temporary_user).deliver_now
         format.html { redirect_to @temporary_user, notice: 'Temporary user was successfully created.' }
         format.json { render :show, status: :created, location: @temporary_user }
       else

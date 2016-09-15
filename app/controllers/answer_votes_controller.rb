@@ -18,6 +18,7 @@ class AnswerVotesController < ApplicationController
 
     respond_to do |format|
       if @answer_vote.save
+        AdminMailer.object_created(@answer_vote).deliver_now
         format.html {
           if @answer_vote.user.present?
             render partial: 'votable/votes', locals: {object: @answer.reload}

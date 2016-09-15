@@ -19,6 +19,12 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
+        AdminMailer.object_created(@question).deliver_now
+        if @question.topic.present?
+          @question.topic.followings.each do |following|
+            FollowingMailer.object_created(@question, following).deliver_now
+          end
+        end
         format.html do
           if @question.user.present?
             redirect_to @question, notice: 'Question was successfully created.'
@@ -28,7 +34,6 @@ class QuestionsController < ApplicationController
           end
         end
         format.json { render :show, status: :created, location: @question }
-        AdminMailer.object_created(@question).deliver_now
       else
         format.html do
           redirect_to @question.topic, notice: "There were problems with the question you asked: #{@question.errors.full_messages.join(', ')}"
