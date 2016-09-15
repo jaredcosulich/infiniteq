@@ -16,8 +16,25 @@ class FlagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create flag" do
+    user = users(:registered)
+    follower_users = [users(:another_registered), users(:unconfirmed)]
+    question = @flag.question
+    follower_users.each do |follower_user|
+      question.followings.create(user: follower_user)
+    end
+
+    sign_in user
+
     assert_difference('Flag.count') do
       post flags_url, params: { flag: { action: 'trust', details: @flag.details, question_id: @flag.question_id, reason: @flag.reason, trust: @flag.trust } }
+    end
+
+    follower_users.each do |follower_user|
+      assert follower_email = ActionMailer::Base.deliveries.select { |e| e.to == [follower_user.email] }.last
+      assert_equal "InfiniteQ: Flag added to question: #{question.text}", follower_email.subject
+      assert_equal ['support@infiniteq.net'], follower_email.from
+      assert follower_email.encoded.include? @flag.reason_string
+      assert follower_email.encoded.include? 'unsubscribe'
     end
 
     assert_response :success

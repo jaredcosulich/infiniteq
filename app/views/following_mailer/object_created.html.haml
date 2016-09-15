@@ -9,7 +9,7 @@
 %p
   %strong: Question:
   %br
-  = @object.text
+  = @object.try(:text) || @object.reason_string
 
 %p
   You can answer or comment on this question here:
