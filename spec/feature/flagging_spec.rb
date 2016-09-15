@@ -281,8 +281,9 @@ feature "Disputing A Flag", js: true do
     end
 
     wait_for_ajax
-    expect(page).to_not have_css('.fa-spin')
+    sleep 1
 
+    expect(page).to_not have_css('.fa-spin')
     expect(page).to have_content('0.1')
 
     click_link '< Back To Question'
