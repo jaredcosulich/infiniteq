@@ -11,6 +11,7 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    @questions = (params[:f] == 't' ? @topic.questions : @topic.all_questions)
     @question = @topic.questions.new
   end
 
