@@ -1,8 +1,10 @@
-initDetails = ->
-  details = $('.ask_a_question .details_field')
-  height = details.height()
+initExpandable = ->
+  $('.expandable').each (index, expandable) ->
+    do (expandable) ->
+      expandable = $(expandable)
+      height = expandable.height()
 
-  details.focus -> $(this).height('3em')
-  details.blur -> $(this).height(height)
+      expandable.focus -> expandable.height((expandable.data('expanded-height') || 200))
+      expandable.blur -> expandable.height(height)
 
-$(document).on('turbolinks:load', initDetails)
+$(document).on('turbolinks:load', initExpandable)
