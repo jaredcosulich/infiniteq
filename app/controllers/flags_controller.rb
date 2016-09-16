@@ -1,5 +1,6 @@
 class FlagsController < ApplicationController
   before_action :set_flag, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to
 
   # GET /flags
   # GET /flags.json
@@ -29,6 +30,13 @@ class FlagsController < ApplicationController
 
     respond_to do |format|
       if @flag.save
+        AdminMailer.object_created(@flag).deliver_now
+        if @flag.question.present?
+          @flag.question.followings.each do |following|
+            FollowingMailer.object_created(@flag, following).deliver_now
+          end
+        end
+
         format.html do
           unless user_signed_in?
             @temporary_user = TemporaryUser.add_object(@flag, request.remote_ip)

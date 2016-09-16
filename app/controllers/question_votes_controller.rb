@@ -1,6 +1,7 @@
 class QuestionVotesController < ApplicationController
   before_action :set_question
   before_action :set_question_vote, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to
 
   # POST /question_votes
   # POST /question_votes.json
@@ -17,6 +18,7 @@ class QuestionVotesController < ApplicationController
 
     respond_to do |format|
       if @question_vote.save
+        AdminMailer.object_created(@question_vote).deliver_now
         format.html {
           if @question_vote.user.present?
             render partial: 'votable/votes', locals: {object: @question.reload}

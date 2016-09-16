@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to, only: [:create, :update, :destroy]
 
   def new
     @comment = Comment.new(comment_params)
@@ -17,6 +18,13 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        AdminMailer.object_created(@comment).deliver_now
+        if @comment.question.present?
+          @comment.question.followings.each do |following|
+            FollowingMailer.object_created(@comment, following).deliver_now
+          end
+        end
+
         format.html { redirect_to @comment.root_parent, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else

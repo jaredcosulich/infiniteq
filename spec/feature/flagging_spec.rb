@@ -24,12 +24,12 @@ feature "Flagging", js: true do
       within "##{question.total_identifier}-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
-        3.times { choose('flag_reason_factually_incorrect') }
+        6.times { choose('flag_reason_factually_incorrect') }
         expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
         fill_in 'flag[details]', with: 'Because it is deserves a flag!'
 
-        3.times { choose 'flag_action_trust' }
+        6.times { choose 'flag_action_trust' }
         expect(find_field('flag_action_trust')).to be_checked
 
         within '#flag_trust' do
@@ -60,10 +60,10 @@ feature "Flagging", js: true do
       within "##{question.total_identifier}-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
-        3.times { choose('flag_reason_factually_incorrect') }
+        6.times { choose('flag_reason_factually_incorrect') }
         expect(find_field("flag_reason_factually_incorrect")).to be_checked
 
-        3.times { choose 'flag_action_suspect' }
+        6.times { choose 'flag_action_suspect' }
         expect(find_field("flag_action_suspect")).to be_checked
 
         click_button 'Flag'
@@ -91,7 +91,7 @@ feature "Flagging", js: true do
       within "##{question.total_identifier}-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
-        3.times { choose('flag_reason_factually_incorrect') }
+        6.times { choose('flag_reason_factually_incorrect') }
         expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
         click_button 'Flag'
@@ -105,10 +105,10 @@ feature "Flagging", js: true do
     feature 'once flagged' do
       background do
         within "##{question.total_identifier}-flag-modal" do
-          3.times { choose('flag_reason_factually_incorrect') }
+          6.times { choose('flag_reason_factually_incorrect') }
           expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
-          3.times { choose 'flag_action_trust' }
+          6.times { choose 'flag_action_trust' }
           expect(find_field('flag_action_trust')).to be_checked
 
           within '#flag_trust' do
@@ -172,10 +172,10 @@ feature "Flagging", js: true do
       within "##{answer.total_identifier}-flag-modal" do
         expect(page).to have_content('Why are you flagging this answer?')
 
-        3.times { choose('flag_reason_factually_incorrect') }
+        6.times { choose('flag_reason_factually_incorrect') }
         expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
-        3.times { choose 'flag_action_trust' }
+        6.times { choose 'flag_action_trust' }
         expect(find_field('flag_action_trust')).to be_checked
 
         within '#flag_trust' do
@@ -202,10 +202,10 @@ feature "Flagging", js: true do
       within "##{answer.total_identifier}-flag-modal" do
         expect(page).to have_content('Why are you flagging this answer?')
 
-        3.times { choose('flag_reason_factually_incorrect') }
+        6.times { choose('flag_reason_factually_incorrect') }
         expect(find_field("flag_reason_factually_incorrect")).to be_checked
 
-        3.times { choose 'flag_action_suspect' }
+        6.times { choose 'flag_action_suspect' }
         expect(find_field("flag_action_suspect")).to be_checked
 
         click_button 'Flag'
@@ -281,8 +281,9 @@ feature "Disputing A Flag", js: true do
     end
 
     wait_for_ajax
-    expect(page).to_not have_css('.fa-spin')
+    sleep 1
 
+    expect(page).to_not have_css('.fa-spin')
     expect(page).to have_content('0.1')
 
     click_link '< Back To Question'
@@ -311,10 +312,10 @@ feature "Anonymous Flagging", js: true do
       within "##{question.total_identifier}-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
-        3.times { choose('flag_reason_factually_incorrect') }
+        6.times { choose('flag_reason_factually_incorrect') }
         expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
-        3.times { choose 'flag_action_trust' }
+        6.times { choose 'flag_action_trust' }
         expect(find_field('flag_action_trust')).to be_checked
 
         click_button 'Flag'
@@ -346,10 +347,10 @@ feature "Anonymous Flagging", js: true do
         within "##{question.total_identifier}-flag-modal" do
           expect(page).to have_content('Why are you flagging this question?')
 
-          3.times { choose('flag_reason_factually_incorrect') }
+          6.times { choose('flag_reason_factually_incorrect') }
           expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
-          3.times { choose 'flag_action_trust' }
+          6.times { choose 'flag_action_trust' }
           expect(find_field('flag_action_trust')).to be_checked
 
           click_button 'Flag'

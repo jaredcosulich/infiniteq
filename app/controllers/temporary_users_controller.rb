@@ -1,5 +1,6 @@
 class TemporaryUsersController < ApplicationController
   before_action :set_temporary_user, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to
 
   # GET /temporary_users
   # GET /temporary_users.json
@@ -28,6 +29,7 @@ class TemporaryUsersController < ApplicationController
 
     respond_to do |format|
       if @temporary_user.save
+        AdminMailer.object_created(@temporary_user).deliver_now
         format.html { redirect_to @temporary_user, notice: 'Temporary user was successfully created.' }
         format.json { render :show, status: :created, location: @temporary_user }
       else

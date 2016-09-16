@@ -1,0 +1,14 @@
+- if user_signed_in?
+  - if (existing_follow = current_user.followings.find_by(topic_id: following.topic_id, question_id: following.question_id)).present?
+    = link_to("Unfollow This #{following.object.class.to_s}", existing_follow, class: 'btn btn-vsm btn-reject', method: :delete)
+  - else
+    = form_for following do |f|
+      = f.hidden_field :topic_id
+      = f.hidden_field :question_id
+      = f.submit "Follow This #{following.object.class.to_s}", class: 'btn btn-vsm btn-action'
+
+- else
+  %button.btn.btn-vsm.btn-action{data: {toggle: 'modal', target: '#anonymous-following-modal'}}
+    Follow This
+    = following.object.class.to_s
+  = render partial: 'anonymous/following_modal', locals: {following: following}

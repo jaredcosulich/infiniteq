@@ -36,7 +36,7 @@ feature "Anonymous Interactions", js: true do
     fill_in 'user[email]', with: 'email@example.com'
     click_button 'Save'
 
-    expect(page).to have_content('A message with a confirmation link has been sent to your email address.')
+    expect(page).to have_content('Welcome! You have signed up successfully.')
 
     user = User.unscoped.last
     expect(user.email).to eq('email@example.com')
@@ -44,6 +44,20 @@ feature "Anonymous Interactions", js: true do
     expect(question.reload.user).to eq(user)
     expect(TemporaryUser.find_by_id(temp_user.id)).to be nil
     expect(user.questions).to include(question)
+  end
+
+  scenario "Following a topic when anonymous" do
+    topic = topics(:one)
+
+    visit("/topics/#{topic.slug}")
+    click_button 'Follow This Topic'
+
+    within "#anonymous-following-modal" do
+      fill_in 'user[email]', with: 'follower@example.com'
+      click_button 'Save'
+    end
+
+    expect(page).to have_content('Unfollow This Topic')
   end
 
 end

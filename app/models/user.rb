@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :answer_votes
   has_many :trust_events
   has_many :flags
+  has_many :followings
+  accepts_nested_attributes_for :followings
 
   before_save :update_trust
   after_save :consume_temporary_user_based_on_ip, if: Proc.new { |u| u.ip_address.present? }
@@ -19,6 +21,7 @@ class User < ApplicationRecord
   scope :this_week, -> { where('created_at > ?', 7.days.ago) }
 
   attr_accessor :ip_address
+  attr_accessor :following
 
   MAX_TRUST_POTENTIAL = 10
 
@@ -36,7 +39,7 @@ class User < ApplicationRecord
   # end
 
   def trust_potential
-    (1..[(trust / 100).round, MAX_TRUST_POTENTIAL].min).to_a
+    (1..[((trust || 0) / 100).round, MAX_TRUST_POTENTIAL].min).to_a
   end
 
   def voted_on?(object, positive)
@@ -56,7 +59,7 @@ class User < ApplicationRecord
     temporary_user.parsed_answers.keys.each { |answer_id| Answer.find(answer_id).update(user: self) }
     temporary_user.parsed_votes.each do |type, votes|
       votes.each do |vote_id|
-        type.capitalize.constantize.find(vote_id).update(user: self)
+        type.capitalize.constantize.find_by_id(vote_id).update(user: self)
       end
     end
     temporary_user.destroy

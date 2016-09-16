@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  skip_after_action :set_return_to, only: [:create, :update, :destroy]
 
   # GET /topics
   # GET /topics.json
@@ -10,6 +11,7 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    @questions = (params[:f] == 't' ? @topic.questions : @topic.all_questions)
     @question = @topic.questions.new
   end
 
@@ -32,6 +34,7 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
+        AdminMailer.object_created(@topic).deliver_now
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
         AdminMailer.object_created(@topic).deliver_now

@@ -12,7 +12,7 @@ module DeviseHelpers
   end
 
   def sign_out
-    click_button 'Log Out'
+    click_link 'Log Out'
     expect(page).to have_content 'Signed out successfully.'
   end
 

@@ -4,9 +4,9 @@ class Topic < ApplicationRecord
   friendly_id :title, use: :slugged
 
   has_many :questions
-
   belongs_to :parent_topic, class_name: 'Topic', foreign_key: :parent_topic_id
   has_many :subtopics, class_name: 'Topic', foreign_key: :parent_topic_id
+  has_many :followings
 
   scope 'parent_topics', -> { where(parent_topic: nil) }
   scope 'most_questions', -> { order(recursive_questions_count: :desc) }

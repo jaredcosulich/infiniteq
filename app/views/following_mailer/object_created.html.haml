@@ -1,0 +1,18 @@
+%p
+  A new question was added to a topic you follow on InfiniteQ.
+
+%p
+  %strong Topic:
+  %br
+  = @title
+
+%p
+  %strong: Question:
+  %br
+  = @object.try(:text) || @object.reason_string
+
+%p
+  You can answer or comment on this question here:
+
+%p
+  You can unsubscribe from these notifications at any time by adjusting your settings here:

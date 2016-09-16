@@ -59,8 +59,8 @@
                 - else
                   = f.radio_button :action, 'trust'
 
-                = f.label :action, "#{flag.dispute? ? 'Add' : 'Remove'}#{' 0.1 trust points' unless user_signed_in?}"
-                - if user_signed_in?
+                = f.label :action, "#{flag.dispute? ? 'Add' : 'Remove'}#{' 0.1 trust points' unless user_signed_in? && current_user.confirmed?}"
+                - if user_signed_in? && current_user.confirmed?
                   = f.select :trust, current_user.trust_potential.map { |i| [pluralize(i, 'trust point'), i*(flag.dispute? ? -100 : 100)]}
                   %small
                     = "(#{flag.object.class.to_s.downcase}"
