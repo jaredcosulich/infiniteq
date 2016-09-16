@@ -10,7 +10,7 @@ class QuestionAndAnswerFlowTest < ActionDispatch::IntegrationTest
 
     get "/topics/#{@topic.slug}"
     assert_response :success
-    assert_select 'form input:not([value])[name="question[text]"]', true
+    assert_select 'form textarea:not([value])[name="question[text]"]', true
     assert_select "form input[name='question[topic_id]'][value='#{@topic.id}']", true
     assert_select '.question', 3 #one question (the verified, unanswered one) shows up in two places.
 
@@ -49,7 +49,7 @@ class QuestionAndAnswerFlowTest < ActionDispatch::IntegrationTest
   test 'asking a question anonymously' do
     get "/topics/#{@topic.slug}"
     assert_response :success
-    assert_select 'form input:not([value])[name="question[text]"]', true
+    assert_select 'form textarea:not([value])[name="question[text]"]', true
     assert_select "form input[name='question[topic_id]'][value='#{@topic.id}']", true
 
     assert_difference '@topic.questions.count' do
