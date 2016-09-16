@@ -14,7 +14,7 @@ class Question < ApplicationRecord
   has_many :flags
   has_many :followings
 
-  paginates_per 10
+  paginates_per 1
 
   default_scope { order(vote_total: :desc, created_at: :desc) }
   scope :persisted, -> { where "id IS NOT NULL" }

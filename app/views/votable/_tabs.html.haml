@@ -56,7 +56,7 @@
     - if records.verified.empty?
       %h4.none= "No #{type} have been verified yet."
     .text-center
-      = paginate paginated_records
+      = paginate paginated_records, :outer_window => 3, :window => 1
 
   - if type == 'questions'
     .tab-pane{id: 'unanswered', role: 'tabpanel'}
@@ -65,7 +65,7 @@
       - if records.verified.unanswered.empty?
         %h4.none there are currently no unanswered verified questions.
       .text-center
-        = paginate paginated_records
+        = paginate paginated_records, :outer_window => 3, :window => 1
 
   .tab-pane{id: 'unverified', role: 'tabpanel'}
     - paginated_records = records.unverified.page(params[:page])
@@ -73,7 +73,7 @@
     - if records.unverified.empty?
       %h4.none= "There are currently no unverified #{type}."
     .text-center
-      = paginate paginated_records
+      = paginate paginated_records, :outer_window => 3, :window => 1
 
   .tab-pane{id: 'flagged', role: 'tabpanel'}
     - paginated_records = records.flagged.page(params[:page])
@@ -81,7 +81,7 @@
     - if records.flagged.empty?
       %h4.none= "There are currently no flagged #{type}."
     .text-center
-      = paginate paginated_records
+      = paginate paginated_records, :outer_window => 3, :window => 1
 
   .tab-pane{id: 'suspect', role: 'tabpanel'}
     - paginated_records = records.suspect.page(params[:page])
@@ -89,4 +89,4 @@
     - if records.suspect.empty?
       %h4.none= "There are currently no suspect #{type}."
     .text-center
-      = paginate paginated_records
+      = paginate paginated_records, :outer_window => 3, :window => 1
