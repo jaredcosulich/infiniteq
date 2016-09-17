@@ -31,7 +31,7 @@
         %small (no registration required)
     = form_for @answer do |f|
       .form-group
-        = f.text_area :text, class: 'form-control', placeholder: 'Your Answer'
+        = f.text_area :text, class: 'form-control expandable', placeholder: 'Your Answer'
         = f.hidden_field :question_id
         - if user_signed_in?
           = f.submit 'Submit Answer', class: 'btn btn-action'
