@@ -55,7 +55,12 @@ class User < ApplicationRecord
 
   def consume_temporary_user(temporary_user)
     return if temporary_user.nil?
-    temporary_user.parsed_questions.keys.each { |question_id| Question.find(question_id).update(user: self) }
+    temporary_user.parsed_questions.keys.each do |question_id|
+      question = Question.find(question_id)
+      question.update(user: self)
+      followings.create(question: question)
+    end
+
     temporary_user.parsed_answers.keys.each { |answer_id| Answer.find(answer_id).update(user: self) }
     temporary_user.parsed_votes.each do |type, votes|
       votes.each do |vote_id|

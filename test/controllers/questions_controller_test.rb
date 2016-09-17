@@ -25,12 +25,13 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
 
     sign_in user
 
-    assert_difference('topic.questions.count') do
+    assert_difference('topic.questions.count user.followings.count') do
       post questions_url, params: { question: { topic_id: topic.id, text: @question.text } }
     end
 
     assert question = topic.reload.questions.unscoped.last
     assert_equal @question.text, question.text
+    assert_equal user, question.followings.first.user
 
     follower_users.each do |follower_user|
       assert follower_email = ActionMailer::Base.deliveries.select { |e| e.to == [follower_user.email] }.last

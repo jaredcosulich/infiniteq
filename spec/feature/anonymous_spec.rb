@@ -44,6 +44,7 @@ feature "Anonymous Interactions", js: true do
     expect(question.reload.user).to eq(user)
     expect(TemporaryUser.find_by_id(temp_user.id)).to be nil
     expect(user.questions).to include(question)
+    expect(user.followings.first.object).to eq(question)
   end
 
   scenario "Following a topic when anonymous" do
