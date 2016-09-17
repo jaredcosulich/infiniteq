@@ -16,9 +16,16 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create topic" do
-    assert_difference('Topic.count') do
+    user = users(:registered)
+    sign_in user
+
+    assert_difference('user.topics.count') do
       post topics_url, params: { topic: { description: @topic.description, title: @topic.title } }
     end
+
+    assert topic = Topic.unscoped.last
+    assert_equal user, topic.user
+    assert_equal user, topic.followings.first.user
 
     assert_redirected_to topic_url(Topic.last)
   end

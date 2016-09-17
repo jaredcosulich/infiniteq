@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params.merge(user: current_user))
-    @question.followings.build(user: current_user)
+    @question.followings.build(user: current_user) if user_signed_in?
 
     respond_to do |format|
       if @question.save

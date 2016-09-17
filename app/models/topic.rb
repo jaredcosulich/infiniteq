@@ -3,6 +3,7 @@ class Topic < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  belongs_to :user
   has_many :questions
   belongs_to :parent_topic, class_name: 'Topic', foreign_key: :parent_topic_id
   has_many :subtopics, class_name: 'Topic', foreign_key: :parent_topic_id
