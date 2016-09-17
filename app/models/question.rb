@@ -61,6 +61,15 @@ class Question < ApplicationRecord
     "question-#{id}"
   end
 
+  def owned_by?(user_or_temporary_user)
+    return false if user_or_temporary_user.nil?
+    if user_or_temporary_user.is_a?(TemporaryUser)
+      user_or_temporary_user.owns_question?(self)
+    else
+      user_id == user_or_temporary_user.id
+    end
+  end
+
   private
     def update_topic_recursive_question_count
       return if topic.nil?

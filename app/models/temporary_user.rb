@@ -67,6 +67,10 @@ class TemporaryUser < ApplicationRecord
     update(questions: pq.to_json)
   end
 
+  def owns_question?(question)
+    parsed_questions[question.id.to_s]
+  end
+
   def parsed_answers
     JSON.parse(answers || {}.to_json)
   end
