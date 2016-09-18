@@ -21,7 +21,7 @@ feature "Flagging", js: true do
     end
 
     scenario "and removing trust" do
-      within "##{question.total_identifier}-flag-modal" do
+      within "##{question.total_identifier}verified-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
         6.times { choose('flag_reason_factually_incorrect') }
@@ -57,7 +57,7 @@ feature "Flagging", js: true do
     scenario "and marking suspect" do
       expect(page).to have_content('MyString1')
 
-      within "##{question.total_identifier}-flag-modal" do
+      within "##{question.total_identifier}verified-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
         6.times { choose('flag_reason_factually_incorrect') }
@@ -88,7 +88,7 @@ feature "Flagging", js: true do
     end
 
     scenario "with errors" do
-      within "##{question.total_identifier}-flag-modal" do
+      within "##{question.total_identifier}verified-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
         6.times { choose('flag_reason_factually_incorrect') }
@@ -104,7 +104,7 @@ feature "Flagging", js: true do
 
     feature 'once flagged' do
       background do
-        within "##{question.total_identifier}-flag-modal" do
+        within "##{question.total_identifier}verified-flag-modal" do
           6.times { choose('flag_reason_factually_incorrect') }
           expect(find_field('flag_reason_factually_incorrect')).to be_checked
 
@@ -169,7 +169,7 @@ feature "Flagging", js: true do
     end
 
     scenario "and removing trust" do
-      within "##{answer.total_identifier}-flag-modal" do
+      within "##{answer.total_identifier}verified-flag-modal" do
         expect(page).to have_content('Why are you flagging this answer?')
 
         6.times { choose('flag_reason_factually_incorrect') }
@@ -199,7 +199,7 @@ feature "Flagging", js: true do
     scenario "and marking suspect" do
       expect(page).to have_content('MyAnswer1')
 
-      within "##{answer.total_identifier}-flag-modal" do
+      within "##{answer.total_identifier}verified-flag-modal" do
         expect(page).to have_content('Why are you flagging this answer?')
 
         6.times { choose('flag_reason_factually_incorrect') }
@@ -309,7 +309,7 @@ feature "Anonymous Flagging", js: true do
     end
 
     scenario "and removing trust" do
-      within "##{question.total_identifier}-flag-modal" do
+      within "##{question.total_identifier}verified-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
 
         6.times { choose('flag_reason_factually_incorrect') }
@@ -336,7 +336,7 @@ feature "Anonymous Flagging", js: true do
     scenario "and marking suspect is not allowed" do
       expect(page).to have_content('MyString1')
 
-      within "##{question.total_identifier}-flag-modal" do
+      within "##{question.total_identifier}verified-flag-modal" do
         expect(page).to have_content('Why are you flagging this question?')
         expect(page).to have_css("input[type='radio'][value='suspect'][disabled='disabled']")
       end
@@ -344,7 +344,7 @@ feature "Anonymous Flagging", js: true do
 
     feature 'once flagged' do
       background do
-        within "##{question.total_identifier}-flag-modal" do
+        within "##{question.total_identifier}verified-flag-modal" do
           expect(page).to have_content('Why are you flagging this question?')
 
           6.times { choose('flag_reason_factually_incorrect') }
