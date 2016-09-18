@@ -33,6 +33,8 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @question.text, question.text
     assert_equal user, question.followings.first.user
 
+    Delayed::Worker.new.work_off
+
     follower_users.each do |follower_user|
       assert follower_email = ActionMailer::Base.deliveries.select { |e| e.to == [follower_user.email] }.last
       assert_equal "InfiniteQ: Question added to topic: #{topic.title}", follower_email.subject

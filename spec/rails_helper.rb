@@ -40,6 +40,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
+    Delayed::Worker.delay_jobs = false
   end
 
   config.before(:each) do |example|

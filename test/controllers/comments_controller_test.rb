@@ -26,6 +26,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       post comments_url, params: { comment: { question_id: question.id, text: 'A New Comment', user_id: user.id } }
     end
 
+    Delayed::Worker.new.work_off
+
     follower_users.each do |follower_user|
       assert follower_email = ActionMailer::Base.deliveries.select { |e| e.to == [follower_user.email] }.last
       assert_equal "InfiniteQ: Comment added to question: #{question.text}", follower_email.subject

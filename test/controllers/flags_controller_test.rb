@@ -29,6 +29,8 @@ class FlagsControllerTest < ActionDispatch::IntegrationTest
       post flags_url, params: { flag: { action: 'trust', details: @flag.details, question_id: @flag.question_id, reason: @flag.reason, trust: @flag.trust } }
     end
 
+    Delayed::Worker.new.work_off
+
     follower_users.each do |follower_user|
       assert follower_email = ActionMailer::Base.deliveries.select { |e| e.to == [follower_user.email] }.last
       assert_equal "InfiniteQ: Flag added to question: #{question.text}", follower_email.subject

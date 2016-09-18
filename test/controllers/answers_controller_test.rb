@@ -24,6 +24,8 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       post answers_url, params: { answer: { question_id: @answer.question_id, text: @answer.text } }
     end
 
+    Delayed::Worker.new.work_off
+
     follower_users.each do |follower_user|
       assert follower_email = ActionMailer::Base.deliveries.select { |e| e.to == [follower_user.email] }.last
       assert_equal "InfiniteQ: Answer added to question: #{question.text}", follower_email.subject
