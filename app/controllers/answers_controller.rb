@@ -23,9 +23,9 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
-        AdminMailer.object_created(@answer).deliver_now
+        AdminMailer.delay.object_created(@answer)
         @answer.question.followings.each do |following|
-          FollowingMailer.object_created(@answer, following).deliver_now
+          FollowingMailer.delay.object_created(@answer, following)
         end
 
         format.html do

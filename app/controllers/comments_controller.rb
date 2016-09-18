@@ -18,10 +18,10 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        AdminMailer.object_created(@comment).deliver_now
+        AdminMailer.delay.object_created(@comment)
         if @comment.question.present?
           @comment.question.followings.each do |following|
-            FollowingMailer.object_created(@comment, following).deliver_now
+            FollowingMailer.delay.object_created(@comment, following)
           end
         end
 

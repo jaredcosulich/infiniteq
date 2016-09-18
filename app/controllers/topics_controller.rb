@@ -35,10 +35,9 @@ class TopicsController < ApplicationController
 
     respond_to do |format|
       if @topic.save
-        AdminMailer.object_created(@topic).deliver_now
+        AdminMailer.delay.object_created(@topic)
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
-        AdminMailer.object_created(@topic).deliver_now
       else
         format.html { render :new }
         format.json { render json: @topic.errors, status: :unprocessable_entity }

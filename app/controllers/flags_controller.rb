@@ -30,10 +30,10 @@ class FlagsController < ApplicationController
 
     respond_to do |format|
       if @flag.save
-        AdminMailer.object_created(@flag).deliver_now
+        AdminMailer.delay.object_created(@flag)
         if @flag.question.present?
           @flag.question.followings.each do |following|
-            FollowingMailer.object_created(@flag, following).deliver_now
+            FollowingMailer.delay.object_created(@flag, following)
           end
         end
 
@@ -61,9 +61,9 @@ class FlagsController < ApplicationController
   def update
     respond_to do |format|
       if @flag.update(flag_params)
+        AdminMailer.delay.object_created(@flag)
         format.html { redirect_to @flag, notice: 'Flag was successfully updated.' }
         format.json { render :show, status: :ok, location: @flag }
-        AdminMailer.object_created(@flag).deliver_now
       else
         format.html { render :edit }
         format.json { render json: @flag.errors, status: :unprocessable_entity }

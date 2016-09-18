@@ -20,10 +20,10 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        AdminMailer.object_created(@question).deliver_now
+        AdminMailer.delay.object_created(@question)
         if @question.topic.present?
           @question.topic.followings.each do |following|
-            FollowingMailer.object_created(@question, following).deliver_now
+            FollowingMailer.delay.object_created(@question, following)
           end
         end
         format.html do
