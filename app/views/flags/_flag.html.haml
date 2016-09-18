@@ -1,6 +1,6 @@
 - grouped_flags = Flag.grouped(flag.object.flags)
 .flag
-  %button.btn.btn-vsm.btn-action{data: {toggle: 'modal', target: "##{flag.object.total_identifier}-flag-modal"}}
+  %button.btn.btn-vsm.btn-action{data: {toggle: 'modal', target: "##{flag.object.total_identifier}#{local_assigns[:tab]}-flag-modal"}}
     = fa_icon('flag')
     Flag
   %h6
@@ -32,4 +32,4 @@
         = link_to gf.reason_string, gf
 
 
-  = render partial: 'flags/flag_modal', locals: {flag: flag}
+  = render partial: 'flags/flag_modal', locals: {flag: flag, tab: local_assigns[:tab]}

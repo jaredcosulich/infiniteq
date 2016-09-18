@@ -1,5 +1,5 @@
 - already_flagged = (current_user || @temporary_user).has_flagged?(flag.object)
-.modal.fade.flag-modal{id: "#{flag.object.total_identifier}-flag-modal#{'-dispute' if flag.dispute?}", role: 'dialog', tabindex: '-1'}
+.modal.fade.flag-modal{id: "#{flag.object.total_identifier}#{local_assigns[:tab]}-flag-modal#{'-dispute' if flag.dispute?}", role: 'dialog', tabindex: '-1'}
   .modal-dialog{:role => 'document'}
     = form_for flag, html: { class: 'modal-content', remote: true } do |f|
       .modal-header

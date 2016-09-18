@@ -52,7 +52,7 @@
 .votable.tab-content
   .tab-pane.active{id: 'verified', role: 'tabpanel'}
     - paginated_records = records.verified.page(params[:page])
-    = render paginated_records
+    = render paginated_records, tab: 'verified'
     - if records.verified.empty?
       %h4.none= "No #{type} have been verified yet."
     .text-center
@@ -61,7 +61,7 @@
   - if type == 'questions'
     .tab-pane{id: 'unanswered', role: 'tabpanel'}
       - paginated_records = records.verified.unanswered.page(params[:page])
-      = render paginated_records
+      = render paginated_records, tab: 'unanswered'
       - if records.verified.unanswered.empty?
         %h4.none there are currently no unanswered verified questions.
       .text-center
@@ -69,7 +69,7 @@
 
   .tab-pane{id: 'unverified', role: 'tabpanel'}
     - paginated_records = records.unverified.page(params[:page])
-    = render paginated_records
+    = render paginated_records, tab: 'unverified'
     - if records.unverified.empty?
       %h4.none= "There are currently no unverified #{type}."
     .text-center
@@ -77,7 +77,7 @@
 
   .tab-pane{id: 'flagged', role: 'tabpanel'}
     - paginated_records = records.flagged.page(params[:page])
-    = render paginated_records
+    = render paginated_records, tab: 'flagged'
     - if records.flagged.empty?
       %h4.none= "There are currently no flagged #{type}."
     .text-center
@@ -85,7 +85,7 @@
 
   .tab-pane{id: 'suspect', role: 'tabpanel'}
     - paginated_records = records.suspect.page(params[:page])
-    = render paginated_records
+    = render paginated_records, tab: 'suspect'
     - if records.suspect.empty?
       %h4.none= "There are currently no suspect #{type}."
     .text-center

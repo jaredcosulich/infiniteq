@@ -10,7 +10,7 @@
         = markdown("**A:** #{answer.text}") if question.answers.present?
         = link_to '&nbsp;'.html_safe, question, class: 'fadeout'
 
-    = render question.flags.new
+    = render question.flags.new, tab: local_assigns[:tab]
 
     .details.small
       Topic:
