@@ -7,7 +7,7 @@
       .comments
         = render answer.comments
 
-    = render answer.flags.new
+    = render answer.flags.new, tab: local_assigns[:tab]
 
     .small.details
       .pull-right
