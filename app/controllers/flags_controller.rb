@@ -31,11 +31,7 @@ class FlagsController < ApplicationController
     respond_to do |format|
       if @flag.save
         AdminMailer.delay.object_created(@flag)
-        if @flag.question.present?
-          @flag.question.followings.each do |following|
-            FollowingMailer.delay.object_created(@flag, following)
-          end
-        end
+        FlagMailer.delay.flag_created(@flag) if @flag.object.user.present?
 
         format.html do
           unless user_signed_in?

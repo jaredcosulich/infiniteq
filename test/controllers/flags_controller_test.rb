@@ -16,31 +16,47 @@ class FlagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create flag" do
-    user = users(:registered)
-    follower_users = [users(:another_registered), users(:unconfirmed)]
-    question = @flag.question
-    follower_users.each do |follower_user|
-      question.followings.create(user: follower_user)
-    end
+    user = users(:another_registered)
+    question = questions(:one)
 
     sign_in user
 
     assert_difference('Flag.count') do
-      post flags_url, params: { flag: { action: 'trust', details: @flag.details, question_id: @flag.question_id, reason: @flag.reason, trust: @flag.trust } }
+      post flags_url, params: { flag: { action: 'trust', details: 'Details', question_id: question.id, reason: @flag.reason, trust: @flag.trust } }
     end
 
     Delayed::Worker.new.work_off
 
-    follower_users.each do |follower_user|
-      assert follower_email = ActionMailer::Base.deliveries.select { |e| e.to == [follower_user.email] }.last
-      assert_equal "InfiniteQ: Flag added to question: #{question.text}", follower_email.subject
-      assert_equal ['support@infiniteq.net'], follower_email.from
-      assert follower_email.encoded.include? @flag.reason_string
-      assert follower_email.encoded.include? 'unsubscribe'
-    end
+    assert owner_email = ActionMailer::Base.deliveries.select { |e| e.to == [question.user.email] }.last
+    assert_equal "InfiniteQ: Your question was flagged.", owner_email.subject
+    assert_equal ['support@infiniteq.net'], owner_email.from
+    assert owner_email.encoded.include? @flag.reason_string
+    assert owner_email.encoded.gsub(/\r\n/, ' ').include? 'Another Registered Person flagged your question'
 
     assert_response :success
-    assert_select '.vote-total', /-1.9/
+    assert_select '.vote-total', /0.9/
+  end
+
+  test "should create flag for an answer" do
+    user = users(:another_registered)
+    answer = answers(:one)
+
+    sign_in user
+
+    assert_difference('Flag.count') do
+      post flags_url, params: { flag: { action: 'trust', details: 'Details', answer_id: answer.id, reason: @flag.reason, trust: @flag.trust } }
+    end
+
+    Delayed::Worker.new.work_off
+
+    assert owner_email = ActionMailer::Base.deliveries.select { |e| e.to == [answer.user.email] }.last
+    assert_equal "InfiniteQ: Your answer was flagged.", owner_email.subject
+    assert_equal ['support@infiniteq.net'], owner_email.from
+    assert owner_email.encoded.include? @flag.reason_string
+    assert owner_email.encoded.gsub(/\r\n/, ' ').include? 'Another Registered Person flagged your answer'
+
+    assert_response :success
+    assert_select '.vote-total', /0.9/
   end
 
   test "should show flag" do

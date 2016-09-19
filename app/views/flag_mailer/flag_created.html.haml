@@ -1,0 +1,26 @@
+%p
+  - if @flag.user.present?
+    = @flag.user.name
+  - else
+    An anonymous user
+  flagged
+  your
+  = @object.class.to_s.downcase
+
+%p
+  %strong
+    Your
+    = @object.class.to_s
+  %br
+  = @object.text
+
+%p
+  %strong
+    Reason:
+  %br
+  = @flag.reason_string
+
+%p
+  You can view the details here:
+%p
+  =link_to('Flag', @flag)

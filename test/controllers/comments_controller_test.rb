@@ -33,6 +33,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       assert_equal "InfiniteQ: Comment added to question: #{question.text}", follower_email.subject
       assert_equal ['support@infiniteq.net'], follower_email.from
       assert follower_email.encoded.include? 'A New Comment'
+      assert follower_email.encoded.gsub(/\r\n/, ' ').include? 'A new comment was added to a question you are following on InfiniteQ.'
       assert follower_email.encoded.include? 'unsubscribe'
     end
 

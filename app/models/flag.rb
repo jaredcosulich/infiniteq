@@ -101,7 +101,6 @@ class Flag < ApplicationRecord
 
   scope :persisted, -> { where "id IS NOT NULL" }
 
-
   def object
     question || answer
   end

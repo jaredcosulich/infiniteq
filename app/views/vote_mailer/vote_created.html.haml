@@ -1,0 +1,24 @@
+%p
+  - if @vote.user.present?
+    = @vote.user.name
+  - else
+    An anonymous user
+  voted
+  - if @vote.trust > 0
+    up
+  - else
+    down
+  your
+  = @vote.topic.downcase
+
+%p
+  %strong
+    Your
+    = @vote.topic
+  %br
+  = @vote.object.text
+
+%p
+  You can answer or comment on this question here:
+%p
+  = link_to(@vote.object, @vote.topic)

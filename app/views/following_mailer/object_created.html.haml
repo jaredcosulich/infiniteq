@@ -1,18 +1,28 @@
 %p
-  A new question was added to a topic you follow on InfiniteQ.
+  A new
+  = @object.class.to_s.downcase
+  was added to a
+  = @following.object.class.to_s.downcase
+  you are following on InfiniteQ.
 
 %p
-  %strong Topic:
+  %strong= "#{@following.object.class.to_s}:"
   %br
   = @title
 
 %p
-  %strong: Question:
+  %strong= "#{@object.class.to_s}:"
   %br
   = @object.try(:text) || @object.reason_string
 
 %p
-  You can answer or comment on this question here:
+  You can view the question here:
+
+%p
+  = link_to(@object, (@object.try(:question) || @object).class.to_s)
 
 %p
   You can unsubscribe from these notifications at any time by adjusting your settings here:
+
+%p
+  Sorry, we're working on this. Just reply to this email with the text 'UNSUBSCRIBE' and we'll unsubscribe you.
