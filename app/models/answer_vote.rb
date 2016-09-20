@@ -1,4 +1,5 @@
 class AnswerVote < ApplicationRecord
+  include Vote
 
   belongs_to :answer
   belongs_to :user
@@ -17,10 +18,6 @@ class AnswerVote < ApplicationRecord
 
   def topic_id
     answer_id
-  end
-
-  def positive?
-    trust > 0
   end
 
   def total_identifier

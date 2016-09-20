@@ -1,4 +1,5 @@
 class QuestionVote < ApplicationRecord
+  include Vote
 
   belongs_to :question
   belongs_to :user
@@ -18,21 +19,11 @@ class QuestionVote < ApplicationRecord
     question_id
   end
 
-  def positive?
-    trust > 0
-  end
-
   def total_identifier
     "question_vote-#{id}"
   end
 
   private
-
-  def set_trust
-    return if positive.blank?
-    t = user.present? ? (user.trust > 0 ? (user.trust > 100 ? 100 : user.trust) : 0) : 10
-    self.trust = (positive == 'false' ? t * -1 : t)
-  end
 
   def update_question
     question.update_votes

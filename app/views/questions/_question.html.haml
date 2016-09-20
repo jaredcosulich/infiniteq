@@ -1,5 +1,5 @@
 .question.col-xs-12{id: "question-#{question.id}"}
-  = render partial: 'votable/votes', locals: {object: question}
+  = render partial: 'votable/votes', locals: {object: question, tab: local_assigns[:tab]}
   .voted.col-xs-10.col-sm-11
     %h4
       %span.title Q:

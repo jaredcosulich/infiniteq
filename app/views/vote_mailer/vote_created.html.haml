@@ -9,16 +9,23 @@
   - else
     down
   your
-  = @vote.topic.downcase
+  = "#{@vote.topic.downcase}."
+
+%p
+  = pluralize(@vote.display_trust.abs, 'trust point')
+  has been
+  = @vote.display_trust > 0 ? 'added' : 'removed'
+  from your
+  = "#{@vote.topic.downcase}."
 
 %p
   %strong
     Your
     = @vote.topic
   %br
-  = @vote.object.text
+  = @object.text
 
 %p
   You can answer or comment on this question here:
 %p
-  = link_to(@vote.object, @vote.topic)
+  = link_to(@object, @vote.topic)

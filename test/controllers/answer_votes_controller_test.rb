@@ -19,14 +19,25 @@ class AnswerVotesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create answer_vote with negative value" do
-    sign_in users(:registered)
+    # Delayed::Worker.delay_jobs = false
+    answer = answers(:two)
+    sign_in users(:another_registered)
 
-    assert_difference('answers(:two).answer_votes.count') do
-      post answer_answer_votes_url(answers(:two)), params: { answer_vote: { positive: 'false' } }
+    assert_difference('answer.answer_votes.count') do
+      post answer_answer_votes_url(answer), params: { answer_vote: { positive: 'false' } }
     end
 
-    answer_vote = answers(:two).answer_votes.last
+    answer_vote = answer.answer_votes.last
     assert_equal -100, answer_vote.trust
+
+    Delayed::Worker.new.work_off
+
+    assert owner_email = ActionMailer::Base.deliveries.select { |e| e.to == [answer.user.email] }.last
+    assert_equal "InfiniteQ: Your answer was voted down", owner_email.subject
+    assert_equal ['support@infiniteq.net'], owner_email.from
+    owner_email_content = owner_email.encoded.gsub(/\r\n/, ' ')
+    assert owner_email_content.include? '1.0 trust point has been removed from your answer'
+    assert owner_email_content.include? 'Another Registered Person voted down your answer.'
 
     assert_select '.vote-total .small', '-0.9'
   end

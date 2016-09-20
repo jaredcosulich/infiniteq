@@ -1,6 +1,6 @@
 .votes.col-xs-2.col-sm-1
-  = render partial: 'votes/vote', locals: {object: object, positive: true}
-  = render partial: 'votes/vote', locals: {object: object, positive: false}
+  = render partial: 'votes/vote', locals: {object: object, positive: true, tab: local_assigns[:tab]}
+  = render partial: 'votes/vote', locals: {object: object, positive: false, tab: local_assigns[:tab]}
 
   .vote-total
     %h3
