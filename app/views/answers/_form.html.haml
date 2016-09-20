@@ -14,4 +14,8 @@
       = f.text_area :text, class: 'form-control'
 
     .form-group
+      %h5= f.label :text, "Why Should People Believe Your Answer"
+      = f.text_area :proof, class: 'form-control'
+
+    .form-group
       = f.submit 'Save Answer', class: 'btn btn-action'
