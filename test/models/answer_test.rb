@@ -21,4 +21,5 @@ class AnswerTest < ActiveSupport::TestCase
     assert_equal 100, answer.vote_total
     assert answer.verified?
   end
+  
 end

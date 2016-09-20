@@ -1,7 +1,15 @@
 .answer.col-sm-12{id: "answer-#{answer.id}"}
   = render partial: 'votable/votes', locals: {object: answer, tab: local_assigns[:tab]}
   .voted.col-xs-10.col-sm-11
-    .text.highlighted_links= markdown(answer.text)
+    .text.highlighted_links
+      = markdown(answer.text)
+
+      .proof.small.highlighted_links
+        Why people should believe this answer:
+        - if answer.proof.present?
+          = markdown(answer.proof)
+        - else
+          %p No reason provided.
 
     - if answer.comments.present?
       .comments

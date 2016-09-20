@@ -19,7 +19,7 @@
   You can view the question here:
 
 %p
-  = link_to(@object, (@object.try(:question) || @object).class.to_s)
+  = link_to((@object.try(:question) || @object).class.to_s, @object)
 
 %p
   You can unsubscribe from these notifications at any time by adjusting your settings here:

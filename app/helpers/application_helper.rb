@@ -1,6 +1,9 @@
 module ApplicationHelper
 
   def markdown(text)
+    # fixing bug with one break before a multiline code section.
+    text = text.gsub(/(?<!\r\n)(\r\n)(?!\r\n)```\r\n/, '\1\1```\1')
+
     options = {
       filter_html:     true,
       hard_wrap:       true,

@@ -2,6 +2,7 @@ class FollowingMailer < ApplicationMailer
   include ActionView::Helpers::TextHelper
 
   def object_created(object, following)
+    return if object.user == following.user
     @object = object
     @following = following
     subject = "InfiniteQ: #{object.class.to_s} added to #{following.object.class.to_s.downcase}: "

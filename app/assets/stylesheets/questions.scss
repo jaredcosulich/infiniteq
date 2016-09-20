@@ -24,6 +24,10 @@
     textarea {
       height: 4em;
       margin-bottom: 12px;
+
+      &.optional {
+        height: 2.5em;
+      }
     }
   }
 
@@ -34,6 +38,16 @@
 
       .text {
         padding: 6px 0 18px 0;
+
+        .proof {
+          border: 1px solid #dedede;
+          padding: 6px;
+
+          p {
+            padding: 0;
+            margin: 0;
+          }
+        }
       }
 
       .details {
