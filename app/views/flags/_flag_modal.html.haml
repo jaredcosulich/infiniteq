@@ -1,34 +1,39 @@
 - already_flagged = (current_user || @temporary_user).has_flagged?(flag.object)
-.modal.fade.flag-modal{id: "#{flag.object.total_identifier}#{local_assigns[:tab]}-flag-modal#{'-dispute' if flag.dispute?}", role: 'dialog', tabindex: '-1'}
-  .modal-dialog{:role => 'document'}
+.modal.fade.flag-modal{id: "#{flag.object.total_identifier}#{local_assigns[:tab]}#{local_assigns[:vote]}-flag-modal#{'-dispute' if flag.dispute?}", role: 'dialog', tabindex: '-1'}
+  .modal-dialog.text-left{:role => 'document'}
     = form_for flag, html: { class: 'modal-content', remote: true } do |f|
       .modal-header
         %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
           %span{'aria-hidden' => 'true'} ×
         %h4.modal-title
           - if already_flagged
-            You have already flagged this question.
+            You have already
+            = local_assigns[:vote] ? 'voted down' : 'flagged'
+            this
+            = "#{flag.object.class.to_s.downcase}."
           - elsif flag.dispute?
             Flag Dispute
           - elsif flag.reason.present?
-            Flag Question
             Do you confirm this flag:
             = @flag.reason_string
           - else
-            = "Why are you flagging this #{flag.object.class.to_s.downcase}?"
+            Why are you
+            = local_assigns[:vote] ? 'voting down' : 'flagging'
+            = "this #{flag.object.class.to_s.downcase}?"
       .modal-body
         .errors
 
         .row
           - if already_flagged
             .col-xs-12
-              %p You are only allowed to flag something once.
+              %p You are only allowed to flag or vote something down once.
               %p If you feel an additional flag is necessary please contact support@infiniteq.net
-          - elsif flag.dispute?
+          - elsif flag.dispute? || flag.reason.present?
             .col-xs-12
               = f.hidden_field :dispute
-              = f.hidden_field :reason
-              %p= "You are disputing this flag: \"#{@flag.reason_string}\""
+              - if flag.dispute?
+                = f.hidden_field :reason
+                %p= "You are disputing this flag: \"#{@flag.reason_string}\""
               %br
           - else
             .form-group
@@ -96,4 +101,7 @@
           %span.btn.btn-default{data: {dismiss: 'modal'}} Close
         - else
           %span.btn.btn-default{data: {dismiss: 'modal'}} Cancel
-          = f.submit "#{'Dispute ' if flag.dispute?}Flag", class: 'btn btn-action'
+          - if local_assigns[:vote]
+            = f.submit 'Vote Down', class: 'btn btn-action'
+          - else
+            = f.submit "#{'Dispute ' if flag.dispute?}Flag", class: 'btn btn-action'

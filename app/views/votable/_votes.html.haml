@@ -1,6 +1,11 @@
 .votes.col-xs-2.col-sm-1
   = render partial: 'votes/vote', locals: {object: object, positive: true, tab: local_assigns[:tab]}
-  = render partial: 'votes/vote', locals: {object: object, positive: false, tab: local_assigns[:tab]}
+  =# render partial: 'votes/vote', locals: {object: object, positive: false, tab: local_assigns[:tab]}
+
+  .vote
+    - flag_modal_id = "##{object.total_identifier}#{local_assigns[:tab]}true-flag-modal"
+    = fa_icon('chevron-circle-down', id: "vote-down-#{object.total_identifier}", data: {toggle: 'modal', target: flag_modal_id})
+    = render partial: 'flags/flag_modal', locals: {flag: object.flags.new, tab: local_assigns[:tab], vote: true}
 
   .vote-total
     %h3
