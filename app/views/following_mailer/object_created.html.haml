@@ -15,6 +15,12 @@
   %br
   = @object.try(:text) || @object.reason_string
 
+- if @object.try(:proof).present?
+  %p
+    %strong Reasons provided why people should believe this answer:
+    %br
+    = @object.proof
+
 %p
   You can view the question here:
 

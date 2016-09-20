@@ -21,7 +21,7 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
     sign_in user
 
     assert_difference('Answer.count') do
-      post answers_url, params: { answer: { question_id: @answer.question_id, text: @answer.text } }
+      post answers_url, params: { answer: { question_id: @answer.question_id, text: @answer.text, proof: 'Because I know things' } }
     end
 
     Delayed::Worker.new.work_off
@@ -31,10 +31,15 @@ class AnswersControllerTest < ActionDispatch::IntegrationTest
       assert_equal "InfiniteQ: Answer added to question: #{question.text}", follower_email.subject
       assert_equal ['support@infiniteq.net'], follower_email.from
       assert follower_email.encoded.include? @answer.text
+      assert follower_email.encoded.include? 'Because I know things'
       assert follower_email.encoded.include? 'unsubscribe'
     end
 
     assert_redirected_to question
+    follow_redirect!
+
+    assert_select '.answer', /#{@answer.text}/
+    assert_select '.answer', /Because I know things/
   end
 
   test "should show answer" do
