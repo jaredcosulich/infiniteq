@@ -61,9 +61,10 @@ class QuestionAndAnswerFlowTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert_select 'p', /Thank you for your question/
-    assert_select 'p', /anonymous user/
-    assert_select 'p', /"unverified" tab/
-    assert_select 'p', /0.1/
+    assert_select 'p', /Would you like to be notified/
+    # assert_select 'p', /anonymous user/
+    # assert_select 'p', /"unverified" tab/
+    # assert_select 'p', /0.1/
   end
 
 
@@ -83,9 +84,10 @@ class QuestionAndAnswerFlowTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert_select 'p', /Thank you for your answer/
-    assert_select 'p', /anonymous user/
-    assert_select 'p', /"unverified" tab/
-    assert_select 'p', /0.1/
+    assert_select 'p', /Would you like to be notified/
+    # assert_select 'p', /anonymous user/
+    # assert_select 'p', /"unverified" tab/
+    # assert_select 'p', /0.1/
   end
 
 end
