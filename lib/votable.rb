@@ -10,6 +10,7 @@ module Votable
       total_trust += 10
     end
     update_column :vote_total, total_trust
+    transition_states
   end
 
   def transition_states

@@ -26,6 +26,8 @@
   = @object.text
 
 %p
-  You can answer or comment on this question here:
+  You can answer or comment on this
+  = @vote.topic.downcase
+  here:
 %p
-  = link_to(@object, @vote.topic)
+  = link_to(@vote.topic, @object)
