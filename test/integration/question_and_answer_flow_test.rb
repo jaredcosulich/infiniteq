@@ -60,8 +60,10 @@ class QuestionAndAnswerFlowTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
 
+    assert_select 'h3', /Question Submitted/
     assert_select 'p', /Thank you for your question/
     assert_select 'p', /Would you like to be notified/
+    assert_select 'p', /will remain anonymous/
     # assert_select 'p', /anonymous user/
     # assert_select 'p', /"unverified" tab/
     # assert_select 'p', /0.1/
@@ -83,8 +85,10 @@ class QuestionAndAnswerFlowTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
 
+    assert_select 'h3', /Answer Submitted/
     assert_select 'p', /Thank you for your answer/
     assert_select 'p', /Would you like to be notified/
+    assert_select 'p', /will remain anonymous/
     # assert_select 'p', /anonymous user/
     # assert_select 'p', /"unverified" tab/
     # assert_select 'p', /0.1/

@@ -38,6 +38,15 @@
         = f.text_field :email, class: 'form-control', placeholder: 'Your Email'
       = f.submit 'Save', class: 'btn btn-action'
 
+    %br
+    %br
+    %br
+
+    %p Your email will not be displayed if you enter it above.
+    %p
+      Your
+      = params[:o].downcase
+      will remain anonymous unless you choose to display your name.
     -#
       %br
       %br
@@ -67,8 +76,6 @@
         &nbsp; &nbsp; &nbsp; &nbsp;
         = link_to "Register", new_user_registration_path, class: 'btn btn-action'
 
-    %br
-    %br
     %br
     %br
     %br
