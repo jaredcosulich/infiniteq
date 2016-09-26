@@ -31,6 +31,12 @@ class Topic < ApplicationRecord
     return parents
   end
 
+  def path(include_self=true)
+    all = parent_path.reverse
+    all << self if include_self
+    all.map(&:title).join('/')
+  end
+
   def update_recursive_questions_count
     count = subtopics.inject(questions_count) do |total, subtopic|
       total += subtopic.recursive_questions_count

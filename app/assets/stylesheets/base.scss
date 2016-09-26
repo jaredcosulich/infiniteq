@@ -292,3 +292,37 @@ i.fa {
 input:disabled+label {
   color: #aaa;
 }
+
+.autocomplete-search-results {
+  position: absolute;
+  background-color: white;
+  z-index: 999;
+  padding: 6px 6px 0 6px;
+  border: 1px solid #ccc;
+
+  .result {
+    padding: 6px;
+    background-color: #fcfcfc;
+    margin-bottom: 6px;
+    overflow: hidden;
+
+    a {
+      text-decoration: underline;
+      border: none;
+      display: block;
+    }
+    span {
+      background-color: lighten($yellow-color, 10%);
+      text-decoration: none;
+    }
+
+    small {
+      font-size: 10px;
+      float: right;
+    }
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}

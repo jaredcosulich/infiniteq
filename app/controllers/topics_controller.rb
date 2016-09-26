@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
-  before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :set_topic, only: [:show, :questions, :edit, :update, :destroy]
   skip_after_action :set_return_to, only: [:create, :update, :destroy]
 
   # GET /topics
@@ -14,6 +14,17 @@ class TopicsController < ApplicationController
   def show
     @questions = (params[:f] == 't' ? @topic.questions : @topic.all_questions)
     @question = @topic.questions.new
+  end
+
+  def questions
+    respond_to do |format|
+      format.json do
+        render json: @topic.all_questions.as_json(
+          only: [:id, :text, :slug],
+          include: { topic: { only: [], methods: [:path] } }
+        )
+      end
+    end
   end
 
   # GET /topics/new
@@ -73,7 +84,7 @@ class TopicsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
-      @topic = Topic.friendly.find(params[:id])
+      @topic = Topic.friendly.find(params[:id] || params[:topic_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

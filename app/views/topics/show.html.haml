@@ -25,7 +25,9 @@
       = f.hidden_field :topic_id
       .form-group
         .col-xs-9.col-sm-10.col-md-9.col-lg-10
-          = f.text_area :text, class: 'expandable question_field form-control', placeholder: "Your Question about #{@topic.title}", data: {'expanded-height' => 90}
+          = f.text_area :text, class: 'autocomplete expandable question_field form-control',
+              placeholder: "Your Question about #{@topic.title}",
+              data: {'expanded-height' => 90, 'autocomplete-url' => topic_questions_path(@topic)}
         .col-xs-3.col-sm-2.col-md-3.col-lg-2
           - if user_signed_in?
             = f.submit 'Ask', class: 'btn btn-action'

@@ -1,0 +1,66 @@
+initAutocomplete = ->
+  $('.autocomplete').each (index, autoComplete) ->
+    do (autoComplete) ->
+      autoComplete = $(autoComplete)
+
+      @resultDisplay = $(document.createElement('DIV'))
+      @resultDisplay.addClass('autocomplete-search-results')
+      position = autoComplete.position()
+      @resultDisplay.css(
+        left: position.left,
+        width: autoComplete.outerWidth(),
+        top: position.top + autoComplete.height()
+      )
+      @resultDisplay.hide()
+      autoComplete.parent().append(@resultDisplay)
+
+      elasticlunr.clearStopWords();
+      @searchIndex = elasticlunr ->
+          @addField('text')
+          @setRef('id')
+          @saveDocument(false)
+
+      @results = {}
+      $.get(
+        url: autoComplete.data('autocomplete-url'),
+        success: (data) =>
+          $(data).each (index, info) =>
+            @results[info['id']] = info
+            @searchIndex.addDoc({id: info['id'], text: info['text']})
+      )
+
+      autoCompleteSearch = =>
+        search = autoComplete.val()
+        searchTerms = $(search.split(/\s/g)).filter(
+          (index, term) ->
+            (term.length > 0) && (term != '~') && isNaN(term) && !term.match(/~.~/)
+        )
+
+        displayHtml = []
+        $(@searchIndex.search(search, {expand: true})).each (index, lookup) =>
+          result = @results[lookup['ref']]
+          text = result['text']
+          searchTerms.each (index, term) ->
+            text = text.replace(new RegExp(term, 'ig'), "~#{index}~")
+
+          searchTerms.each (index, term) ->
+            text = text.replace(new RegExp("~#{index}~", 'ig'), "<span>#{term}</span>")
+
+          displayHtml.push(
+            "<div class='result'><small>#{result['topic']['path']}</small>" +
+            "<a href='/questions/#{result['slug']}'>#{text}</a></div>"
+          )
+
+        if displayHtml.length
+          @resultDisplay.css(top: autoComplete.position().top + autoComplete.height())
+          @resultDisplay.html(displayHtml.join(''))
+          @resultDisplay.show()
+        else
+          @resultDisplay.hide()
+
+      autoComplete.on 'focus', autoCompleteSearch
+      autoComplete.on 'keyup', autoCompleteSearch
+      autoComplete.on 'blur', => @resultDisplay.hide()
+
+
+$(document).on('turbolinks:load', initAutocomplete)

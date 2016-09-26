@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     root :to => "admin#index"
   end
 
-  resources :topics
+  resources :topics do
+    get :questions
+  end
   resources :questions do
     resources :question_votes
   end
