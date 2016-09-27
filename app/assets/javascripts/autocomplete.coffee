@@ -38,6 +38,7 @@ initAutocomplete = ->
 
         displayHtml = []
         $(@searchIndex.search(search, {expand: true})).each (index, lookup) =>
+          return if index >= 10
           result = @results[lookup['ref']]
           text = result['text']
           searchTerms.each (index, term) ->
@@ -47,8 +48,9 @@ initAutocomplete = ->
             text = text.replace(new RegExp("~#{index}~", 'ig'), "<span>#{term}</span>")
 
           displayHtml.push(
-            "<div class='result'><small>#{result['topic']['path']}</small>" +
-            "<a href='/questions/#{result['slug']}'>#{text}</a></div>"
+            "<div class='result'>" +
+            "<a href='/questions/#{result['slug']}'>#{text}</a>" +
+            "<a href='/questions/#{result['slug']}' class='small'>#{result['topic']['path']}</a></div>"
           )
 
         if displayHtml.length
@@ -60,7 +62,7 @@ initAutocomplete = ->
 
       autoComplete.on 'focus', autoCompleteSearch
       autoComplete.on 'keyup', autoCompleteSearch
-      autoComplete.on 'blur', => @resultDisplay.hide()
+      autoComplete.on 'blur', => setTimeout((=> @resultDisplay.hide()), 100)
 
 
 $(document).on('turbolinks:load', initAutocomplete)

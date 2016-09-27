@@ -310,15 +310,15 @@ input:disabled+label {
       text-decoration: underline;
       border: none;
       display: block;
+
+      &.small {
+        font-size: 10px;
+        text-decoration: none;
+      }
     }
     span {
       background-color: lighten($yellow-color, 10%);
       text-decoration: none;
-    }
-
-    small {
-      font-size: 10px;
-      float: right;
     }
 
     &:hover {
