@@ -1,4 +1,19 @@
 initAutocomplete = ->
+  buildResult = (resultText, result) ->
+    "<div class='result'>" +
+    "<a href='/questions/#{result['slug']}'>#{resultText}</a>" +
+    "<a href='/questions/#{result['slug']}' class='small'>#{result['topic']['path']}</a></div>"
+
+  highlightSearchTerms = (text, searchTerms) ->
+      priorityWord = (term) -> if elasticlunr.defaultStopWords[term] then 0.5 else -0.5
+      searchTerms.sort((a,b) -> priorityWord(a) - priorityWord(b)).each (index, term) ->
+        text = text.replace(new RegExp(term, 'ig'), "~#{index}~")
+
+      searchTerms.each (index, term) ->
+        text = text.replace(new RegExp("~#{index}~", 'ig'), "<span>#{term}</span>")
+      return text
+
+
   $('.autocomplete').each (index, autoComplete) ->
     do (autoComplete) ->
       autoComplete = $(autoComplete)
@@ -14,7 +29,6 @@ initAutocomplete = ->
       @resultDisplay.hide()
       autoComplete.parent().append(@resultDisplay)
 
-      elasticlunr.clearStopWords();
       @searchIndex = elasticlunr ->
           @addField('text')
           @setRef('id')
@@ -35,23 +49,18 @@ initAutocomplete = ->
           (index, term) ->
             (term.length > 0) && (term != '~') && isNaN(term) && !term.match(/~.~/)
         )
+        clearFirstTerm = elasticlunr.defaultStopWords[searchTerms[0]]
+        delete elasticlunr.defaultStopWords[searchTerms[0]] if clearFirstTerm
 
         displayHtml = []
-        $(@searchIndex.search(search, {expand: true})).each (index, lookup) =>
+        searchResults = $(@searchIndex.search(search, {expand: true}))
+        elasticlunr.defaultStopWords[searchTerms[0]] = true if clearFirstTerm
+
+        searchResults.each (index, lookup) =>
           return if index >= 10
           result = @results[lookup['ref']]
-          text = result['text']
-          searchTerms.each (index, term) ->
-            text = text.replace(new RegExp(term, 'ig'), "~#{index}~")
-
-          searchTerms.each (index, term) ->
-            text = text.replace(new RegExp("~#{index}~", 'ig'), "<span>#{term}</span>")
-
-          displayHtml.push(
-            "<div class='result'>" +
-            "<a href='/questions/#{result['slug']}'>#{text}</a>" +
-            "<a href='/questions/#{result['slug']}' class='small'>#{result['topic']['path']}</a></div>"
-          )
+          text = highlightSearchTerms(result['text'], searchTerms)
+          displayHtml.push(buildResult(text, result))
 
         if displayHtml.length
           @resultDisplay.css(top: autoComplete.position().top + autoComplete.height())
