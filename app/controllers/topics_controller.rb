@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index, :questions]
   before_action :set_topic, only: [:show, :questions, :edit, :update, :destroy]
-  skip_after_action :set_return_to, only: [:create, :update, :destroy]
+  skip_after_action :set_return_to, only: [:create, :update, :destroy, :questions]
 
   # GET /topics
   # GET /topics.json
@@ -23,6 +23,9 @@ class TopicsController < ApplicationController
           only: [:id, :text, :slug],
           include: { topic: { only: [], methods: [:path] } }
         )
+      end
+      format.html do
+        head :ok
       end
     end
   end
