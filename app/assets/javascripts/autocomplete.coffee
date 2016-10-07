@@ -49,14 +49,9 @@ initAutocomplete = ->
           (index, term) ->
             (term.length > 0) && (term != '~') && isNaN(term) && !term.match(/~.~/)
         )
-        clearFirstTerm = elasticlunr.defaultStopWords[searchTerms[0]]
-        delete elasticlunr.defaultStopWords[searchTerms[0]] if clearFirstTerm
 
         displayHtml = []
-        searchResults = $(@searchIndex.search(search, {expand: true}))
-        elasticlunr.defaultStopWords[searchTerms[0]] = true if clearFirstTerm
-
-        searchResults.each (index, lookup) =>
+        $(@searchIndex.search(search, {expand: true})).each (index, lookup) =>
           return if index >= 10
           result = @results[lookup['ref']]
           text = highlightSearchTerms(result['text'], searchTerms)
