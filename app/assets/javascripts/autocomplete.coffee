@@ -1,4 +1,5 @@
 initAutocomplete = ->
+
   buildResult = (resultText, result) ->
     "<div class='result'>" +
     "<a href='/questions/#{result['slug']}'>#{resultText}</a>" +
@@ -12,7 +13,6 @@ initAutocomplete = ->
       searchTerms.each (index, term) ->
         text = text.replace(new RegExp("~#{index}~", 'ig'), "<span>#{term}</span>")
       return text
-
 
   $('.autocomplete').each (index, autoComplete) ->
     do (autoComplete) ->
@@ -29,6 +29,7 @@ initAutocomplete = ->
       @resultDisplay.hide()
       autoComplete.parent().append(@resultDisplay)
 
+      elasticlunr.clearStopWords()
       @searchIndex = elasticlunr ->
           @addField('text')
           @setRef('id')
